@@ -1,4 +1,4 @@
-import './asset/scss/main.scss';
+import './asset/css/index.css';
 import Home from './pages/Home/Home';
 import {
   BrowserRouter as Router,

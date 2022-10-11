@@ -3,7 +3,7 @@ import React, { Component } from 'react'
 export class NotificationItem extends Component {
     render() {
         return (
-            <a href='/#'>
+            <a href='/home'>
                 <div className="flex justify-center">
                     <div className="flex flex-row bg-white shadow-lg items-center ">
                         <div className='basis-2/12 flex justify-center'>

@@ -1,4 +1,5 @@
 import './asset/css/index.css';
+import 'tw-elements';
 import Home from './pages/Home/Home';
 import {
   BrowserRouter as Router,

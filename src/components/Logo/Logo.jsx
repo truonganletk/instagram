@@ -6,7 +6,7 @@ export class Logo extends Component {
     return (
       <div className='basis-1/3'>
         <Link to="/#">
-          <img className='logo' src={logo} alt="" height={100} />
+          <img className='logo max-h-14' src={logo} alt="" />
         </Link>
       </div>
     )

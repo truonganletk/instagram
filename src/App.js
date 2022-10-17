@@ -6,6 +6,7 @@ import {
   Route
 } from "react-router-dom";
 import React from 'react';
+import Setting from './pages/Setting/Setting';
 
 function App() {
   return (
@@ -15,7 +16,7 @@ function App() {
         <Route path="/home" element={<Home />} />
         <Route path="/inbox" element={<Home />} />
         <Route path="/explore" element={<Home />} />
-        <Route path="/accounts" element={<Home />} />
+        <Route path="/accounts" element={<Setting />} />
       </Routes>
     </Router>
   );

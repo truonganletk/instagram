@@ -3,10 +3,12 @@ import Home from './pages/Home/Home';
 import {
   BrowserRouter as Router,
   Routes,
-  Route
+  Route,
+  Navigate
 } from "react-router-dom";
 import React from 'react';
-import Setting from './pages/Setting/Setting';
+import SettingChangePassword from './pages/Setting/SettingChangePassword';
+import SettingEdit from './pages/Setting/SettingEdit';
 
 function App() {
   return (
@@ -16,7 +18,9 @@ function App() {
         <Route path="/home" element={<Home />} />
         <Route path="/inbox" element={<Home />} />
         <Route path="/explore" element={<Home />} />
-        <Route path="/accounts" element={<Setting />} />
+        <Route path="/accounts" element={<Navigate to="/accounts/edit" replace={true} />} />
+        <Route path="/accounts/edit" element={<SettingEdit />} />
+        <Route path="/accounts/changepass" element={<SettingChangePassword />} />
       </Routes>
     </Router>
   );

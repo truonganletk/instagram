@@ -5,10 +5,21 @@ module.exports = {
     "./src/**/*.{js,jsx,ts,tsx}", './node_modules/tw-elements/dist/js/**/*.js'
   ],
   theme: {
-    fontFamily:{
+    fontFamily: {
       ins: ['-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'Helvetica', 'Arial', 'sans-serif']
     },
-    extend: {},
+    extend: {
+      colors: {
+        'ig-primary-button': "rgb(0, 149, 246)",
+        'ig-secondary-text': "rgb(142, 142, 142)",
+        'ig-primary-background': "rgb(255, 255, 255)",
+        'ig-error-or-destructive': "rgb(237, 73, 86)",
+        'ig-elevated-separator': "rgb(219, 219, 219)",
+        'ig-highlight-background': "rgb(239, 239, 239)",
+        'ig-green-active': "#78de45",
+        'ig-explore-post-hover': "rgba(0, 0, 0, 0.3)"
+      }
+    },
     container: {
       padding: {
         DEFAULT: '1rem',

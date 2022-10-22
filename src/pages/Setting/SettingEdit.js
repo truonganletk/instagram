@@ -8,7 +8,7 @@ function SettingEdit() {
     <React.Fragment>
       <Header />
       <div className='container flex justify-center m-auto mt-10'>
-        <div className='flex border border-gray-300 lg:mx-auto h-[700px] w-[96%] bg-white'>
+        <div className='flex border border-gray-300 lg:mx-auto w-[96%] bg-white min-h-max'>
           <SettingSidebar />
           <EditProfile />
         </div>

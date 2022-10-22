@@ -13,7 +13,8 @@ import SettingEdit from './pages/Setting/SettingEdit';
 
 function App() {
   return (
-    <Router>
+    <div className='bg-gray-100'>
+      <Router>
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/home" element={<Home />} />
@@ -24,6 +25,7 @@ function App() {
         <Route path="/accounts/changepass" element={<SettingChangePassword />} />
       </Routes>
     </Router>
+    </div>
   );
 }
 

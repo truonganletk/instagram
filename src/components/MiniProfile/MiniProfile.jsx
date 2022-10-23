@@ -10,7 +10,7 @@ function MiniProfile() {
       />
       <div className="mr-auto">
         <h2>tuanrider</h2>
-        <p>Tuan Rider</p>
+        <p className="text-ig-secondary-text">Tuan Rider</p>
       </div>
 
       <button className="cursor-pointer">Switch</button>

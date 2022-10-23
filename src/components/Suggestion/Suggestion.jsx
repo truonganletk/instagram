@@ -4,7 +4,7 @@ function Suggestion() {
   const [suggestions, setSuggestions] = useState([]);
 
   useEffect(() => {
-    const suggestions = [...Array(5)].map((i) => ({
+    const suggestions = [...Array(5)].map((_, i) => ({
       id: i,
       userName: "tuanrider",
       avatar:
@@ -14,7 +14,7 @@ function Suggestion() {
   }, []);
 
   return (
-    <div>
+    <div className="mb-8">
       <div className="flex items-center justify-between mb-[10px]">
         <h2>Suggestions For You</h2>
         <a className="cursor-pointer" href="">
@@ -37,7 +37,9 @@ function Suggestion() {
               <small>New to Instagram</small>
             </p>
           </div>
-          <button className="cursor-pointer">Follow</button>
+          <button className="cursor-pointer text-ig-primary-button">
+            Follow
+          </button>
         </div>
       ))}
     </div>

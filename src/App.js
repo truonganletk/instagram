@@ -11,15 +11,16 @@ import React from 'react';
 import SettingChangePassword from './pages/Setting/SettingChangePassword';
 import SettingEdit from './pages/Setting/SettingEdit';
 import Explore from './pages/Explore/Explore';
+import Inbox from './pages/Inbox/Inbox';
 
 function App() {
   return (
-    <div className='bg-gray-100'>
+    <div className='bg-gray-100 min-h-screen'>
       <Router>
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/home" element={<Home />} />
-        <Route path="/inbox" element={<Home />} />
+        <Route path="/inbox" element={<Inbox />} />
         <Route path="/explore" element={<Explore />} />
         <Route path="/accounts" element={<Navigate to="/accounts/edit" replace={true} />} />
         <Route path="/accounts/edit" element={<SettingEdit />} />

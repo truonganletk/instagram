@@ -13,6 +13,7 @@ module.exports = {
         'ig-primary-button': "rgb(0, 149, 246)",
         'ig-secondary-text': "rgb(142, 142, 142)",
         'ig-primary-background': "rgb(255, 255, 255)",
+        'ig-link': "rbg(0, 55, 107)",
         'ig-error-or-destructive': "rgb(237, 73, 86)",
         'ig-elevated-separator': "rgb(219, 219, 219)",
         'ig-highlight-background': "rgb(239, 239, 239)",

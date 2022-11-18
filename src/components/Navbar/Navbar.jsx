@@ -1,6 +1,7 @@
 import React, { useEffect, useState, useRef } from 'react'
 import { Link, useLocation } from 'react-router-dom'
 import NotificationItem from './NotificationItem'
+import { getAuth } from 'firebase/auth';
 
 function Navbar() {
   const [onHome, setOnHome] = useState(false);
@@ -73,7 +74,7 @@ function Navbar() {
             }
 
           </button>
-          <ul className="w-[500px] dropdown-menu absolute hidden bg-white text-base z-50 float-left pt-2 list-none text-left rounded-lg shadow-lg mt-1 hidden mx-3 bg-clip-padding border-none" aria-labelledby="dropdownMenuButton1">
+          <ul className="w-[500px] dropdown-menu absolute bg-white text-base z-50 float-left pt-2 list-none text-left rounded-lg shadow-lg mt-1 hidden mx-3 bg-clip-padding border-none" aria-labelledby="dropdownMenuButton1">
             <li>
               <NotificationItem />
             </li>
@@ -95,7 +96,7 @@ function Navbar() {
               </svg>
             }
           </button>
-          <ul className=" dropdown-menu min-w-max absolute hidden bg-white text-base z-50 float-left py-2  px-5 list-none text-left rounded-lg shadow-lg mt-1 hidden mx-3 bg-clip-padding border-none" aria-labelledby="dropdownMenuButton1">
+          <ul className=" dropdown-menu min-w-max absolute bg-white text-base z-50 float-left py-2  px-5 list-none text-left rounded-lg shadow-lg mt-1 hidden mx-3 bg-clip-padding border-none" aria-labelledby="dropdownMenuButton1">
             <li>
               <a className=" dropdown-item text-sm py-2  px-5 font-normal block w-full whitespace-nowrap bg-transparent text-gray-700 hover:bg-gray-100" href="#">
                 <div className='flex items-center '>
@@ -120,7 +121,10 @@ function Navbar() {
             </li>
             <hr className="h-0 border border-solid border-t-0 border-gray-700 opacity-25 " />
             <li>
-              <a className="dropdown-item text-sm py-2  px-5 font-normal block w-full whitespace-nowrap bg-transparent text-gray-700 hover:bg-gray-100" href="#">
+              <a onClick={() => {
+                const authentication = getAuth();
+                authentication.signOut();
+              }} className="dropdown-item text-sm py-2  px-5 font-normal block w-full whitespace-nowrap bg-transparent text-gray-700 hover:bg-gray-100" href="#">
                 <div className='flex items-center'>
                   <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
                     <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 9V5.25A2.25 2.25 0 0013.5 3h-6a2.25 2.25 0 00-2.25 2.25v13.5A2.25 2.25 0 007.5 21h6a2.25 2.25 0 002.25-2.25V15M12 9l-3 3m0 0l3 3m-3-3h12.75" />

@@ -10,9 +10,13 @@ module.exports = {
     },
     extend: {
       colors: {
-        'ig-primary-button': "rgb(0, 149, 246)",
+        'ig-primary-button': "rgba(0, 149, 246)",
+        'ig-primary-text': "rgb(38, 38, 38)",
         'ig-secondary-text': "rgb(142, 142, 142)",
         'ig-primary-background': "rgb(255, 255, 255)",
+        'ig-secondary-background': "rgb(250, 250, 250)",
+        'ig-link': "rbg(0, 55, 107)",
+        'ig-stroke': "rgb(219, 219, 219)",
         'ig-error-or-destructive': "rgb(237, 73, 86)",
         'ig-elevated-separator': "rgb(219, 219, 219)",
         'ig-highlight-background': "rgb(239, 239, 239)",

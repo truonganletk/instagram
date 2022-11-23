@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import { getAuth, signInWithEmailAndPassword } from 'firebase/auth';
 
@@ -5,88 +6,51 @@ function SignIn() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
 
-    const handleSubmit = () => {
+    const handleSubmit = (e) => {
+        e.preventDefault();
         const authentication = getAuth();
+        console.log(email, password);
         signInWithEmailAndPassword(authentication, email, password)
             .then((response) => {
                 console.log(response);
-                //   sessionStorage.setItem('Auth Token', response._tokenResponse.refreshToken)
             })
     }
     return (
         <>
-            <div className="flex min-h-full items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
-                <div className="w-full max-w-md space-y-8">
-                    <div>
-                        <h2 className="mt-6 text-center text-3xl font-bold tracking-tight text-gray-900">
-                            Sign in to your account
-                        </h2>
+            <div className='pt-9'>
+                <div className="bg-white border border-solid rounded border-ig-elevated-separator w-[350px] flex flex-col items-center mb-3 mx-auto">
+                    <div className='mt-5 mb-3 w-[175px] h-[51px]'>
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/2a/Instagram_logo.svg/800px-Instagram_logo.svg.png?20160616034027" alt="" />
                     </div>
-                    <div className="mt-8 space-y-6">
-                        <div className="-space-y-px rounded-md shadow-sm">
-                            <div>
-                                <label htmlFor="email-address" className="sr-only">
-                                    Email address
-                                </label>
-                                <input
-                                    id="email-address"
-                                    name="email"
-                                    type="email"
-                                    value={email}
-                                    onChange={(e) => { setEmail(e.target.value); }}
-                                    autoComplete="email"
-                                    required
-                                    className="relative block w-full appearance-none rounded-none rounded-t-md border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
-                                    placeholder="Email address"
-                                />
+                    <form className='flex flex-col w-full'>
+                        <div className='mt-6 flex flex-col'>
+                            <div className='mx-10 mb-2'>
+                                <input className='box-border text-base w-full bg-ig-secondary-background pt-[9px] pb-[7px] pl-2 text-ig-primary-text border border-solid rounded border-ig-stroke outline-none' value={email}
+                                    onChange={(e) => { setEmail(e.target.value); }} type="text" placeholder='Phone, username or email' />
                             </div>
-                            <div>
-                                <label htmlFor="password" className="sr-only">
-                                    Password
-                                </label>
-                                <input
-                                    id="password"
-                                    name="password"
-                                    type="password"
-                                    value={password}
-                                    onChange={(e) => { setPassword(e.target.value) }}
-                                    autoComplete="current-password"
-                                    required
-                                    className="relative block w-full appearance-none rounded-none rounded-b-md border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
-                                    placeholder="Password"
-                                />
+                            <div className='mx-10 mb-2'>
+                                <input className='box-border text-base w-full bg-ig-secondary-background pt-[9px] pb-[7px] pl-2 text-ig-primary-text border border-solid rounded border-ig-stroke outline-none' value={password}
+                                    onChange={(e) => { setPassword(e.target.value) }} type="password" placeholder='Password' />
+                            </div>
+                            <div className='mx-10 my-2'>
+                                <button onClick={handleSubmit} className='w-full cursor-pointer box-border text-sm font-semibold py-[5px] px-[9px] bg-ig-primary-button rounded text-white' type="submit">Log in</button>
+                            </div>
+                            <div className='flex items-center mx-10 mt-2 mb-4 justify-between'>
+                                <div className='w-24 h-[1px] bg-ig-elevated-separator'></div>
+                                <div>OR</div>
+                                <div className='w-24 h-[1px] bg-ig-elevated-separator'></div>
+                            </div>
+                            <div className='text-center mx-10 mb-2 text-[#385185] text-sm font-semibold cursor-pointer'>
+                                <a href="#">Login with facebook</a>
                             </div>
                         </div>
-
-                        <div className="flex items-center justify-between">
-                            <div className="flex items-center">
-                                <input
-                                    id="remember-me"
-                                    name="remember-me"
-                                    type="checkbox"
-                                    className="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
-                                />
-                                <label htmlFor="remember-me" className="ml-2 block text-sm text-gray-900">
-                                    Remember me
-                                </label>
-                            </div>
-
-                            <div className="text-sm">
-                                <a href="/signup" className="font-medium text-indigo-600 hover:text-indigo-500">
-                                    Sign up
-                                </a>
-                            </div>
+                        <div className='my-5 cursor-pointer text-xs text-center' >
+                            <a href="#">Forgot Password</a>
                         </div>
-
-                        <div>
-                            <button
-                                onClick={handleSubmit}
-                                className="group relative flex w-full justify-center rounded-md border border-transparent bg-indigo-600 py-2 px-4 text-sm font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
-                            >
-                                Sign in
-                            </button>
-                        </div>
-                    </div>
+                    </form>
+                </div>
+                <div className="bg-white border border-solid rounded border-ig-elevated-separator w-[350px] flex flex-col items-center py-4 mx-auto">
+                    <p className='text-ig-primary-text text-sm'>Don&#39;t have an account? <a className='text-ig-primary-button font-semibold' href="/signup">Sign up</a></p>
                 </div>
             </div>
         </>
@@ -94,3 +58,4 @@ function SignIn() {
 }
 
 export default SignIn
+

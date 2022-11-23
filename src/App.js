@@ -13,12 +13,14 @@ import SettingEdit from './pages/Setting/SettingEdit';
 import Explore from './pages/Explore/Explore';
 import Inbox from './pages/Inbox/Inbox';
 import SignIn from './pages/SignIn/SignIn';
-import SignUp from './pages/SignIn/SignUp';
+import SignUp from './pages/Signup/SignUp';
 import useAuthListener from './hooks/use-auth-listener';
+import Account from './pages/Account/Account';
+
 function App() {
   const { user } = useAuthListener();
   return (
-    <div className='bg-gray-100 min-h-screen'>
+    <div className='bg-ig-secondary-background min-h-screen'>
       <Router>
         <Routes>
           <Route path="*" element={user ? <Navigate to="/home" replace /> : <Navigate to="/login" replace />} />
@@ -29,7 +31,7 @@ function App() {
               <Route path="/home" element={<Home />} />
               <Route path="/inbox" element={<Inbox />} />
               <Route path="/explore" element={<Explore />} />
-              <Route path="/accounts" element={<Navigate to="/accounts/edit" replace={true} />} />
+              <Route path="/accounts" element={<Account />} />
               <Route path="/accounts/edit" element={<SettingEdit />} />
               <Route path="/accounts/changepass" element={<SettingChangePassword />} />
             </>

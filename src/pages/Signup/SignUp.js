@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-// import React from 'react';
+import * as Yup from 'yup';
 import { getAuth, createUserWithEmailAndPassword } from 'firebase/auth';
 import FirebaseContext from '../../context/firebase';
 import { collection, addDoc } from "firebase/firestore"; //getDocs
@@ -7,52 +7,16 @@ import { collection, addDoc } from "firebase/firestore"; //getDocs
 import { Formik } from 'formik';
 
 function SignUp() {
-    // const [state, setState] = useState({
-    //     email: '',
-    //     password: '',
-    //     username: '',
-    //     confirmPassword: ''
-    // })
+    const SignupSchema = Yup.object().shape({
+        username: Yup.string().required('username required'),
+        email: Yup.string().required('Email required').matches(/^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/, 'enter an invalid email!'),
+        password: Yup.string().required('Password required').min(4, 'Too short!!!'),
+        confirmPassword: Yup.string().oneOf([Yup.ref('password'), null], 'Passwords must match').required('Comfirm Password is required!')
+
+    });
 
     const { firestore } = useContext(FirebaseContext)
 
-    // const handleChange = (e) => {
-    //     const { name, value } = e.target;
-
-    //     setState({
-    //         ...state,
-    //         [name]: value,
-    //     })
-
-    //     // console.log(state);
-    // }
-
-    // const handleSubmit = async (e) => {
-    //     e.preventDefault();
-
-    //     // const querySnapshot = await getDocs(collection(firestore, "user"));
-    //     // querySnapshot.forEach((doc) => {
-    //     //     console.log(`${doc.id} => ${doc.data().name}`);
-    //     //     console.log(doc);
-    //     //   });
-
-
-    //     const authentication = getAuth();
-    //     createUserWithEmailAndPassword(authentication, state.email, state.password)
-    //         .then(async () => {
-    //             // sessionStorage.setItem('Auth Token', response._tokenResponse.refreshToken);
-    //             await addDoc(collection(firestore, "users"), {
-    //                 email: state.email,
-    //                 username: state.username,
-    //                 fullname: state.username,
-    //                 avatar: 'default',
-    //                 number_of_posts: 0,
-    //                 number_of_followers: 0,
-    //                 number_of_following: 0,
-    //             });
-    //         })
-
-    // }
     return (
         <>
             <div className='pt-9'>
@@ -67,25 +31,12 @@ function SignUp() {
                             username: '',
                             confirmPassword: ''
                         }}
-                        validate={values => {
-                            const errors = {};
-                            if (!values.email) {
-                                errors.email = 'Required';
-                            } else if (
-                                !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(values.email)
-                            ) {
-                                errors.email = 'Invalid email address';
-                            }
-                            return errors;
-                        }}
+                        validationSchema={SignupSchema}
                         onSubmit={(values, { setSubmitting }) => {
                             setTimeout(() => {
-                                // alert(JSON.stringify(values, null, 2));
-                                // console.log(values);
                                 const authentication = getAuth();
                                 createUserWithEmailAndPassword(authentication, values.email, values.password)
                                     .then(async () => {
-                                        // sessionStorage.setItem('Auth Token', response._tokenResponse.refreshToken);
                                         await addDoc(collection(firestore, "users"), {
                                             email: values.email,
                                             username: values.username,
@@ -100,36 +51,12 @@ function SignUp() {
                             }, 400);
                         }}>
                         {({
-                            // values,
-                            // errors,
-                            // touched,
+                            errors,
+                            touched,
                             handleChange,
-                            // handleBlur,
-                            handleSubmit,
-                            // isSubmitting,
-                            /* and other goodies */
+                            handleBlur,
+                            handleSubmit
                         }) => (
-                            // <form onSubmit={handleSubmit}>
-                            //     <input
-                            //         type="email"
-                            //         name="email"
-                            //         onChange={handleChange}
-                            //         onBlur={handleBlur}
-                            //         value={values.email}
-                            //     />
-                            //     {errors.email && touched.email && errors.email}
-                            //     <input
-                            //         type="password"
-                            //         name="password"
-                            //         onChange={handleChange}
-                            //         onBlur={handleBlur}
-                            //         value={values.password}
-                            //     />
-                            //     {errors.password && touched.password && errors.password}
-                            //     <button type="submit" disabled={isSubmitting}>
-                            //         Submit
-                            //     </button>
-                            // </form>
                             <form onSubmit={handleSubmit} className='flex flex-col w-full'>
                                 <div className='flex flex-col'>
                                     <div className='mx-10 mb-2 text-center text-ig-secondary-text font-semibold text-lg'>
@@ -145,19 +72,26 @@ function SignUp() {
                                     </div>
                                     <div className='mx-10 mb-2'>
                                         <input className='box-border text-base w-full bg-ig-secondary-background pt-[9px] pb-[7px] pl-2 text-ig-primary-text border border-solid rounded border-ig-stroke outline-none'
-                                            onChange={handleChange} name='email' type="email" placeholder='Mobile number or email' />
+                                            onChange={handleChange} name='email' type="email" placeholder='Mobile number or email' onBlur={handleBlur} />
+
+                                        {errors.email && touched.email && <p className='mt-3 text-red-600'>{errors.email}</p>}
                                     </div>
                                     <div className='mx-10 mb-2'>
                                         <input className='box-border text-base w-full bg-ig-secondary-background pt-[9px] pb-[7px] pl-2 text-ig-primary-text border border-solid rounded border-ig-stroke outline-none'
-                                            onChange={handleChange} name='password' type="password" placeholder='Fullname' />
+                                            onChange={handleChange} name='password' type="password" placeholder='password' onBlur={handleBlur} />
+
+                                        {errors.password && touched.password && <p className='mt-3 text-red-600'>{errors.password}</p>}
                                     </div>
                                     <div className='mx-10 mb-2'>
                                         <input className='box-border text-base w-full bg-ig-secondary-background pt-[9px] pb-[7px] pl-2 text-ig-primary-text border border-solid rounded border-ig-stroke outline-none'
-                                            onChange={handleChange} name='username' type="text" placeholder='username' />
+                                            onChange={handleChange} name='username' type="text" placeholder='username' onBlur={handleBlur} />
+
+                                        {errors.username && touched.username && <p className='mt-3 text-red-600'>{errors.username}</p>}
                                     </div>
                                     <div className='mx-10 mb-2'>
                                         <input className='box-border text-base w-full bg-ig-secondary-background pt-[9px] pb-[7px] pl-2 text-ig-primary-text border border-solid rounded border-ig-stroke outline-none'
-                                            onChange={handleChange} name='confirmPassword' type="password" placeholder='Confirm Password' />
+                                            onChange={handleChange} name='confirmPassword' type="password" placeholder='Confirm Password' onBlur={handleBlur} />
+                                        {errors.confirmPassword && touched.confirmPassword && <p className='mt-3 text-red-600'>{errors.confirmPassword}</p>}
                                     </div>
                                     <div className='mx-10 my-4'>
                                         <p className='text-xs text-center text-ig-secondary-text'>People who use our service may have uploaded your contact information to Instagram. <a className='font-semibold' href="">Learn More</a></p>

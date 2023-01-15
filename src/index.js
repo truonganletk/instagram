@@ -5,11 +5,17 @@ import FirebaseContext from './context/firebase';
 import reportWebVitals from './reportWebVitals';
 import { firebase, firestore } from './firebase-config';
 import { AuthContextProvider } from './context/authContext/AuthContext';
+import { PostContextProvider } from './context/postContext/PostContext';
+
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <FirebaseContext.Provider value={{ firebase, firestore }}>
     <AuthContextProvider>
-      <App />
+      <PostContextProvider>
+
+        <App />
+      </PostContextProvider>
+
     </AuthContextProvider>
   </FirebaseContext.Provider>
 );

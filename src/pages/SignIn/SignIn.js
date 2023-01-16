@@ -1,19 +1,24 @@
 
-import React, { useState } from 'react';
-import { getAuth, signInWithEmailAndPassword } from 'firebase/auth';
+import React, { useContext, useState } from 'react';
+// import { getAuth, signInWithEmailAndPassword } from 'firebase/auth';
+import { signIn } from '../../context/authContext/service';
+import { AuthContext } from '../../context/authContext/AuthContext';
 
 function SignIn() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const { dispatch } = useContext(AuthContext)
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        const authentication = getAuth();
-        console.log(email, password);
-        signInWithEmailAndPassword(authentication, email, password)
-            .then((response) => {
-                console.log(response);
-            })
+        // const authentication = getAuth();
+        // console.log(email, password);
+        // signInWithEmailAndPassword(authentication, email, password)
+        //     .then((response) => {
+        //         console.log(response);
+        //     })
+
+        signIn(dispatch, email, password)
     }
     return (
         <>

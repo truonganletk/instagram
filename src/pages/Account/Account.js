@@ -1,8 +1,12 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import Header from '../../components/Header/Header'
 import Postpreview from '../../components/Post/Post-preview'
+import { AuthContext } from '../../context/authContext/AuthContext'
+
 
 function Account() {
+    const { user } = useContext(AuthContext)
+    console.log('user:', user)
     return (
         <>
             <Header />
@@ -15,7 +19,7 @@ function Account() {
                     <div className='flex flex-col space-y-5 shrink'>
                         <div className='flex space-x-5 items-center '>
 
-                            <h2 className='font-light text-[28px]'>therock</h2>
+                            <h2 className='font-light text-[28px]'>{user.username}</h2>
                             <div>
                                 <div className='flex space-x-2'>
                                     <button className='bg-transparent border-[1px] rounded px-[9px] py-[5px] cursor-pointer text-sm font-semibold'>Message</button>
@@ -32,13 +36,13 @@ function Account() {
 
                         </div>
                         <div className='flex space-x-16'>
-                            <div><span className='font-bold'>6,943 </span>posts</div>
-                            <div><span className='font-bold'>344M </span>followers</div>
-                            <div><span className='font-bold'>602 </span>following</div>
+                            <div><span className='font-bold'>{user.number_of_posts} </span>posts</div>
+                            <div><span className='font-bold'>{user.number_of_followers}  </span>followers</div>
+                            <div><span className='font-bold'>{user.number_of_following}  </span>following</div>
                         </div>
 
                         <div>
-                            <div className='font-semibold'>Dwayne Johnson</div>
+                            <div className='font-semibold'>{user.fullname}</div>
                             <div>founder</div>
 
                             <a className='text-ig-link font-semibold hover:underline' href="/">instagram.com</a>

@@ -2,6 +2,9 @@ import {
   GET_ALL_USERS_FAILURE,
   GET_ALL_USERS_START,
   GET_ALL_USERS_SUCCESS,
+  GET_INFO_FAILURE,
+  GET_INFO_START,
+  GET_INFO_SUCCESS,
   LOG_OUT,
   SIGN_IN_FAILURE,
   SIGN_IN_START,
@@ -48,10 +51,24 @@ export const getAllUsersStart = () => ({
   type: GET_ALL_USERS_START,
 });
 
-export const getAllUsersSuccess = () => ({
+export const getAllUsersSuccess = (users) => ({
   type: GET_ALL_USERS_SUCCESS,
+  payload: users,
 });
 
 export const getAllUsersFailure = () => ({
   type: GET_ALL_USERS_FAILURE,
+});
+
+export const getInfoStart = () => ({
+  type: GET_INFO_START,
+});
+
+export const getInfoSuccess = (user) => ({
+  type: GET_INFO_SUCCESS,
+  payload: user,
+});
+
+export const getInfoFailure = () => ({
+  type: GET_INFO_FAILURE,
 });

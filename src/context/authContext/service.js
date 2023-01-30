@@ -15,6 +15,8 @@ import {
   signUpStart,
   signUpSuccess,
   LogOut,
+  getInfoSuccess,
+  getInfoFailure,
 } from "./AuthAction";
 
 export const signIn = async (dispatch, email, password) => {
@@ -70,10 +72,10 @@ export const getInfo = async (dispatch, email) => {
       user = doc.data();
       // console.log("service ", user)
     });
-
-    dispatch(signInSuccess(user));
+    // console.log("service ", user);
+    dispatch(getInfoSuccess(user));
   } catch (error) {
-    dispatch(signInFailure());
+    dispatch(getInfoFailure());
   }
 };
 

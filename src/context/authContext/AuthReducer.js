@@ -2,6 +2,9 @@ import {
   GET_ALL_USERS_FAILURE,
   GET_ALL_USERS_START,
   GET_ALL_USERS_SUCCESS,
+  GET_INFO_FAILURE,
+  GET_INFO_START,
+  GET_INFO_SUCCESS,
   LOG_OUT,
   SIGN_IN_FAILURE,
   SIGN_IN_START,
@@ -54,8 +57,26 @@ const AuthReducer = (state, action) => {
       return {
         isFetching: false,
         error: false,
+        users: action.payload,
       };
     case GET_ALL_USERS_FAILURE:
+      return {
+        isFetching: false,
+        error: true,
+      };
+
+    case GET_INFO_START:
+      return {
+        isFetching: true,
+        error: false,
+      };
+    case GET_INFO_SUCCESS:
+      return {
+        isFetching: false,
+        error: false,
+        user: action.payload,
+      };
+    case GET_INFO_FAILURE:
       return {
         isFetching: false,
         error: true,

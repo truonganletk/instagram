@@ -1,3 +1,13 @@
-export const SIGN_IN_START = 'SIGN_IN_START'
-export const SIGN_IN_SUCCESS = 'SIGN_IN_SUCCESS'
-export const SIGN_IN_FAILURE = 'SIGN_IN_FAILURE'
+export const SIGN_IN_START = "SIGN_IN_START";
+export const SIGN_IN_SUCCESS = "SIGN_IN_SUCCESS";
+export const SIGN_IN_FAILURE = "SIGN_IN_FAILURE";
+
+export const SIGN_UP_START = "SIGN_UP_START";
+export const SIGN_UP_SUCCESS = "SIGN_UP_SUCCESS";
+export const SIGN_UP_FAILURE = "SIGN_UP_FAILURE";
+
+export const LOG_OUT = "LOG_OUT";
+
+export const GET_ALL_USERS_START = "GET_ALL_USERS_START";
+export const GET_ALL_USERS_SUCCESS = "GET_ALL_USERS_SUCCESS";
+export const GET_ALL_USERS_FAILURE = "GET_ALL_USERS_FAILURE";

@@ -1,10 +1,12 @@
 import React, { useContext } from "react";
 import * as Yup from "yup";
-import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
+// import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
 import FirebaseContext from "../../context/firebase";
 import { collection, addDoc } from "firebase/firestore"; //getDocs
 
 import { Formik } from "formik";
+import { AuthContext } from "../../context/authContext/AuthContext";
+import { signUp } from "../../context/authContext/service";
 
 function SignUp() {
   const SignupSchema = Yup.object().shape({
@@ -19,6 +21,7 @@ function SignUp() {
   });
 
   const { firestore } = useContext(FirebaseContext);
+  const { dispatch } = useContext(AuthContext);
 
   return (
     <>
@@ -40,28 +43,29 @@ function SignUp() {
             validationSchema={SignupSchema}
             onSubmit={(values, { setSubmitting }) => {
               setTimeout(() => {
-                const authentication = getAuth();
-                createUserWithEmailAndPassword(
-                  authentication,
-                  values.email,
-                  values.password
-                ).then(async () => {
-                  await addDoc(collection(firestore, "users"), {
-                    email: values.email,
-                    username: values.username,
-                    fullname: values.username,
-                    avatar: "default",
-                    number_of_posts: 0,
-                    number_of_followers: 0,
-                    number_of_following: 0,
-                  });
-                });
+                signUp(dispatch, values.email, values.password).then(
+                  async () => {
+                    await addDoc(collection(firestore, "users"), {
+                      email: values.email,
+                      username: values.username,
+                      fullname: values.username,
+                      avatar: "default",
+                      number_of_posts: 0,
+                      number_of_followers: 0,
+                      number_of_following: 0,
+                    });
+                  }
+                );
                 setSubmitting(false);
               }, 400);
             }}
           >
             {({ errors, touched, handleChange, handleBlur, handleSubmit }) => (
-              <form onSubmit={handleSubmit} className="flex flex-col w-full">
+              <form
+                onSubmit={handleSubmit}
+                autoComplete="none"
+                className="flex flex-col w-full"
+              >
                 <div className="flex flex-col">
                   <div className="mx-10 mb-2 text-center text-ig-secondary-text font-semibold text-lg">
                     <p>Sign up to see photos and videos from your friends.</p>
@@ -88,20 +92,7 @@ function SignUp() {
                       <p className="mt-3 text-red-600">{errors.email}</p>
                     )}
                   </div>
-                  <div className="mx-10 mb-2">
-                    <input
-                      className="box-border text-base w-full bg-ig-secondary-background pt-[9px] pb-[7px] pl-2 text-ig-primary-text border border-solid rounded border-ig-stroke outline-none"
-                      onChange={handleChange}
-                      name="password"
-                      type="password"
-                      placeholder="password"
-                      onBlur={handleBlur}
-                    />
 
-                    {errors.password && touched.password && (
-                      <p className="mt-3 text-red-600">{errors.password}</p>
-                    )}
-                  </div>
                   <div className="mx-10 mb-2">
                     <input
                       className="box-border text-base w-full bg-ig-secondary-background pt-[9px] pb-[7px] pl-2 text-ig-primary-text border border-solid rounded border-ig-stroke outline-none"
@@ -114,6 +105,20 @@ function SignUp() {
 
                     {errors.username && touched.username && (
                       <p className="mt-3 text-red-600">{errors.username}</p>
+                    )}
+                  </div>
+                  <div className="mx-10 mb-2">
+                    <input
+                      className="box-border text-base w-full bg-ig-secondary-background pt-[9px] pb-[7px] pl-2 text-ig-primary-text border border-solid rounded border-ig-stroke outline-none"
+                      onChange={handleChange}
+                      name="password"
+                      type="password"
+                      placeholder="password"
+                      onBlur={handleBlur}
+                    />
+
+                    {errors.password && touched.password && (
+                      <p className="mt-3 text-red-600">{errors.password}</p>
                     )}
                   </div>
                   <div className="mx-10 mb-2">

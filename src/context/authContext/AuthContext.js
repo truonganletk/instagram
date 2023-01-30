@@ -1,27 +1,35 @@
 import React from "react";
 import { createContext, useReducer } from "react";
 import AuthReducer from "./AuthReducer";
-import PropTypes from 'prop-types';
+import PropTypes from "prop-types";
 
 const INITIAL_STATE = {
-    user: {},
-    users: []
+  user: {},
+  users: [],
+  isFetching: false,
+  error: false,
 };
-
 
 export const AuthContext = createContext(INITIAL_STATE);
 
 export const AuthContextProvider = (props) => {
-    const [state, dispatch] = useReducer(AuthReducer, INITIAL_STATE);
+  const [state, dispatch] = useReducer(AuthReducer, INITIAL_STATE);
 
-    return <AuthContext.Provider value={{
+  return (
+    <AuthContext.Provider
+      value={{
         user: state.user,
+        users: state.users,
         dispatch,
-    }}>
-        {props.children}
+        isFetching: state.isFetching,
+        error: state.error,
+      }}
+    >
+      {props.children}
     </AuthContext.Provider>
-}
+  );
+};
 
 AuthContextProvider.propTypes = {
-    children: PropTypes.any,
+  children: PropTypes.any,
 };

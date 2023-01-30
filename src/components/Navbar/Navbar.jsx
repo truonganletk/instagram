@@ -1,7 +1,9 @@
-import React, { useEffect, useState, useRef } from "react";
+import React, { useEffect, useState, useRef, useContext } from "react";
 import { Link, useLocation } from "react-router-dom";
 import NotificationItem from "./NotificationItem";
-import { getAuth } from "firebase/auth";
+// import { getAuth } from "firebase/auth";
+import { AuthContext } from "../../context/authContext/AuthContext";
+import { logOut } from "../../context/authContext/service";
 
 function Navbar() {
   const [onHome, setOnHome] = useState(false);
@@ -9,6 +11,9 @@ function Navbar() {
   const [onExplore, setOnExplore] = useState(false);
   const [toggleNotification, setToggleNotification] = useState(false);
   const [toggleUser, setToggleUser] = useState(false);
+
+  const { dispatch } = useContext(AuthContext);
+
   const ref = useRef(null);
   const ref2 = useRef(null);
   const location = useLocation();
@@ -283,10 +288,7 @@ function Navbar() {
             <hr className="h-0 border border-solid border-t-0 border-gray-700 opacity-25 " />
             <li>
               <a
-                onClick={() => {
-                  const authentication = getAuth();
-                  authentication.signOut();
-                }}
+                onClick={() => logOut(dispatch)}
                 className="dropdown-item text-sm py-2  px-5 font-normal block w-full whitespace-nowrap bg-transparent text-gray-700 hover:bg-gray-100"
                 href="#"
               >

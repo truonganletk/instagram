@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext } from "react";
 // import { getAuth, signInWithEmailAndPassword } from 'firebase/auth';
 import { signIn } from "../../context/authContext/service";
 import { AuthContext } from "../../context/authContext/AuthContext";
@@ -6,8 +6,6 @@ import * as Yup from "yup";
 import { Formik } from "formik";
 
 function SignIn() {
-  //   const [email, setEmail] = useState("");
-  //   const [password, setPassword] = useState("");
   const { dispatch } = useContext(AuthContext);
 
   const SignInSchema = Yup.object().shape({
@@ -17,17 +15,6 @@ function SignIn() {
     password: Yup.string().required("Password required"),
   });
 
-  //   const handleSubmit = (e) => {
-  //     e.preventDefault();
-  //     // const authentication = getAuth();
-  //     // console.log(email, password);
-  //     // signInWithEmailAndPassword(authentication, email, password)
-  //     //     .then((response) => {
-  //     //         console.log(response);
-  //     //     })
-
-  //     signIn(dispatch, email, password);
-  //   };
   return (
     <>
       <div className="pt-9">

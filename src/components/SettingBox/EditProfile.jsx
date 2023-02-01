@@ -18,6 +18,7 @@ function EditProfile() {
   });
   return (
     <Formik
+      enableReinitialize={true}
       initialValues={{
         fullname: user.fullname,
         username: user.username,
@@ -30,14 +31,7 @@ function EditProfile() {
         editProfile(value);
       }}
     >
-      {({
-        values,
-        errors,
-        touched,
-        handleBlur,
-        handleChange,
-        handleSubmit,
-      }) => (
+      {({ values, handleChange, handleSubmit }) => (
         <form onSubmit={handleSubmit} className="p-10 basis-full md:basis-9/12">
           <div className="mb-6 flex w-full items-center">
             <div className="flex text-sm font-medium text-gray-900 basis-2/12 mr-5 justify-end ">
@@ -64,7 +58,8 @@ function EditProfile() {
                 type="text"
                 name="fullname"
                 className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-                placeholder={user.fullname}
+                // placeholder={user.fullname}
+                value={values.fullname || ""}
                 onChange={handleChange}
                 // required
               />
@@ -93,7 +88,8 @@ function EditProfile() {
                 type="text"
                 name="username"
                 className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-                placeholder={user.username}
+                // placeholder={user.username}
+                value={values.username || ""}
                 onChange={handleChange}
                 // required
               />
@@ -187,7 +183,8 @@ function EditProfile() {
                 type="text"
                 name="email"
                 className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-                placeholder={user.email}
+                // placeholder={user.email}
+                value={values.email || ""}
                 onChange={handleChange}
                 // required
               />

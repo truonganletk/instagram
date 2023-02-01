@@ -3,8 +3,15 @@ import {
   getAuth,
   signInWithEmailAndPassword,
 } from "firebase/auth";
-import { collection, getDocs, query, where } from "firebase/firestore";
-import { firebase, firestore } from "../../firebase-config";
+import {
+  collection,
+  doc,
+  getDocs,
+  query,
+  updateDoc,
+  where,
+} from "firebase/firestore";
+import { firestore } from "../../firebase-config";
 import {
   getAllUsersFailure,
   getAllUsersSuccess,
@@ -98,14 +105,17 @@ export const getAllUsers = async (dispatch) => {
 };
 
 export const editProfile = async (value) => {
-  try {
-    // const ref = firebase.database().ref(`users/${id}`);
-    // ref.update({
-    //   fullname: value.fullname,
-    //   username: value.username,
-    // });
-    console.log(value);
-  } catch {
-    throw new Error("tuanrider");
-  }
+  const db = firestore;
+  const refUpdate = doc(db, "users", "oC7MUAS36THw3jy5ZN4D");
+  await updateDoc(refUpdate, {
+    username: value.username,
+    email: value.email,
+    fullname: value.fullname,
+  })
+    .then(() => {
+      alert("updated");
+    })
+    .catch((error) => {
+      throw new Error(error.message);
+    });
 };

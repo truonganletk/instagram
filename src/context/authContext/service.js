@@ -4,7 +4,7 @@ import {
   signInWithEmailAndPassword,
 } from "firebase/auth";
 import { collection, getDocs, query, where } from "firebase/firestore";
-import { firestore } from "../../firebase-config";
+import { firebase, firestore } from "../../firebase-config";
 import {
   getAllUsersFailure,
   getAllUsersSuccess,
@@ -94,5 +94,18 @@ export const getAllUsers = async (dispatch) => {
     dispatch(getAllUsersSuccess(users));
   } catch (error) {
     dispatch(getAllUsersFailure());
+  }
+};
+
+export const editProfile = async (value) => {
+  try {
+    // const ref = firebase.database().ref(`users/${id}`);
+    // ref.update({
+    //   fullname: value.fullname,
+    //   username: value.username,
+    // });
+    console.log(value);
+  } catch {
+    throw new Error("tuanrider");
   }
 };

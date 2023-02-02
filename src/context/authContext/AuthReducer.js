@@ -12,6 +12,7 @@ import {
   SIGN_UP_FAILURE,
   SIGN_UP_START,
   SIGN_UP_SUCCESS,
+  UPDATE_INFO,
 } from "./AuthType";
 
 const AuthReducer = (state, action) => {
@@ -85,6 +86,11 @@ const AuthReducer = (state, action) => {
     case LOG_OUT:
       return {
         user: {},
+      };
+
+    case UPDATE_INFO:
+      return {
+        user: { ...state.user, ...action.payload },
       };
     default:
       return { ...state };

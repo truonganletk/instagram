@@ -1,7 +1,9 @@
 import {
   createUserWithEmailAndPassword,
   getAuth,
+  reauthenticateWithCredential,
   signInWithEmailAndPassword,
+  updateEmail,
 } from "firebase/auth";
 import {
   collection,
@@ -24,6 +26,7 @@ import {
   LogOut,
   getInfoSuccess,
   getInfoFailure,
+  updateInfo,
 } from "./AuthAction";
 
 export const signIn = async (dispatch, email, password) => {
@@ -104,18 +107,42 @@ export const getAllUsers = async (dispatch) => {
   }
 };
 
-export const editProfile = async (value) => {
-  const db = firestore;
-  const refUpdate = doc(db, "users", "oC7MUAS36THw3jy5ZN4D");
-  await updateDoc(refUpdate, {
-    username: value.username,
-    email: value.email,
-    fullname: value.fullname,
-  })
-    .then(() => {
-      alert("updated");
-    })
-    .catch((error) => {
+export const updateProfile = async (dispatch, value) => {
+  try {
+    // console.log(getAuth().currentUser.email,' ');
+    if (getAuth().currentUser.email != value.email) {
+      //....
+      console.log("đổi email");
+    } else {
+      dispatch(updateInfo(value));
+      const db = firestore;
+
+      let id = "";
+      const q = query(
+        collection(db, "users"),
+        where("email", "==", value.email)
+      );
+      const querySnapshot = await getDocs(q);
+      querySnapshot.forEach((doc) => {
+        id = doc.id;
+      });
+
+      const refUpdate = doc(db, "users", id);
+      await updateDoc(refUpdate, {
+        username: value.username,
+        // email: value.email,
+        fullname: value.fullname,
+      })
+        .then(() => {
+          alert("updated");
+        })
+        .catch((error) => {
+          throw new Error(error.message);
+        });
+    }
+  } catch {
+    (error) => {
       throw new Error(error.message);
-    });
+    };
+  }
 };

@@ -12,6 +12,7 @@ import {
   SIGN_UP_FAILURE,
   SIGN_UP_START,
   SIGN_UP_SUCCESS,
+  UPDATE_INFO,
 } from "./AuthType";
 
 // SIGN IN
@@ -71,4 +72,9 @@ export const getInfoSuccess = (user) => ({
 
 export const getInfoFailure = () => ({
   type: GET_INFO_FAILURE,
+});
+
+export const updateInfo = (user) => ({
+  type: UPDATE_INFO,
+  payload: user,
 });

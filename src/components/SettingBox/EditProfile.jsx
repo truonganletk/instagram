@@ -3,17 +3,18 @@ import { Link } from "react-router-dom";
 import { AuthContext } from "../../context/authContext/AuthContext";
 import * as Yup from "yup";
 import { Formik } from "formik";
-import { editProfile } from "../../context/authContext/service";
+import { updateProfile } from "../../context/authContext/service";
 
 function EditProfile() {
-  const { user } = useContext(AuthContext);
+  const { user, dispatch } = useContext(AuthContext);
+
   console.log("user:", user);
 
   const EditSchema = Yup.object().shape({
-    fullname: Yup.string(),
-    username: Yup.string(),
+    fullname: Yup.string().required("Fullname required"),
+    username: Yup.string().required("Username required"),
     email: Yup.string()
-      //   .required("Email required")
+      .required("Email required")
       .matches(/^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/, "enter an invalid email!"),
   });
   return (
@@ -26,12 +27,11 @@ function EditProfile() {
       }}
       validationSchema={EditSchema}
       onSubmit={(value) => {
-        // signIn(dispatch, value.email, value.password);
+        updateProfile(dispatch, value);
         // console.log(value);
-        editProfile(value);
       }}
     >
-      {({ values, handleChange, handleSubmit }) => (
+      {({ dirty, errors, touched, values, handleChange, handleSubmit }) => (
         <form onSubmit={handleSubmit} className="p-10 basis-full md:basis-9/12">
           <div className="mb-6 flex w-full items-center">
             <div className="flex text-sm font-medium text-gray-900 basis-2/12 mr-5 justify-end ">
@@ -63,6 +63,9 @@ function EditProfile() {
                 onChange={handleChange}
                 // required
               />
+              {errors.fullname && touched.fullname && (
+                <p className="mt-3 text-red-600">{errors.fullname}</p>
+              )}
             </div>
           </div>
           <div className="mb-6 flex w-full items-start">
@@ -93,6 +96,9 @@ function EditProfile() {
                 onChange={handleChange}
                 // required
               />
+              {errors.username && touched.username && (
+                <p className="mt-3 text-red-600">{errors.username}</p>
+              )}
             </div>
           </div>
           <div className="mb-6 flex w-full items-start">
@@ -188,6 +194,9 @@ function EditProfile() {
                 onChange={handleChange}
                 // required
               />
+              {errors.email && touched.email && (
+                <p className="mt-3 text-red-600">{errors.email}</p>
+              )}
             </div>
           </div>
           <div className="mb-6 flex w-full items-center">
@@ -244,6 +253,7 @@ function EditProfile() {
             <div className="basis-10/12 flex">
               <button
                 type="submit"
+                disabled={!dirty}
                 className="mb-6 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm  w-auto px-5 py-2.5 text-center"
               >
                 Submit

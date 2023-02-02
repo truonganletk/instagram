@@ -1,14 +1,23 @@
-import React from "react";
+import React, { useContext, useState } from "react";
 import PropTypes from "prop-types";
+import FirebaseContext from "../../context/firebase";
+import { getDownloadURL, ref } from "firebase/storage";
 
 function Post({ ...props }) {
+  const [ img, setImg ] = useState();
+
+  const { storage } = useContext(FirebaseContext);
+  const imagesRef = ref(storage, `images/${props.img}`);
+  getDownloadURL(imagesRef).then((url) => {
+      setImg(url);
+    })
   return (
     <div className="bg-white mb-7 border rounded-lg">
       {/* header section */}
       <div className="flex px-5 py-3 items-center">
         <img
           className="rounded-full h-10 w-10 object-contain border mr-3"
-          src={`${props.userImg}`}
+          src={`${img}`}
           alt=""
         />
         <p className="flex-1">{props.username}</p>
@@ -31,7 +40,7 @@ function Post({ ...props }) {
       {/* image section */}
       <img
         className="w-full object-cover max-h-[470px]"
-        src={props.img}
+        src={img}
         alt=""
       />
 

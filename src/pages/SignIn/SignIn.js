@@ -1,13 +1,15 @@
 import React, { useContext } from "react";
 // import { getAuth, signInWithEmailAndPassword } from 'firebase/auth';
-import { signIn } from "../../context/authContext/service";
+import { reLogin, signIn } from "../../context/authContext/service";
 import { AuthContext } from "../../context/authContext/AuthContext";
 import * as Yup from "yup";
 import { Formik } from "formik";
+import { useNavigate } from "react-router-dom";
 
 function SignIn() {
-  const { dispatch } = useContext(AuthContext);
-
+  const { dispatch, isReAuthenticated, user } = useContext(AuthContext);
+  let navigate = useNavigate();
+  // console.log(isReAuthenticated);
   const SignInSchema = Yup.object().shape({
     email: Yup.string()
       .required("Email required")
@@ -26,16 +28,20 @@ function SignIn() {
             />
           </div>
           <Formik
+            enableReinitialize={isReAuthenticated}
             initialValues={{
-              email: "",
+              email: user?.email,
               password: "",
             }}
             validationSchema={SignInSchema}
             onSubmit={(value) => {
+              // console.log(isReAuthenticated);
+              isReAuthenticated?
+              reLogin(dispatch, value.email, value.password, navigate ):
               signIn(dispatch, value.email, value.password);
             }}
           >
-            {({ errors, touched, handleBlur, handleChange, handleSubmit }) => (
+            {({ errors, touched, handleBlur, handleChange, handleSubmit,values }) => (
               <form onSubmit={handleSubmit} className="flex flex-col w-full">
                 <div className="mt-6 flex flex-col">
                   <div className="mx-10 mb-2">
@@ -45,6 +51,8 @@ function SignIn() {
                       placeholder="Phone, username or email"
                       name="email"
                       onBlur={handleBlur}
+                      value={values.email}
+                      // disabled={!isReAuthenticated}
                     />
                     {errors.email && touched.email && (
                       <p className="mt-3 text-red-600">{errors.email}</p>

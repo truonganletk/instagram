@@ -7,7 +7,7 @@ import {
   Route,
   Navigate
 } from "react-router-dom";
-import React from 'react';
+import React, { useContext } from 'react';
 import SettingChangePassword from './pages/Setting/SettingChangePassword';
 import SettingEdit from './pages/Setting/SettingEdit';
 import Explore from './pages/Explore/Explore';
@@ -16,15 +16,18 @@ import SignIn from './pages/SignIn/SignIn';
 import SignUp from './pages/Signup/SignUp';
 import useAuthListener from './hooks/use-auth-listener';
 import Account from './pages/Account/Account';
+import { AuthContext } from './context/authContext/AuthContext';
 
 function App() {
   const { user } = useAuthListener();
+  const { isReAuthenticated } = useContext(AuthContext);
+  console.log(isReAuthenticated);
   return (
     <div className='bg-ig-secondary-background min-h-screen'>
       <Router>
         <Routes>
           <Route path="*" element={user ? <Navigate to="/home" replace /> : <Navigate to="/login" replace />} />
-          <Route path="/login" element={user ? <Navigate to="/" replace /> : <SignIn />} />
+          <Route path="/login" element={user&&!isReAuthenticated ? <Navigate to="/" replace /> : <SignIn />} />
           <Route path="/signup" element={user ? <Navigate to="/" replace /> : <SignUp />} />
           {user && (
             <>

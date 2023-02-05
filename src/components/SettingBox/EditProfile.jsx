@@ -3,12 +3,18 @@ import { Link } from "react-router-dom";
 import { AuthContext } from "../../context/authContext/AuthContext";
 import * as Yup from "yup";
 import { Formik } from "formik";
-import { updateProfile } from "../../context/authContext/service";
+import { getInfo, updateProfile } from "../../context/authContext/service";
+import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
 function EditProfile() {
   const { user, dispatch } = useContext(AuthContext);
+  let navigate = useNavigate();
 
-  console.log("user:", user);
+  // console.log("user:", user);
+  useEffect(()=>{
+    getInfo(dispatch);
+  },[])
 
   const EditSchema = Yup.object().shape({
     fullname: Yup.string().required("Fullname required"),
@@ -21,13 +27,13 @@ function EditProfile() {
     <Formik
       enableReinitialize={true}
       initialValues={{
-        fullname: user.fullname,
-        username: user.username,
-        email: user.email,
+        fullname: user?.fullname,
+        username: user?.username,
+        email: user?.email,
       }}
       validationSchema={EditSchema}
       onSubmit={(value) => {
-        updateProfile(dispatch, value);
+        updateProfile(dispatch, value, navigate);
         // console.log(value);
       }}
     >
@@ -42,7 +48,7 @@ function EditProfile() {
               />
             </div>
             <div className="focus:ring-blue-500 focus:border-blue-500 block w-full basis-10/12">
-              <h2>{user.fullname}</h2>
+              <h2>{user?.fullname}</h2>
               <h2 className="text-sky-500">Change profile photo</h2>
             </div>
           </div>

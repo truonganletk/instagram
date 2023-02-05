@@ -1,9 +1,11 @@
 import {
   createUserWithEmailAndPassword,
+  EmailAuthProvider,
   getAuth,
   reauthenticateWithCredential,
   signInWithEmailAndPassword,
   updateEmail,
+  // updateEmail,
 } from "firebase/auth";
 import {
   collection,
@@ -27,11 +29,14 @@ import {
   getInfoSuccess,
   getInfoFailure,
   updateInfo,
+  reAuthEnd,
+  reAuth,
 } from "./AuthAction";
+
 
 export const signIn = async (dispatch, email, password) => {
   dispatch(signInStart());
-
+  // console.log(email, password);
   try {
     const authentication = getAuth();
     await signInWithEmailAndPassword(authentication, email, password);
@@ -70,8 +75,9 @@ export const logOut = async (dispatch) => {
   }
 };
 
-export const getInfo = async (dispatch, email) => {
+export const getInfo = async (dispatch) => {
   try {
+    const email = getAuth().currentUser.email;
     let user = {};
     const db = firestore;
     const q = query(collection(db, "users"), where("email", "==", email));
@@ -107,12 +113,15 @@ export const getAllUsers = async (dispatch) => {
   }
 };
 
-export const updateProfile = async (dispatch, value) => {
+export const updateProfile = async (dispatch, value, navigate) => {
   try {
     // console.log(getAuth().currentUser.email,' ');
     if (getAuth().currentUser.email != value.email) {
       //....
-      console.log("đổi email");
+      dispatch(updateInfo(value));
+      dispatch(reAuth());
+      // console.log("đổi email");
+      navigate("/login");
     } else {
       dispatch(updateInfo(value));
       const db = firestore;
@@ -146,3 +155,22 @@ export const updateProfile = async (dispatch, value) => {
     };
   }
 };
+
+export const reLogin = async (dispatch, email, password) => {
+  try {
+    const auth = getAuth();
+    const credential = EmailAuthProvider.credential(
+      auth.currentUser.email,
+      password
+    )
+    await reauthenticateWithCredential(
+      auth.currentUser,
+      credential
+    ).then(() => {
+      updateEmail(auth.currentUser, email);
+    })
+    dispatch(reAuthEnd());
+  } catch (error) {
+    console.log(error);
+  }
+}

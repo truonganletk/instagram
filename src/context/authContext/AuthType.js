@@ -9,6 +9,8 @@ export const SIGN_UP_FAILURE = "SIGN_UP_FAILURE";
 export const LOG_OUT = "LOG_OUT";
 
 export const UPDATE_INFO = "UPDATE_INFO";
+export const RE_AUTH = "RE_AUTH";
+export const RE_AUTH_END = "RE_AUTH_END";
 
 export const GET_ALL_USERS_START = "GET_ALL_USERS_START";
 export const GET_ALL_USERS_SUCCESS = "GET_ALL_USERS_SUCCESS";

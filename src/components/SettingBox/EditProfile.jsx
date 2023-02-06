@@ -11,10 +11,10 @@ function EditProfile() {
   const { user, dispatch } = useContext(AuthContext);
   let navigate = useNavigate();
 
-  // console.log("user:", user);
-  useEffect(()=>{
+  console.log("user:", user);
+  useEffect(() => {
     getInfo(dispatch);
-  },[])
+  }, []);
 
   const EditSchema = Yup.object().shape({
     fullname: Yup.string().required("Fullname required"),

@@ -33,7 +33,6 @@ import {
   reAuth,
 } from "./AuthAction";
 
-
 export const signIn = async (dispatch, email, password) => {
   dispatch(signInStart());
   // console.log(email, password);
@@ -114,32 +113,33 @@ export const getAllUsers = async (dispatch) => {
 };
 
 export const updateProfile = async (dispatch, value, navigate) => {
+  const db = firestore;
+  let id = "";
+  const q = query(
+    collection(db, "users"),
+    where("email", "==", getAuth().currentUser.email)
+  );
+  const querySnapshot = await getDocs(q);
+  querySnapshot.forEach((doc) => {
+    id = doc.id;
+  });
+  const refUpdate = doc(db, "users", id);
+
   try {
-    // console.log(getAuth().currentUser.email,' ');
     if (getAuth().currentUser.email != value.email) {
-      //....
       dispatch(updateInfo(value));
       dispatch(reAuth());
-      // console.log("đổi email");
+      await updateDoc(refUpdate, {
+        email: value.email,
+        username: value.username,
+        fullname: value.fullname,
+      });
       navigate("/login");
     } else {
       dispatch(updateInfo(value));
-      const db = firestore;
 
-      let id = "";
-      const q = query(
-        collection(db, "users"),
-        where("email", "==", value.email)
-      );
-      const querySnapshot = await getDocs(q);
-      querySnapshot.forEach((doc) => {
-        id = doc.id;
-      });
-
-      const refUpdate = doc(db, "users", id);
       await updateDoc(refUpdate, {
         username: value.username,
-        // email: value.email,
         fullname: value.fullname,
       })
         .then(() => {
@@ -162,15 +162,14 @@ export const reLogin = async (dispatch, email, password) => {
     const credential = EmailAuthProvider.credential(
       auth.currentUser.email,
       password
-    )
-    await reauthenticateWithCredential(
-      auth.currentUser,
-      credential
-    ).then(() => {
-      updateEmail(auth.currentUser, email);
-    })
+    );
+    await reauthenticateWithCredential(auth.currentUser, credential).then(
+      () => {
+        updateEmail(auth.currentUser, email);
+      }
+    );
     dispatch(reAuthEnd());
   } catch (error) {
     console.log(error);
   }
-}
+};

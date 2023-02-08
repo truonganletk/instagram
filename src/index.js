@@ -6,13 +6,16 @@ import reportWebVitals from './reportWebVitals';
 import { AuthContextProvider } from './context/authContext/AuthContext';
 import { firebase, firestore, storage } from './firebase-config';
 import { PostContextProvider } from './context/postContext/PostContext';
+import { ModalContextProvider } from './context/modalContext/ModalContext';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <FirebaseContext.Provider value={{ firebase, firestore, storage }}>
     <AuthContextProvider>
       <PostContextProvider>
-        <App />
+        <ModalContextProvider>
+          <App />
+        </ModalContextProvider>
       </PostContextProvider>
     </AuthContextProvider>
   </FirebaseContext.Provider>

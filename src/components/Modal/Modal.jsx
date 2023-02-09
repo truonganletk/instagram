@@ -28,7 +28,7 @@ function Modal() {
                                 <span className="sr-only">Close modal</span>
                             </button>
                         </div>
-                        <div className=''>
+                        <div className='h-96 w-full'>
                         {modal}
                         </div>
                     </div>

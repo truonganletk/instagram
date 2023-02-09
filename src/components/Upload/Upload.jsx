@@ -19,8 +19,8 @@ function Upload() {
     const handleChange = async (event) => {
         // setFile(event.target.files[0]);
         // console.log(file);
-        await dispatch(updateData({file: URL.createObjectURL(event.target.files[0])}));
-        dispatch(showModal(<CreatePost/>,"Create Post"));
+        await dispatch(updateData({ file: URL.createObjectURL(event.target.files[0]) }));
+        dispatch(showModal(<CreatePost />, "Create Post"));
     }
 
     // const handleUpload = () => {
@@ -54,13 +54,16 @@ function Upload() {
     //     );
     // };
     return (
-        <div className='justify-center w-full text-center flex-column items-center my-10'>
-            <img className='max-h-24 m-auto' src={img} alt="" />
-            <h2 className='text-white my-5'>Drag photos and videos here</h2>
-            <input className='custom-file-input' type="file" onChange={handleChange} accept="/image/*" />
-            {/* <button onClick={handleUpload}>Upload to Firebase</button> */}
-            {/* <p>{percent} % done</p> */}
+        <div className='flex justify-center items-center h-full'>
+            <div className=' text-center flex-row justify-center items-center'>
+                <img className='max-h-24 m-auto' src={img} alt="" />
+                <h2 className='text-white my-5'>Drag photos and videos here</h2>
+                <input className='custom-file-input' type="file" onChange={handleChange} accept="/image/*" />
+                {/* <button onClick={handleUpload}>Upload to Firebase</button> */}
+                {/* <p>{percent} % done</p> */}
+            </div>
         </div>
+
     )
 }
 

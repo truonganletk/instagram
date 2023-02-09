@@ -16,29 +16,34 @@ import SignIn from './pages/SignIn/SignIn';
 import SignUp from './pages/Signup/SignUp';
 import useAuthListener from './hooks/use-auth-listener';
 import Account from './pages/Account/Account';
+import Modal from './components/Modal/Modal';
 
 function App() {
   const { user } = useAuthListener();
   return (
-    <div className='bg-ig-secondary-background min-h-screen'>
-      <Router>
-        <Routes>
-          <Route path="*" element={user ? <Navigate to="/home" replace /> : <Navigate to="/login" replace />} />
-          <Route path="/login" element={user ? <Navigate to="/" replace /> : <SignIn />} />
-          <Route path="/signup" element={user ? <Navigate to="/" replace /> : <SignUp />} />
-          {user && (
-            <>
-              <Route path="/home" element={<Home />} />
-              <Route path="/inbox" element={<Inbox />} />
-              <Route path="/explore" element={<Explore />} />
-              <Route path="/accounts" element={<Account />} />
-              <Route path="/accounts/edit" element={<SettingEdit />} />
-              <Route path="/accounts/changepass" element={<SettingChangePassword />} />
-            </>
-          )}
-        </Routes>
-      </Router>
-    </div>
+    <>
+      <Modal></Modal>
+      <div className='bg-ig-secondary-background min-h-screen'>
+        <Router>
+          <Routes>
+            <Route path="*" element={user ? <Navigate to="/home" replace /> : <Navigate to="/login" replace />} />
+            <Route path="/login" element={user ? <Navigate to="/" replace /> : <SignIn />} />
+            <Route path="/signup" element={user ? <Navigate to="/" replace /> : <SignUp />} />
+            {user && (
+              <>
+                <Route path="/home" element={<Home />} />
+                <Route path="/inbox" element={<Inbox />} />
+                <Route path="/explore" element={<Explore />} />
+                <Route path="/accounts" element={<Account />} />
+                <Route path="/accounts/edit" element={<SettingEdit />} />
+                <Route path="/accounts/changepass" element={<SettingChangePassword />} />
+              </>
+            )}
+          </Routes>
+        </Router>
+      </div>
+    </>
+
   );
 }
 

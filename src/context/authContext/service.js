@@ -70,6 +70,7 @@ export const getInfo = async (dispatch, email) => {
       // doc.data() is never undefined for query doc snapshots
       // console.log(doc.id, " => ", doc.data());
       user = doc.data();
+      user = { ...user, id: doc.id };
       // console.log("service ", user)
     });
     // console.log("service ", user);
@@ -86,9 +87,7 @@ export const getAllUsers = async (dispatch) => {
     const q = query(collection(db, "users"));
     const querySnapshot = await getDocs(q);
     querySnapshot.forEach((doc) => {
-      // doc.data() is never undefined for query doc snapshots
-      // console.log(doc.id, " => ", doc.data().fullname);
-      users.push(doc.data());
+      users.push({ ...doc.data(), id: doc.id });
     });
     console.log("service ", users);
     dispatch(getAllUsersSuccess(users));

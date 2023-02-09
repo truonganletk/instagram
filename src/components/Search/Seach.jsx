@@ -6,7 +6,7 @@ import useDebounce from "../../hooks/useDebounce";
 export default function Search() {
   const [searchTerm, setSearchTerm] = useState("");
   const [result, setResult] = useState([]);
-  const debounceSearchTerm = useDebounce(searchTerm, 300);
+
   const handleChange = (e) => {
     setSearchTerm(e.target.value);
   };
@@ -27,6 +27,9 @@ export default function Search() {
       throw new Error(error);
     }
   };
+
+  const debounceSearchTerm = useDebounce(searchTerm, 300);
+
   useEffect(() => {
     if (debounceSearchTerm) {
       querySearch(debounceSearchTerm);
@@ -65,9 +68,24 @@ export default function Search() {
           />
         </div>
         {result.length > 0 && debounceSearchTerm && (
-          <ul className="absolute top-[3rem] left-0">
+          <ul className="w-full bg-white rounded absolute top-[3rem] left-0 shadow-xl">
             {result.map((item, index) => (
-              <li key={index}>{item.username}</li>
+              <li
+                key={index}
+                className="flex items-center gap-x-4 p-3 border-b cursor-pointer hover:bg-gray-100"
+              >
+                <img
+                  className="w-8 h-8 rounded-full"
+                  src="https://nftavatarmaker.com/assets/slide/koala-2.png"
+                  alt=""
+                />
+                <div>
+                  <p className="text-sm font-medium">{item.username}</p>
+                  <p className="text-xs text-ig-secondary-text font-normal">
+                    {item.fullname}
+                  </p>
+                </div>
+              </li>
             ))}
           </ul>
         )}

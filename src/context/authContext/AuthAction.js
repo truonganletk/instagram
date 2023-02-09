@@ -6,12 +6,15 @@ import {
   GET_INFO_START,
   GET_INFO_SUCCESS,
   LOG_OUT,
+  RE_AUTH,
+  RE_AUTH_END,
   SIGN_IN_FAILURE,
   SIGN_IN_START,
   SIGN_IN_SUCCESS,
   SIGN_UP_FAILURE,
   SIGN_UP_START,
   SIGN_UP_SUCCESS,
+  UPDATE_INFO,
 } from "./AuthType";
 
 // SIGN IN
@@ -71,4 +74,17 @@ export const getInfoSuccess = (user) => ({
 
 export const getInfoFailure = () => ({
   type: GET_INFO_FAILURE,
+});
+
+export const updateInfo = (user) => ({
+  type: UPDATE_INFO,
+  payload: user,
+});
+
+export const reAuth = () => ({
+  type: RE_AUTH,
+});
+
+export const reAuthEnd = () => ({
+  type: RE_AUTH_END,
 });

@@ -6,6 +6,7 @@ import PropTypes from "prop-types";
 const INITIAL_STATE = {
   user: {},
   users: [],
+  isReAuthenticated: false,
   isFetching: false,
   error: false,
 };
@@ -21,6 +22,7 @@ export const AuthContextProvider = (props) => {
         user: state.user,
         users: state.users,
         dispatch,
+        isReAuthenticated: state.isReAuthenticated,
         isFetching: state.isFetching,
         error: state.error,
       }}

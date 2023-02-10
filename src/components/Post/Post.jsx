@@ -1,26 +1,41 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import FirebaseContext from "../../context/firebase";
 import { getDownloadURL, ref } from "firebase/storage";
+import { AuthContext } from "../../context/authContext/AuthContext";
+import { getAllUsers } from "../../context/authContext/service";
 
 function Post({ ...props }) {
-  const [ img, setImg ] = useState();
+  const [img, setImg] = useState();
+  const [avt, setAvt] = useState();
 
   const { storage } = useContext(FirebaseContext);
+  const { users, dispatch } = useContext(AuthContext);
+  const userCreated = users.find((user) => user.id === props.userCreatedId)
   const imagesRef = ref(storage, `images/${props.img}`);
+  const avtRef = ref(storage, `avatar/${userCreated?.avatar}`);
   getDownloadURL(imagesRef).then((url) => {
-      setImg(url);
-    })
+    setImg(url);
+  })
+  userCreated ? getDownloadURL(avtRef).then((url) => {
+    setAvt(url);
+  }) : () => { };
+  useEffect(() => {
+    getAllUsers(dispatch);
+  }, [])
+
+
+  // console.log(userCreated);
   return (
     <div className="bg-white mb-7 border rounded-lg">
       {/* header section */}
       <div className="flex px-5 py-3 items-center">
         <img
           className="rounded-full h-10 w-10 object-contain border mr-3"
-          src={`${img}`}
+          src={`${avt}`}
           alt=""
         />
-        <p className="flex-1">{props.username}</p>
+        <p className="flex-1">{userCreated?.username}</p>
         <svg
           xmlns="http://www.w3.org/2000/svg"
           fill="none"
@@ -111,7 +126,7 @@ function Post({ ...props }) {
 
         {/* caption section */}
         <p className="my-3">
-          <span className="font-bold mr-2">{props.username}</span>
+          <span className="font-bold mr-2">{userCreated?.username}</span>
           {props.caption}
         </p>
       </div>
@@ -145,7 +160,7 @@ function Post({ ...props }) {
 }
 
 Post.propTypes = {
-  username: PropTypes.string,
+  userCreatedId: PropTypes.string,
   userImg: PropTypes.string,
   img: PropTypes.string,
   caption: PropTypes.string,

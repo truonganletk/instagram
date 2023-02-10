@@ -12,6 +12,7 @@ const ModalReducer = (state, action) => {
         case HIDE_MODAL:
             return {
                 show: false,
+                data: {}
             };
         case UPDATE_DATA:
             return {

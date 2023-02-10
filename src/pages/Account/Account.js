@@ -6,6 +6,7 @@ import { AuthContext } from "../../context/authContext/AuthContext";
 function Account() {
   const { user } = useContext(AuthContext);
   console.log("user:", user);
+
   return (
     <>
       <Header />
@@ -14,8 +15,8 @@ function Account() {
           {/* avatar */}
           <img
             className="w-44 h-44 border rounded-full p-[2px]"
-            src="https://avatarfiles.alphacoders.com/102/102783.jpg"
-            alt=""
+            src={user.url}
+            alt="avatar"
           />
 
           {/* bio */}

@@ -42,9 +42,9 @@ function EditProfile() {
           <div className="mb-6 flex w-full items-center">
             <div className="flex text-sm font-medium text-gray-900 basis-2/12 mr-5 justify-end ">
               <img
-                className="w-10 h-10 rounded-full p-2"
-                src="https://mdbootstrap.com/wp-content/uploads/2020/06/vertical.jpg"
-                alt
+                className="w-16 h-16 rounded-full p-2"
+                src={user.url}
+                alt=""
               />
             </div>
             <div className="focus:ring-blue-500 focus:border-blue-500 block w-full basis-10/12">

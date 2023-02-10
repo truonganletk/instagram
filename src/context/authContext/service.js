@@ -15,7 +15,8 @@ import {
   updateDoc,
   where,
 } from "firebase/firestore";
-import { firestore } from "../../firebase-config";
+import { getDownloadURL, ref } from "firebase/storage";
+import { firestore, storage } from "../../firebase-config";
 import {
   getAllUsersFailure,
   getAllUsersSuccess,
@@ -82,16 +83,19 @@ export const getInfo = async (dispatch) => {
     const q = query(collection(db, "users"), where("email", "==", email));
     const querySnapshot = await getDocs(q);
     querySnapshot.forEach((doc) => {
-      // doc.data() is never undefined for query doc snapshots
-      // console.log(doc.id, " => ", doc.data());
       user = doc.data();
       user = { ...user, id: doc.id };
-      // console.log("service ", user)
     });
-    // console.log("service ", user);
+
+    const imagesRef = ref(storage, `avatar/${user.avatar}`);
+    await getDownloadURL(imagesRef).then((url) => {
+      user = { ...user, url: url };
+    });
+    console.log("service ", user);
     dispatch(getInfoSuccess(user));
   } catch (error) {
     dispatch(getInfoFailure());
+    console.log("error", error);
   }
 };
 

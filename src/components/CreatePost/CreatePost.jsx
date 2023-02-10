@@ -1,17 +1,21 @@
 import React, { useContext, useState } from 'react'
 import { AuthContext } from '../../context/authContext/AuthContext';
+import { hideModal } from '../../context/modalContext/ModalActions';
 import { ModalContext } from '../../context/modalContext/ModalContext';
+import { PostContext } from '../../context/postContext/PostContext';
+import { createPost } from '../../context/postContext/Services';
 
 function CreatePost() {
-    const [text, setText] = useState('');
-    const { data } = useContext(ModalContext);
+    const [caption, setCaption] = useState('');
+    const { data, dispatch: modalDispatch } = useContext(ModalContext);
     const { user } = useContext(AuthContext);
-    console.log(data, user);
+    const { dispatch } = useContext(PostContext);
+    // console.log(data, user);
     return (
         <div className='flex items-start h-full'>
             <div className='w-3/5 h-full'>
                 <div className='w-full h-full'>
-                    <img className='w-full h-full' src={data?.file} alt="" />
+                    <img className='w-full h-full' src={URL.createObjectURL(data?.file)} alt="" />
                 </div>
             </div>
             <div className='w-2/5 p-3'>
@@ -27,9 +31,9 @@ function CreatePost() {
                 </div>
                 <div className='px-2'>
                     <textarea
-                        value={text}
+                        value={caption}
                         onChange={(e) => {
-                            setText(e.target.value);
+                            setCaption(e.target.value);
                         }}
                         rows="4"
                         className='bg-transparent resize-none outline-none text-ig-primary-background w-full'
@@ -37,8 +41,11 @@ function CreatePost() {
                         placeholder='Write a caption...' />
                 </div>
                 <div className='flex justify-between px-2 items-center'>
-                    <p className='text-white text-xs'>{text.length}/2200</p>
-                    <p className='text-blue-500 font-bold'>
+                    <p className='text-white text-xs'>{caption.length}/2200</p>
+                    <p onClick={()=>{
+                        createPost(dispatch, caption, user.id, data?.file);
+                        modalDispatch(hideModal());
+                    }} className='text-blue-500 font-bold cursor-pointer'>
                         Share
                     </p>
                 </div>

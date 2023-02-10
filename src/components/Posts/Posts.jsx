@@ -26,19 +26,19 @@ function Posts() {
     // console.log(spaceRef.fullPath);
   }, [])
   // console.log(users);
-  // console.log(lists);
+  console.log(lists);
 
 
   return (
     <div>
-      {lists.map((post) => (
+      {lists?.map((post,index) => (
         <Post
-          key={post.id}
-          id={post.id}
-          username={post.username}
-          userImg={post.img}
-          img={post.img}
-          caption={post.post_content}
+          key={index}
+          // id={post.id}
+          // username={post.username}
+          userImg={post?.img}
+          img={post?.img}
+          caption={post?.post_content}
         />
       ))}
     </div>

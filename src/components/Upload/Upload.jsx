@@ -19,7 +19,7 @@ function Upload() {
     const handleChange = async (event) => {
         // setFile(event.target.files[0]);
         // console.log(file);
-        await dispatch(updateData({ file: URL.createObjectURL(event.target.files[0]) }));
+        await dispatch(updateData({ file: event.target.files[0] }));
         dispatch(showModal(<CreatePost />, "Create Post"));
     }
 

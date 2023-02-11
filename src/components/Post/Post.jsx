@@ -4,6 +4,7 @@ import FirebaseContext from "../../context/firebase";
 import { getDownloadURL, ref } from "firebase/storage";
 import { AuthContext } from "../../context/authContext/AuthContext";
 import { getAllUsers } from "../../context/authContext/service";
+import { Link } from "react-router-dom";
 
 function Post({ ...props }) {
   const [img, setImg] = useState();
@@ -11,31 +12,34 @@ function Post({ ...props }) {
 
   const { storage } = useContext(FirebaseContext);
   const { users, dispatch } = useContext(AuthContext);
-  const userCreated = users.find((user) => user.id === props.userCreatedId)
+  const userCreated = users.find((user) => user.id === props.userCreatedId);
   const imagesRef = ref(storage, `images/${props.img}`);
   const avtRef = ref(storage, `avatar/${userCreated?.avatar}`);
   getDownloadURL(imagesRef).then((url) => {
     setImg(url);
-  })
-  userCreated ? getDownloadURL(avtRef).then((url) => {
-    setAvt(url);
-  }) : () => { };
+  });
+  userCreated
+    ? getDownloadURL(avtRef).then((url) => {
+        setAvt(url);
+      })
+    : () => {};
   useEffect(() => {
     getAllUsers(dispatch);
-  }, [])
-
+  }, []);
 
   // console.log(userCreated);
   return (
     <div className="bg-white mb-7 border rounded-lg">
       {/* header section */}
-      <div className="flex px-5 py-3 items-center">
-        <img
-          className="rounded-full h-10 w-10 object-contain border mr-3"
-          src={`${avt}`}
-          alt=""
-        />
-        <p className="flex-1">{userCreated?.username}</p>
+      <div className="flex px-5 py-3 items-center justify-between">
+        <Link className="flex items-center " to={`/${userCreated?.username}`}>
+          <img
+            className="rounded-full h-10 w-10 object-contain border mr-3"
+            src={`${avt}`}
+            alt=""
+          />
+          <p className="flex-1">{userCreated?.username}</p>
+        </Link>
         <svg
           xmlns="http://www.w3.org/2000/svg"
           fill="none"
@@ -53,11 +57,7 @@ function Post({ ...props }) {
       </div>
 
       {/* image section */}
-      <img
-        className="w-full object-cover max-h-[470px]"
-        src={img}
-        alt=""
-      />
+      <img className="w-full object-cover max-h-[470px]" src={img} alt="" />
 
       <div className="px-5 py-5">
         {/* icons section */}
@@ -125,8 +125,11 @@ function Post({ ...props }) {
         </div>
 
         {/* caption section */}
+
         <p className="my-3">
-          <span className="font-bold mr-2">{userCreated?.username}</span>
+          <Link to={`/${userCreated?.username}`}>
+            <span className="font-bold mr-2">{userCreated?.username}</span>
+          </Link>
           {props.caption}
         </p>
       </div>

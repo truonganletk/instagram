@@ -16,8 +16,7 @@ import {
   updateDoc,
   where,
 } from "firebase/firestore";
-import { getDownloadURL, ref } from "firebase/storage";
-import { firestore, storage } from "../../firebase-config";
+import { firestore } from "../../firebase-config";
 import {
   getAllUsersFailure,
   getAllUsersSuccess,
@@ -106,10 +105,10 @@ export const getInfo = async (dispatch) => {
       user = { ...user, id: doc.id };
     });
 
-    const imagesRef = ref(storage, `avatar/${user.avatar}`);
-    await getDownloadURL(imagesRef).then((url) => {
-      user = { ...user, url: url };
-    });
+    // const imagesRef = ref(storage, `avatar/${user.avatar}`);
+    // await getDownloadURL(imagesRef).then((url) => {
+    //   user = { ...user, url: url };
+    // });
     // console.log("service ", user);
     dispatch(getInfoSuccess(user));
   } catch (error) {

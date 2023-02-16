@@ -8,26 +8,19 @@ import { Link } from "react-router-dom";
 
 function Post({ ...props }) {
   const [img, setImg] = useState();
-  const [avt, setAvt] = useState();
-
   const { storage } = useContext(FirebaseContext);
   const { users, dispatch } = useContext(AuthContext);
   const userCreated = users.find((user) => user.id === props.userCreatedId);
   const imagesRef = ref(storage, `images/${props.img}`);
-  const avtRef = ref(storage, `avatar/${userCreated?.avatar}`);
+
   getDownloadURL(imagesRef).then((url) => {
     setImg(url);
   });
-  userCreated
-    ? getDownloadURL(avtRef).then((url) => {
-        setAvt(url);
-      })
-    : () => {};
+
   useEffect(() => {
     getAllUsers(dispatch);
   }, []);
 
-  // console.log(userCreated);
   return (
     <div className="bg-white mb-7 border rounded-lg">
       {/* header section */}
@@ -35,7 +28,7 @@ function Post({ ...props }) {
         <Link className="flex items-center " to={`/${userCreated?.username}`}>
           <img
             className="rounded-full h-10 w-10 object-contain border mr-3"
-            src={`${avt}`}
+            src={`${userCreated?.avatar}`}
             alt=""
           />
           <p className="flex-1">{userCreated?.username}</p>

@@ -11,7 +11,6 @@ function EditProfile() {
   const { user, dispatch } = useContext(AuthContext);
   let navigate = useNavigate();
 
-  console.log("user:", user);
   useEffect(() => {
     getInfo(dispatch);
   }, []);
@@ -34,7 +33,6 @@ function EditProfile() {
       validationSchema={EditSchema}
       onSubmit={(value) => {
         updateProfile(dispatch, value, navigate);
-        // console.log(value);
       }}
     >
       {({ dirty, errors, touched, values, handleChange, handleSubmit }) => (
@@ -43,7 +41,7 @@ function EditProfile() {
             <div className="flex text-sm font-medium text-gray-900 basis-2/12 mr-5 justify-end ">
               <img
                 className="w-16 h-16 rounded-full p-2"
-                src={user.url}
+                src={user.avatar}
                 alt=""
               />
             </div>
@@ -64,10 +62,8 @@ function EditProfile() {
                 type="text"
                 name="fullname"
                 className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-                // placeholder={user.fullname}
                 value={values.fullname || ""}
                 onChange={handleChange}
-                // required
               />
               {errors.fullname && touched.fullname && (
                 <p className="mt-3 text-red-600">{errors.fullname}</p>
@@ -97,10 +93,8 @@ function EditProfile() {
                 type="text"
                 name="username"
                 className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-                // placeholder={user.username}
                 value={values.username || ""}
                 onChange={handleChange}
-                // required
               />
               {errors.username && touched.username && (
                 <p className="mt-3 text-red-600">{errors.username}</p>
@@ -133,7 +127,6 @@ function EditProfile() {
                 disabled
                 className="bg-gray-200 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
                 placeholder="Website"
-                // required
               />
             </div>
           </div>
@@ -159,8 +152,6 @@ function EditProfile() {
                 type="text"
                 id="name"
                 className="bg-gray-50 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 mb-2"
-                // value={this.state.bio}
-                // onChange={this.biohandleChange}
               />
             </div>
           </div>
@@ -195,10 +186,8 @@ function EditProfile() {
                 type="text"
                 name="email"
                 className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-                // placeholder={user.email}
                 value={values.email || ""}
                 onChange={handleChange}
-                // required
               />
               {errors.email && touched.email && (
                 <p className="mt-3 text-red-600">{errors.email}</p>
@@ -218,7 +207,6 @@ function EditProfile() {
                 id="name"
                 className="bg-gray-50 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
                 placeholder=""
-                // required
               />
             </div>
           </div>
@@ -235,7 +223,6 @@ function EditProfile() {
                 id="name"
                 className="bg-gray-50 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
                 placeholder=""
-                // required
               />
             </div>
           </div>

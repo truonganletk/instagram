@@ -1,24 +1,17 @@
-import { getDownloadURL, ref } from "firebase/storage";
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import Header from "../../components/Header/Header";
 import Postpreview from "../../components/Post/Post-preview";
 import { AuthContext } from "../../context/authContext/AuthContext";
 import { getAllUsers } from "../../context/authContext/service";
-import { storage } from "../../firebase-config";
 
 function Account() {
   const { users, dispatch } = useContext(AuthContext);
-  const [avt, setAvt] = useState();
+
   const { username } = useParams();
-  // console.log(param);
+
   const user = users.find((user) => user.username === username);
-  const avtRef = ref(storage, `avatar/${user?.avatar}`);
-  if (user) {
-    getDownloadURL(avtRef).then((url) => {
-      setAvt(url);
-    });
-  }
+
   useEffect(() => {
     getAllUsers(dispatch);
   }, []);
@@ -31,7 +24,7 @@ function Account() {
           {/* avatar */}
           <img
             className="w-44 h-44 border rounded-full p-[2px]"
-            src={avt}
+            src={user?.avatar}
             alt="avatar"
           />
 

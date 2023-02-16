@@ -13,7 +13,7 @@ function MiniProfile() {
       >
         <img
           className="w-16 h-16 rounded-full p-[2px] mr-3"
-          src={user.url}
+          src={user.avatar}
           alt="profile-avatar"
         />
         <div className="mr-auto">

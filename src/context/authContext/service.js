@@ -12,6 +12,7 @@ import {
   doc,
   getDocs,
   query,
+  setDoc,
   updateDoc,
   where,
 } from "firebase/firestore";
@@ -46,21 +47,39 @@ export const signIn = async (dispatch, email, password) => {
   }
 };
 
-export const signUp = async (dispatch, email, password) => {
+export const signUp = async (dispatch, values) => {
   dispatch(signUpStart());
-
+  console.log(values);
   try {
     const authentication = getAuth();
-    await createUserWithEmailAndPassword(authentication, email, password).then(
-      (response) => {
-        sessionStorage.setItem(
-          "Auth Token",
-          response._tokenResponse.refreshToken
-        );
-      }
-    );
+    await createUserWithEmailAndPassword(
+      authentication,
+      values.email,
+      values.password
+    ).then((response) => {
+      sessionStorage.setItem(
+        "Auth Token",
+        response._tokenResponse.refreshToken
+      );
+    });
+    await setDoc(doc(firestore, "users", getAuth().currentUser.uid), {
+      email: values.email,
+      username: values.username,
+      fullname: values.username,
+      avatar:
+        "https://firebasestorage.googleapis.com/v0/b/instagram-f4e13.appspot.com/o/avatar%2Fdefault-avatar-profile.jpg?alt=media&token=a50eb747-c832-4173-a037-2be77e8bd913",
+      number_of_posts: 0,
+      number_of_followers: 0,
+      number_of_following: 0,
+    });
+    updateProfile(getAuth().currentUser, {
+      displayName: values.username,
+      photoURL:
+        "https://firebasestorage.googleapis.com/v0/b/instagram-f4e13.appspot.com/o/avatar%2Fdefault-avatar-profile.jpg?alt=media&token=a50eb747-c832-4173-a037-2be77e8bd913",
+    });
     dispatch(signUpSuccess());
   } catch (error) {
+    console.log(error);
     dispatch(signUpFailure());
   }
 };

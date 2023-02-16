@@ -1,9 +1,5 @@
 import React, { useContext, useEffect } from "react";
 import * as Yup from "yup";
-// import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
-import FirebaseContext from "../../context/firebase";
-import { collection, addDoc } from "firebase/firestore"; //getDocs
-
 import { Formik } from "formik";
 import { AuthContext } from "../../context/authContext/AuthContext";
 import { getAllUsers, signUp } from "../../context/authContext/service";
@@ -12,36 +8,27 @@ function SignUp() {
   const SignupSchema = Yup.object().shape({
     username: Yup.string()
       .required("username required")
-      .test(
-        "Unique username",
-        "this username already exits",
-        function (username) {
-          users.map((user) => {
-            user.username == username && this.resolve(false);
-          });
-          this.resolve(true);
-        }
-      ),
+      .matches(/^[a-z0-9_.]+$/, "enter an invalid username")
+      .test("Unique username", "this username already exits", (username) => {
+        return users.find((user) => user.username === username) ? false : true;
+      }),
     email: Yup.string()
       .required("Email required")
       .matches(/^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/, "enter an invalid email!")
-      .test("Unique email", "Email already in use", function (email) {
-        users.map((user) => {
-          user.email == email && this.resolve(false);
-        });
-        this.resolve(true);
+      .test("Unique email", "Email already in use", (email) => {
+        return users.find((user) => user.email === email) ? false : true;
       }),
-    password: Yup.string().required("Password required").min(4, "Too short!!!"),
+    password: Yup.string().required("Password required").min(6, "Too short!!!"),
     confirmPassword: Yup.string()
       .oneOf([Yup.ref("password"), null], "Passwords must match")
       .required("Comfirm Password is required!"),
   });
 
-  const { firestore } = useContext(FirebaseContext);
   const { users, dispatch } = useContext(AuthContext);
   useEffect(() => {
     getAllUsers(dispatch);
   }, []);
+
   return (
     <>
       <div className="pt-9">
@@ -62,19 +49,7 @@ function SignUp() {
             validationSchema={SignupSchema}
             onSubmit={(values, { setSubmitting }) => {
               setTimeout(() => {
-                signUp(dispatch, values.email, values.password).then(
-                  async () => {
-                    await addDoc(collection(firestore, "users"), {
-                      email: values.email,
-                      username: values.username,
-                      fullname: values.username,
-                      avatar: "default",
-                      number_of_posts: 0,
-                      number_of_followers: 0,
-                      number_of_following: 0,
-                    });
-                  }
-                );
+                signUp(dispatch, values);
                 setSubmitting(false);
               }, 400);
             }}

@@ -60,7 +60,7 @@ function App() {
                 <Route path="/home" element={<Home />} />
                 <Route path="/inbox" element={<Inbox />} />
                 <Route path="/explore" element={<Explore />} />
-                <Route path="/accounts" element={<Account />} />
+                <Route path="/:username" element={<Account />} />
                 <Route path="/accounts/edit" element={<SettingEdit />} />
                 <Route
                   path="/accounts/changepass"

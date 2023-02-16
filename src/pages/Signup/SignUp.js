@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import * as Yup from "yup";
 // import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
 import FirebaseContext from "../../context/firebase";
@@ -6,14 +6,31 @@ import { collection, addDoc } from "firebase/firestore"; //getDocs
 
 import { Formik } from "formik";
 import { AuthContext } from "../../context/authContext/AuthContext";
-import { signUp } from "../../context/authContext/service";
+import { getAllUsers, signUp } from "../../context/authContext/service";
 
 function SignUp() {
   const SignupSchema = Yup.object().shape({
-    username: Yup.string().required("username required"),
+    username: Yup.string()
+      .required("username required")
+      .test(
+        "Unique username",
+        "this username already exits",
+        function (username) {
+          users.map((user) => {
+            user.username == username && this.resolve(false);
+          });
+          this.resolve(true);
+        }
+      ),
     email: Yup.string()
       .required("Email required")
-      .matches(/^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/, "enter an invalid email!"),
+      .matches(/^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/, "enter an invalid email!")
+      .test("Unique email", "Email already in use", function (email) {
+        users.map((user) => {
+          user.email == email && this.resolve(false);
+        });
+        this.resolve(true);
+      }),
     password: Yup.string().required("Password required").min(4, "Too short!!!"),
     confirmPassword: Yup.string()
       .oneOf([Yup.ref("password"), null], "Passwords must match")
@@ -21,8 +38,10 @@ function SignUp() {
   });
 
   const { firestore } = useContext(FirebaseContext);
-  const { dispatch } = useContext(AuthContext);
-
+  const { users, dispatch } = useContext(AuthContext);
+  useEffect(() => {
+    getAllUsers(dispatch);
+  }, []);
   return (
     <>
       <div className="pt-9">

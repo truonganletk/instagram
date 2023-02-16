@@ -91,7 +91,7 @@ export const getInfo = async (dispatch) => {
     await getDownloadURL(imagesRef).then((url) => {
       user = { ...user, url: url };
     });
-    console.log("service ", user);
+    // console.log("service ", user);
     dispatch(getInfoSuccess(user));
   } catch (error) {
     dispatch(getInfoFailure());
@@ -108,7 +108,7 @@ export const getAllUsers = async (dispatch) => {
     querySnapshot.forEach((doc) => {
       users.push({ ...doc.data(), id: doc.id });
     });
-    console.log("service ", users);
+    // console.log("service ", users);
     dispatch(getAllUsersSuccess(users));
   } catch (error) {
     dispatch(getAllUsersFailure());

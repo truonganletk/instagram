@@ -5,13 +5,15 @@ import { getDownloadURL, ref } from "firebase/storage";
 import { AuthContext } from "../../context/authContext/AuthContext";
 import { getAllUsers } from "../../context/authContext/service";
 import { Link } from "react-router-dom";
+import moment from 'moment';
 
 function Post({ ...props }) {
   const [img, setImg] = useState();
   const { storage } = useContext(FirebaseContext);
   const { users, dispatch } = useContext(AuthContext);
-  const userCreated = users.find((user) => user.id === props.userCreatedId);
-  const imagesRef = ref(storage, `images/${props.img}`);
+  const {post} = props;
+  const userCreated = users.find((user) => user.id === post.post_created_by);
+  const imagesRef = ref(storage, `images/${post.img}`);
 
   getDownloadURL(imagesRef).then((url) => {
     setImg(url);
@@ -25,6 +27,7 @@ function Post({ ...props }) {
     <div className="bg-white mb-7 border rounded-lg">
       {/* header section */}
       <div className="flex px-5 py-3 items-center justify-between">
+
         <Link className="flex items-center " to={`/${userCreated?.username}`}>
           <img
             className="rounded-full h-10 w-10 object-contain border mr-3"
@@ -32,6 +35,11 @@ function Post({ ...props }) {
             alt=""
           />
           <p className="flex-1">{userCreated?.username}</p>
+          
+          <p className="text-xs ml-2">
+               { moment(post.post_created_date.toDate()).fromNow()}
+          </p>
+
         </Link>
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -123,7 +131,7 @@ function Post({ ...props }) {
           <Link to={`/${userCreated?.username}`}>
             <span className="font-bold mr-2">{userCreated?.username}</span>
           </Link>
-          {props.caption}
+          {post.post_content}
         </p>
       </div>
 
@@ -156,10 +164,7 @@ function Post({ ...props }) {
 }
 
 Post.propTypes = {
-  userCreatedId: PropTypes.string,
-  userImg: PropTypes.string,
-  img: PropTypes.string,
-  caption: PropTypes.string,
+  post: PropTypes.object,
 };
 
 export default Post;

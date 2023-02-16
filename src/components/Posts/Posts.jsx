@@ -16,11 +16,12 @@ function Posts() {
       {lists?.map((post,index) => (
         <Post
           key={index}
+          post={post}
           // id={post.id}
-          userCreatedId={post.post_created_by}
-          userImg={post?.img}
-          img={post?.img}
-          caption={post?.post_content}
+          // userCreatedId={post.post_created_by}
+          // userImg={post?.img}
+          // img={post?.img}
+          // caption={post?.post_content}
         />
       ))}
     </div>

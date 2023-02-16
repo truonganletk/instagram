@@ -18,13 +18,13 @@ import useAuthListener from "./hooks/use-auth-listener";
 import Account from "./pages/Account/Account";
 import Modal from "./components/Modal/Modal";
 import { AuthContext } from "./context/authContext/AuthContext";
-import { getAuth } from "firebase/auth";
+// import { getAuth } from "firebase/auth";
 
 function App() {
   const { user } = useAuthListener();
   const { isReAuthenticated } = useContext(AuthContext);
-  console.log(isReAuthenticated);
-  console.log(getAuth());
+  // console.log(isReAuthenticated);
+  // console.log(getAuth());
   return (
     <>
       <Modal></Modal>

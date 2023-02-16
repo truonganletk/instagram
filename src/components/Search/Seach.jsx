@@ -34,10 +34,10 @@ export default function Search() {
     if (debounceSearchTerm) {
       querySearch(debounceSearchTerm);
     } else {
-      console.log("tuanrider");
+      // console.log("tuanrider");
     }
   }, [debounceSearchTerm]);
-  console.log(result, ">>>>>>>>", debounceSearchTerm);
+  // console.log(result, ">>>>>>>>", debounceSearchTerm);
   return (
     <>
       <div className="flex flex-col relative">

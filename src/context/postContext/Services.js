@@ -36,7 +36,7 @@ export const createPost = async (dispatch,caption,userId,Img) => {
         const storageRef = ref(storage, `/images/${Img.name}`);
         uploadBytesResumable(storageRef, Img);
         await addDoc(collection(firestore, "posts"), post);
-        console.log(post);
+        // console.log(post);
         getLists(dispatch);
     } catch (err) {
         console.log(err);

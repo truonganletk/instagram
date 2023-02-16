@@ -12,7 +12,7 @@ export class ExploreContent extends Component {
             }
             )
         }
-        console.log(template);
+        // console.log(template);
         return (
             <div className="grid grid-cols-3 gap-4 lg:mx-[250px] mx-10 mt-10">
                 {

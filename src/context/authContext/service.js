@@ -71,11 +71,12 @@ export const signUp = async (dispatch, values) => {
       number_of_followers: 0,
       number_of_following: 0,
     });
-    updateProfile(getAuth().currentUser, {
+    await updateProfile(getAuth().currentUser, {
       displayName: values.username,
       photoURL:
         "https://firebasestorage.googleapis.com/v0/b/instagram-f4e13.appspot.com/o/avatar%2Fdefault-avatar-profile.jpg?alt=media&token=a50eb747-c832-4173-a037-2be77e8bd913",
     });
+    await setDoc(doc(firestore, "userChats", getAuth().currentUser.uid), {});
     dispatch(signUpSuccess());
   } catch (error) {
     console.log(error);

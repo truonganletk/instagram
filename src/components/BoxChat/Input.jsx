@@ -15,7 +15,7 @@ const Input = () => {
 
   const handleSend = async () => {
     if (img) {
-      const storageRef = ref(storage, uuid());
+      const storageRef = ref(storage, `/image_message/${uuid()}`);
 
       const uploadTask = uploadBytesResumable(storageRef, img);
 

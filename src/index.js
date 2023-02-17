@@ -7,6 +7,7 @@ import { AuthContextProvider } from './context/authContext/AuthContext';
 import { firebase, firestore, storage } from './firebase-config';
 import { PostContextProvider } from './context/postContext/PostContext';
 import { ModalContextProvider } from './context/modalContext/ModalContext';
+import { ChatContextProvider } from './context/chatContext/ChatContext';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -14,7 +15,9 @@ root.render(
     <AuthContextProvider>
       <PostContextProvider>
         <ModalContextProvider>
-          <App />
+          <ChatContextProvider>
+            <App />
+          </ChatContextProvider>
         </ModalContextProvider>
       </PostContextProvider>
     </AuthContextProvider>

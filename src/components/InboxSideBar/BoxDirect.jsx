@@ -35,7 +35,7 @@ function BoxDirect() {
     };
 
     return (
-        <div className='overflow-y-hidden hover:overflow-y-scroll h-[92%]'>
+        <div className='overflow-y-scroll scrollbar-hide h-[92%]'>
             {/* <div className='text-center py-4 border-b border-b-gray-300 font-bold mb-1'>
                 <h3>Direct</h3>
             </div> */}
@@ -54,7 +54,9 @@ function BoxDirect() {
                 <div key={chat[0]} onClick={() => handleSelect(chat[1].userInfo)}>
                     <InboxCard
                         name={chat[1].userInfo.username}
-                        text={chat[1].lastMessage?.text} />
+                        text={chat[1].lastMessage?.text} 
+                        avatar={chat[1].userInfo.avatar}
+                    />
 
                 </div>
 

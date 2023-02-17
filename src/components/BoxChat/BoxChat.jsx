@@ -3,17 +3,20 @@ import Messages from './Messages'
 import React, { useContext } from 'react'
 import { ChatContext } from '../../context/chatContext/ChatContext';
 import ChatTitle from './ChatTitle';
-
+import { ModalContext } from '../../context/modalContext/ModalContext';
+import { showModal } from '../../context/modalContext/ModalActions';
+import InboxSearch from '../InboxSideBar/InboxSearch';
 function BoxChat() {
 
     const { data } = useContext(ChatContext);
     // console.log(data);
+    const { dispatch } = useContext(ModalContext);
 
     return (
         <>
-            {data.chatId!=null ?
+            {data.chatId != null ?
                 <div className='flex-row basis-full md:basis-8/12 relative'>
-                    <ChatTitle/>
+                    <ChatTitle />
                     <Messages />
                     <Input />
                 </div> :
@@ -25,7 +28,9 @@ function BoxChat() {
                     </div>
                     <h2>Tin nhắn của bạn</h2>
                     <p className='text-gray-500 text-sm mb-4'>Gửi ảnh và tin nhắn riêng tư cho bạn bè hoặc nhóm.</p>
-                    <button type="submit" className="text-white bg-blue-700 hover:bg-blue-800 font-medium rounded-sm text-sm  w-auto px-3 py-1 text-center">Gửi tin nhắn</button>
+                    <button onClick={() => {
+                        dispatch(showModal(<InboxSearch />, "Search User"));
+                    }} type="submit" className="text-white bg-blue-700 hover:bg-blue-800 font-medium rounded-sm text-sm  w-auto px-3 py-1 text-center">Gửi tin nhắn</button>
 
                 </div>
             }

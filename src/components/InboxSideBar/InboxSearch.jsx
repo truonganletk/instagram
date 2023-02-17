@@ -12,12 +12,18 @@ import {
 import { AuthContext } from "../../context/authContext/AuthContext";
 import { firestore } from "../../firebase-config";
 import useDebounce from "../../hooks/useDebounce";
+import { ModalContext } from "../../context/modalContext/ModalContext";
+import { hideModal } from "../../context/modalContext/ModalActions";
+import { changeUser } from "../../context/chatContext/ChatActions";
+import { ChatContext } from "../../context/chatContext/ChatContext";
 
 const Search = () => {
     // const [user, setUser] = useState(null);
     // const [err, setErr] = useState(false);
     const [result, setResult] = useState([]);
     const [searchTerm, setSearchTerm] = useState("");
+    const { dispatch } = useContext(ModalContext);
+    const { dispatch: chatDispatch } = useContext(ChatContext);
 
     const { user: currentUser } = useContext(AuthContext);
 
@@ -27,8 +33,8 @@ const Search = () => {
             const q = query(collection(firestore, "users"));
             const querySnapshot = await getDocs(q);
             querySnapshot.forEach((doc) => {
-                if (doc.data().username.includes(search)) {
-                    users.push({...doc.data(),id:doc.id});
+                if (doc.data().username.includes(search) && doc.id != currentUser.id) {
+                    users.push({ ...doc.data(), id: doc.id });
                 }
             });
             setResult(users);
@@ -59,8 +65,8 @@ const Search = () => {
             currentUser.id > user.id
                 ? currentUser.id + user.id
                 : user.id + currentUser.id;
-        console.log(combinedId);
-        
+        // console.log(combinedId);
+
         try {
             const res = await getDoc(doc(firestore, "chats", combinedId));
 
@@ -93,35 +99,46 @@ const Search = () => {
 
         setResult([]);
         setSearchTerm("");
+        await chatDispatch(changeUser(user));
+        dispatch(hideModal())
+
+
     };
 
     return (
-        <div className="">
-            <div className="searchForm">
+        <div className="p-3 h-full">
+            <div className="">
                 <input
+                    className="text-gray-700 border border-gray-3 w-full rounded-md py-2 px-5"
                     type="text"
                     placeholder="Find a user"
                     onChange={handleChange}
                     value={searchTerm}
                 />
             </div>
-            {/* {err && <span>User not found!</span>} */}
-            {result.length > 0 &&
-                result.map((user) => {
-                    {
-                        return <div
-                        key={user.id}  
-                        className="userChat" 
-                        onClick={()=>{
-                            handleSelect(user);
-                        }}>
-                            <img src={user.avatar} alt="" />
-                            <div className="userChatInfo">
-                                <span>{user.username}</span>
+            <div className="max-h-[79%] overflow-y-scroll scrollbar-hide">
+                {result.length > 0 &&
+                    result.map((user) => {
+                        {
+                            return <div
+                                key={user.id}
+                                className="flex items-center my-3 gap-x-4 p-3 border cursor-pointer hover:bg-gray-100"
+                                onClick={() => {
+                                    handleSelect(user);
+                                }}>
+                                <img className="h-10 w-10 rounded-full" src={user.avatar} alt="" />
+                                <div>
+                                    <p className="text-sm font-medium">{user.username}</p>
+                                    <p className="text-xs text-ig-secondary-text font-normal">
+                                        {user.fullname}
+                                    </p>
+                                </div>
                             </div>
-                        </div>
-                    }
-                })}
+                        }
+                    })}
+            </div>
+            {result.length == 0 && searchTerm.length >0 && <span>User not found!</span>}
+
         </div>
     );
 };

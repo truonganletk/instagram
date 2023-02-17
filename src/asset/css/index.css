@@ -3,39 +3,57 @@
 @tailwind utilities;
 
 @layer base {
-    body {
-        @apply font-ins;
-    }
+  body {
+    @apply font-ins;
+  }
 }
 
 .custom-file-input {
-    color: transparent;
+  color: transparent;
 
-  }
-  .custom-file-input::-webkit-file-upload-button {
-    visibility: hidden;
-  }
-  .custom-file-input::before {
-    content: 'Select from computer';
-    color: white;
-    display: inline-block;
-    background: rgb(25, 126, 227);
-    border: 1px solid #999;
-    border-radius: 3px;
-    padding: 5px 8px;
-    cursor: pointer;
-    font-weight: 700;
-    margin: auto;
-    width: 100%;
-    text-align: center;
-    font-size: 10pt;
-  }
-  .custom-file-input:hover::before {
-    border-color: black;
-  }
-  .custom-file-input:active {
-    outline: 0;
-  }
-  .custom-file-input:active::before {
-    background: -webkit-linear-gradient(top, #e3e3e3, #f9f9f9); 
-  }
+}
+
+.custom-file-input::-webkit-file-upload-button {
+  visibility: hidden;
+}
+
+.custom-file-input::before {
+  content: 'Select from computer';
+  color: white;
+  display: inline-block;
+  background: rgb(25, 126, 227);
+  border: 1px solid #999;
+  border-radius: 3px;
+  padding: 5px 8px;
+  cursor: pointer;
+  font-weight: 700;
+  margin: auto;
+  width: 100%;
+  text-align: center;
+  font-size: 10pt;
+}
+
+.custom-file-input:hover::before {
+  border-color: black;
+}
+
+.custom-file-input:active {
+  outline: 0;
+}
+
+.custom-file-input:active::before {
+  background: -webkit-linear-gradient(top, #e3e3e3, #f9f9f9);
+}
+
+/* For Webkit-based browsers (Chrome, Safari and Opera) */
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+
+/* For IE, Edge and Firefox */
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  /* IE and Edge */
+  scrollbar-width: none;
+  /* Firefox */
+}

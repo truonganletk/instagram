@@ -5,15 +5,15 @@ import Post from "../Post/Post";
 
 function Posts() {
   const { lists, dispatch } = useContext(PostContext);
+
   useEffect(() => {
     getLists(dispatch);
-  }, [])
+  }, []);
   // console.log(lists);
-
 
   return (
     <div>
-      {lists?.map((post,index) => (
+      {lists?.map((post, index) => (
         <Post
           key={index}
           post={post}

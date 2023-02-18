@@ -8,6 +8,7 @@ import Suggestion from "../../components/Suggestion/Suggestion";
 function Home() {
   return (
     <>
+      {/* <div>{msg}</div> */}
       <Header />
       <main className="max-w-[820px] flex justify-center mt-5 mx-auto">
         <section className="lg:w-3/4 max-w-[470px]">

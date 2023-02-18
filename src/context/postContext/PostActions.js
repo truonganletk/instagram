@@ -1,14 +1,24 @@
-import { GET_LISTS_FAILURE, GET_LISTS_START, GET_LISTS_SUCCESS } from "./PostType";
+import {
+  GET_LISTS_FAILURE,
+  GET_LISTS_START,
+  GET_LISTS_SUCCESS,
+  GET_POST_DETAIL,
+} from "./PostType";
 
 export const getListsStart = () => ({
-    type: GET_LISTS_START,
+  type: GET_LISTS_START,
 });
 
 export const getListsSuccess = (lists) => ({
-    type: GET_LISTS_SUCCESS,
-    payload: lists,
+  type: GET_LISTS_SUCCESS,
+  payload: lists,
 });
 
 export const getListsFailure = () => ({
-    type: GET_LISTS_FAILURE,
+  type: GET_LISTS_FAILURE,
+});
+
+export const getPostDetail = (post) => ({
+  type: GET_POST_DETAIL,
+  payload: post,
 });

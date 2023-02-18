@@ -3,30 +3,25 @@ import { AuthContext } from "../../context/authContext/AuthContext";
 import { hideModal } from "../../context/modalContext/ModalActions";
 import { ModalContext } from "../../context/modalContext/ModalContext";
 import { PostContext } from "../../context/postContext/PostContext";
-import { createPost } from "../../context/postContext/Services";
 
-function CreatePost() {
+function EditPost() {
   const [caption, setCaption] = useState("");
-  const { data, dispatch: modalDispatch } = useContext(ModalContext);
   const { user } = useContext(AuthContext);
-  const { dispatch } = useContext(PostContext);
-  // console.log(data, user);
+
+  const { postDetail } = useContext(PostContext);
+  console.log(postDetail);
   return (
     <div className="flex items-start h-[600px] w-[860px]">
       <div className="w-3/5 h-full">
         <div className="w-full h-full">
-          <img
-            className="w-full h-full"
-            src={URL.createObjectURL(data?.file)}
-            alt=""
-          />
+          <img className="w-full h-full" alt="" />
         </div>
       </div>
       <div className="w-2/5 p-3">
         <div className="flex items-center justify-between mb-[10px]">
           <img
             className="w-10 h-10 rounded-full p-[2px] mr-3"
-            src="https://picsum.photos/200"
+            src={postDetail.img}
             alt="profile-avatar"
           />
           <div className="mr-auto">
@@ -47,15 +42,7 @@ function CreatePost() {
         </div>
         <div className="flex justify-between px-2 items-center">
           <p className="text-white text-xs">{caption.length}/2200</p>
-          <p
-            onClick={() => {
-              createPost(dispatch, caption, user.id, data?.file);
-              modalDispatch(hideModal());
-            }}
-            className="text-blue-500 font-bold cursor-pointer"
-          >
-            Share
-          </p>
+          <p className="text-blue-500 font-bold cursor-pointer">Share</p>
         </div>
         <div className="relative flex w-full flex-wrap items-stretch mt-3">
           <input
@@ -90,4 +77,4 @@ function CreatePost() {
   );
 }
 
-export default CreatePost;
+export default EditPost;

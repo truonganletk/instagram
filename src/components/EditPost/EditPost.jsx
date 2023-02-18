@@ -1,7 +1,7 @@
 import React, { useContext, useState } from "react";
 import { AuthContext } from "../../context/authContext/AuthContext";
-import { hideModal } from "../../context/modalContext/ModalActions";
-import { ModalContext } from "../../context/modalContext/ModalContext";
+// import { hideModal } from "../../context/modalContext/ModalActions";
+// import { ModalContext } from "../../context/modalContext/ModalContext";
 import { PostContext } from "../../context/postContext/PostContext";
 
 function EditPost() {
@@ -9,19 +9,19 @@ function EditPost() {
   const { user } = useContext(AuthContext);
 
   const { postDetail } = useContext(PostContext);
-  console.log(postDetail);
+  // console.log(postDetail);
   return (
     <div className="flex items-start h-[600px] w-[860px]">
       <div className="w-3/5 h-full">
         <div className="w-full h-full">
-          <img className="w-full h-full" alt="" />
+          <img className="w-full h-full" src={postDetail.img} alt="" />
         </div>
       </div>
       <div className="w-2/5 p-3">
         <div className="flex items-center justify-between mb-[10px]">
           <img
             className="w-10 h-10 rounded-full p-[2px] mr-3"
-            src={postDetail.img}
+            src={user.avatar}
             alt="profile-avatar"
           />
           <div className="mr-auto">

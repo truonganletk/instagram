@@ -3,6 +3,7 @@ import { addDoc, collection, getDocs } from "firebase/firestore";
 import { firestore } from "../../firebase-config";
 import { storage } from "../../firebase-config";
 import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
+import { v4 as uuid } from "uuid";
 
 export const getLists = async (dispatch) => {
   let list = [];
@@ -22,14 +23,10 @@ export const getLists = async (dispatch) => {
 
 export const createPost = async (dispatch, caption, userId, Img) => {
   try {
-    const storageRef = ref(storage, `/images/${Img.name}`);
-    const upload = uploadBytesResumable(storageRef, Img);
-    await upload.on(
-      (error) => {
-        confirm(error.message);
-      },
-      () => {
-        getDownloadURL(upload.snapshot.ref).then(async (url) => {
+    const storageRef = ref(storage, `/images/${uuid()}`);
+    await uploadBytesResumable(storageRef, Img).then(
+      async () => {
+        await getDownloadURL(storageRef).then(async (url) => {
           const post = {
             post_content: caption,
             post_number_of_reactions: 0,

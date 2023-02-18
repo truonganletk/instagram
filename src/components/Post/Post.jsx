@@ -1,7 +1,7 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect,  } from "react";
 import PropTypes from "prop-types";
-import FirebaseContext from "../../context/firebase";
-import { getDownloadURL, ref } from "firebase/storage";
+// import FirebaseContext from "../../context/firebase";
+// import { getDownloadURL, ref } from "firebase/storage";
 import { AuthContext } from "../../context/authContext/AuthContext";
 import { getAllUsers } from "../../context/authContext/service";
 import { Link } from "react-router-dom";

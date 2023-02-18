@@ -6,10 +6,14 @@ import { Formik } from "formik";
 import { getInfo, updateProfile } from "../../context/authContext/service";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { showModal } from "../../context/modalContext/ModalActions";
+import ChangeProfilePhoto from "../MoreOptions/ChangeProfilePhoto";
+import { ModalContext } from "../../context/modalContext/ModalContext";
 
 function EditProfile() {
   const { user, dispatch } = useContext(AuthContext);
   let navigate = useNavigate();
+  const { dispatch: modalDispatch } = useContext(ModalContext);
 
   useEffect(() => {
     getInfo(dispatch);
@@ -47,7 +51,9 @@ function EditProfile() {
             </div>
             <div className="focus:ring-blue-500 focus:border-blue-500 block w-full basis-10/12">
               <h2>{user?.fullname}</h2>
-              <h2 className="text-sky-500">Change profile photo</h2>
+              <h2 onClick={()=>{
+                modalDispatch(showModal(<ChangeProfilePhoto />, "Change profile photo"));
+              }} className="text-sky-500 cursor-pointer">Change profile photo</h2>
             </div>
           </div>
           <div className="mb-5 flex w-full items-center">

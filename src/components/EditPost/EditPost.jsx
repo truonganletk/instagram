@@ -1,15 +1,26 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import { AuthContext } from "../../context/authContext/AuthContext";
+import { hideModal } from "../../context/modalContext/ModalActions";
+import { ModalContext } from "../../context/modalContext/ModalContext";
 // import { hideModal } from "../../context/modalContext/ModalActions";
 // import { ModalContext } from "../../context/modalContext/ModalContext";
 import { PostContext } from "../../context/postContext/PostContext";
+import { updatePost } from "../../context/postContext/Services";
 
 function EditPost() {
-  const [caption, setCaption] = useState("");
   const { user } = useContext(AuthContext);
+  const { dispatch: modalDispatch } = useContext(ModalContext);
+  const { dispatch, postDetail } = useContext(PostContext);
+  const [caption, setCaption] = useState(postDetail.post_content);
+  console.log(postDetail);
+  const textarea = useRef(null);
 
-  const { postDetail } = useContext(PostContext);
-  // console.log(postDetail);
+  useEffect(() => {
+    if (textarea.current) {
+      textarea.current.focus();
+    }
+  }, []);
+
   return (
     <div className="flex items-start h-[600px] w-[860px]">
       <div className="w-3/5 h-full">
@@ -30,6 +41,7 @@ function EditPost() {
         </div>
         <div className="px-2">
           <textarea
+            ref={textarea}
             value={caption}
             onChange={(e) => {
               setCaption(e.target.value);
@@ -42,7 +54,15 @@ function EditPost() {
         </div>
         <div className="flex justify-between px-2 items-center">
           <p className="text-white text-xs">{caption.length}/2200</p>
-          <p className="text-blue-500 font-bold cursor-pointer">Share</p>
+          <p
+            onClick={() => {
+              updatePost(dispatch, postDetail.id, caption);
+              modalDispatch(hideModal());
+            }}
+            className="text-blue-500 font-bold cursor-pointer"
+          >
+            Update
+          </p>
         </div>
         <div className="relative flex w-full flex-wrap items-stretch mt-3">
           <input

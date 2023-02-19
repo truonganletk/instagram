@@ -2,14 +2,17 @@ import React, { useContext, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import Header from "../../components/Header/Header";
 import ChangeProfilePhoto from "../../components/MoreOptions/ChangeProfilePhoto";
+import SettingOptions from "../../components/MoreOptions/SettingOptions";
 import Postpreview from "../../components/Post/Post-preview";
 import { AuthContext } from "../../context/authContext/AuthContext";
 import { getAllUsers } from "../../context/authContext/service";
 import { showModal } from "../../context/modalContext/ModalActions";
 import { ModalContext } from "../../context/modalContext/ModalContext";
+import { useNavigate } from "react-router-dom";
 
 function Account() {
   const { user: currentUser, users, dispatch } = useContext(AuthContext);
+  const navigate = useNavigate();
   const { username } = useParams();
   const [check, setCheck] = useState('');
   const [user, setUser] = useState({});
@@ -20,7 +23,7 @@ function Account() {
       setCheck(username);
     });
   }
-  console.log(user);
+  // console.log(user);
   const { dispatch: modalDispatch } = useContext(ModalContext);
 
   useEffect(() => {
@@ -65,7 +68,9 @@ function Account() {
                     </div>
                   </div>
 
-                  <div>
+                  <div onClick={() => {
+                    modalDispatch(showModal(<SettingOptions />, "Settings", navigate));
+                  }}>
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
                       fill="none"

@@ -6,6 +6,7 @@ const INITIAL_STATE = {
     show: false,
     modal: <>Hello world</>,
     title: "Title",
+    navigate: undefined,
     data: {}
 };
 
@@ -18,6 +19,7 @@ export const ModalContextProvider = (props) => {
         show: state.show,
         modal: state.modal,
         title: state.title,
+        navigate: state.navigate,
         data: state.data,
         dispatch,
     }}>

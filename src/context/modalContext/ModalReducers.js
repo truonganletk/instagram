@@ -7,7 +7,8 @@ const ModalReducer = (state, action) => {
                 ...state,
                 show: true,
                 modal: action.modal,
-                title: action.title
+                title: action.title,
+                navigate: action.navigate,                
             };
         case HIDE_MODAL:
             return {

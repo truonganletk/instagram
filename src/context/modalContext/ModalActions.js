@@ -1,9 +1,10 @@
 import { HIDE_MODAL, SHOW_MODAL, UPDATE_DATA } from "./ModalType";
 
-export const showModal = (modal, title) => ({
+export const showModal = (modal, title, navigate) => ({
   type: SHOW_MODAL,
   modal,
-  title
+  title,
+  navigate
 })
 
 export const hideModal = () => ({

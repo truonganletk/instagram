@@ -6,6 +6,7 @@ import {
   signInWithEmailAndPassword,
   updateEmail,
   updatePassword,
+  updateProfile as updateProfileFirebase,
   // updateEmail,
 } from "firebase/auth";
 import {
@@ -36,7 +37,6 @@ import {
   reAuth,
 } from "./AuthAction";
 import { v4 as uuid } from "uuid";
-
 
 export const signIn = async (dispatch, email, password) => {
   dispatch(signInStart());
@@ -75,7 +75,7 @@ export const signUp = async (dispatch, values) => {
       number_of_followers: 0,
       number_of_following: 0,
     });
-    await updateProfile(getAuth().currentUser, {
+    await updateProfileFirebase(getAuth().currentUser, {
       displayName: values.username,
       photoURL:
         "https://firebasestorage.googleapis.com/v0/b/instagram-f4e13.appspot.com/o/avatar%2Fdefault-avatar-profile.jpg?alt=media&token=a50eb747-c832-4173-a037-2be77e8bd913",
@@ -99,9 +99,12 @@ export const logOut = async (dispatch) => {
 };
 
 export const getInfo = async (dispatch) => {
-  try {   
+  try {
     let user = getAuth().currentUser;
-    const q = query(collection(firestore, "users"), where("email", "==", user.email));
+    const q = query(
+      collection(firestore, "users"),
+      where("email", "==", user.email)
+    );
     const querySnapshot = await getDocs(q);
     querySnapshot.forEach((doc) => {
       user = { ...user, ...doc.data(), id: doc.id };
@@ -195,30 +198,28 @@ export const reLogin = async (dispatch, email, password) => {
 export const updatePhotoProfile = async (dispatch, img) => {
   try {
     const storageRef = ref(storage, `/avatar/${uuid()}`);
-    await uploadBytesResumable(storageRef, img).then(
-      async () => {
-        await getDownloadURL(storageRef).then(async (url) => {
-          //await addDoc(collection(firestore, "posts"), post);
-          await updateDoc(doc(firestore, 'users', getAuth().currentUser.uid), {
-            avatar: url
-          });
-          await updateProfile(getAuth().currentUser, {
-            photoURL: url
-          });
+    await uploadBytesResumable(storageRef, img).then(async () => {
+      await getDownloadURL(storageRef).then(async (url) => {
+        //await addDoc(collection(firestore, "posts"), post);
+        await updateDoc(doc(firestore, "users", getAuth().currentUser.uid), {
+          avatar: url,
         });
-      }
-    );
+        await updateProfile(getAuth().currentUser, {
+          photoURL: url,
+        });
+      });
+    });
     getInfo(dispatch);
-  }
-  catch (error) {
+  } catch (error) {
     console.log(error);
   }
-}
+};
 
 export const removePhotoProfile = async (dispatch) => {
   try {
-    await updateDoc(doc(firestore, 'users', getAuth().currentUser.uid), {
-      avatar: "https://firebasestorage.googleapis.com/v0/b/instagram-f4e13.appspot.com/o/avatar%2Fdefault-avatar-profile.jpg?alt=media&token=a50eb747-c832-4173-a037-2be77e8bd913",
+    await updateDoc(doc(firestore, "users", getAuth().currentUser.uid), {
+      avatar:
+        "https://firebasestorage.googleapis.com/v0/b/instagram-f4e13.appspot.com/o/avatar%2Fdefault-avatar-profile.jpg?alt=media&token=a50eb747-c832-4173-a037-2be77e8bd913",
     });
     await updateProfile(getAuth().currentUser, {
       photoURL:
@@ -228,7 +229,7 @@ export const removePhotoProfile = async (dispatch) => {
   } catch (error) {
     console.log(error);
   }
-}
+};
 
 export const changePassword = async (dispatch, oldPassword, newPassword) => {
   dispatch(signInStart());

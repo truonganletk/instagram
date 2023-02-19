@@ -4,6 +4,7 @@ import {
   collection,
   deleteDoc,
   doc,
+  getDoc,
   getDocs,
   updateDoc,
 } from "firebase/firestore";
@@ -11,6 +12,7 @@ import { firestore } from "../../firebase-config";
 import { storage } from "../../firebase-config";
 import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
 import { v4 as uuid } from "uuid";
+import { getAuth } from "firebase/auth";
 
 export const getLists = async (dispatch) => {
   let list = [];
@@ -35,7 +37,7 @@ export const createPost = async (dispatch, caption, userId, Img) => {
       await getDownloadURL(storageRef).then(async (url) => {
         const post = {
           post_content: caption,
-          post_number_of_reactions: 0,
+          like: [],
           post_created_date: new Date(),
           post_created_by: userId,
           img: url,
@@ -66,6 +68,30 @@ export const deletePost = async (dispatch, id) => {
   try {
     await deleteDoc(doc(firestore, "posts", id));
     getLists(dispatch);
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const handleLikePost = async (dispatch, id) => {
+  const user = getAuth().currentUser;
+  const refUpdate = doc(firestore, "posts", id);
+  try {
+    const post = (await getDoc(refUpdate)).data();
+
+    const find = post.like.find((i) => i.id === user.uid);
+
+    if (find) {
+      post.like = post.like.filter((i) => i.id != user.uid);
+    } else {
+      post.like.push({
+        username: user.displayName,
+        id: user.uid,
+      });
+    }
+    await updateDoc(refUpdate, {
+      like: post.like,
+    });
   } catch (error) {
     console.log(error);
   }

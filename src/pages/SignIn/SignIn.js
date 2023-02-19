@@ -1,21 +1,34 @@
-import React, { useContext } from "react";
-// import { getAuth, signInWithEmailAndPassword } from 'firebase/auth';
-import { reLogin, signIn } from "../../context/authContext/service";
+import React, { useContext, useEffect } from "react";
+import {
+  getAllUsers,
+  reLogin,
+  signIn,
+} from "../../context/authContext/service";
 import { AuthContext } from "../../context/authContext/AuthContext";
 import * as Yup from "yup";
 import { Formik } from "formik";
 import { useNavigate } from "react-router-dom";
 
 function SignIn() {
-  const { dispatch, isReAuthenticated, user } = useContext(AuthContext);
+  const { dispatch, isReAuthenticated, user, users, error } =
+    useContext(AuthContext);
+
+  useEffect(() => {
+    getAllUsers(dispatch);
+  }, []);
+
   let navigate = useNavigate();
-  // console.log(isReAuthenticated);
+
   const SignInSchema = Yup.object().shape({
     email: Yup.string()
       .required("Email required")
-      .matches(/^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/, "enter an invalid email!"),
+      .matches(/^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/, "enter an invalid email!")
+      .test("validate email", "This email doesn't exist", (email) => {
+        return users.find((user) => user.email === email) ? true : false;
+      }),
     password: Yup.string().required("Password required"),
   });
+  let errorPassword = error;
 
   return (
     <>
@@ -35,7 +48,6 @@ function SignIn() {
             }}
             validationSchema={SignInSchema}
             onSubmit={(value) => {
-              // console.log(isReAuthenticated);
               isReAuthenticated
                 ? reLogin(dispatch, value.email, value.password, navigate)
                 : signIn(dispatch, value.email, value.password);
@@ -59,7 +71,6 @@ function SignIn() {
                       name="email"
                       onBlur={handleBlur}
                       value={values.email}
-                      // disabled={!isReAuthenticated}
                     />
                     {errors.email && touched.email && (
                       <p className="mt-3 text-red-600">{errors.email}</p>
@@ -74,6 +85,11 @@ function SignIn() {
                       type="password"
                       onBlur={handleBlur}
                     />
+                    {errors.password
+                      ? (errorPassword = null)
+                      : errorPassword && (
+                          <p className="mt-3 text-red-600">wrong password</p>
+                        )}
                     {errors.password && touched.password && (
                       <p className="mt-3 text-red-600">{errors.password}</p>
                     )}

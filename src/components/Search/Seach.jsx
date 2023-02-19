@@ -2,6 +2,7 @@ import { collection, getDocs, query } from "firebase/firestore";
 import React, { useEffect, useState } from "react";
 import { firestore } from "../../firebase-config";
 import useDebounce from "../../hooks/useDebounce";
+import { Link } from "react-router-dom";
 
 export default function Search() {
   const [searchTerm, setSearchTerm] = useState("");
@@ -68,15 +69,20 @@ export default function Search() {
           />
         </div>
         {result.length > 0 && debounceSearchTerm && (
-          <ul className="w-full bg-white rounded absolute top-[3rem] left-0 shadow-xl">
+          <ul className="w-full bg-white rounded absolute top-[3rem] left-0 shadow-xl z-50 ">
             {result.map((item, index) => (
-              <li
+              <Link
+                to={`/${item.username}`}
+                onClick={() => {
+                  setSearchTerm("");
+                  setResult([]);
+                }}
                 key={index}
                 className="flex items-center gap-x-4 p-3 border-b cursor-pointer hover:bg-gray-100"
               >
                 <img
                   className="w-8 h-8 rounded-full"
-                  src="https://nftavatarmaker.com/assets/slide/koala-2.png"
+                  src={item.avatar}
                   alt=""
                 />
                 <div>
@@ -85,7 +91,7 @@ export default function Search() {
                     {item.fullname}
                   </p>
                 </div>
-              </li>
+              </Link>
             ))}
           </ul>
         )}

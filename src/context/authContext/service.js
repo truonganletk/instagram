@@ -5,6 +5,7 @@ import {
   reauthenticateWithCredential,
   signInWithEmailAndPassword,
   updateEmail,
+  updatePassword,
   // updateEmail,
 } from "firebase/auth";
 import {
@@ -51,7 +52,7 @@ export const signIn = async (dispatch, email, password) => {
 
 export const signUp = async (dispatch, values) => {
   dispatch(signUpStart());
-  console.log(values);
+  // console.log(values);
   try {
     const authentication = getAuth();
     await createUserWithEmailAndPassword(
@@ -228,3 +229,23 @@ export const removePhotoProfile = async (dispatch) => {
     console.log(error);
   }
 }
+
+export const changePassword = async (dispatch, oldPassword, newPassword) => {
+  dispatch(signInStart());
+  try {
+    const auth = getAuth();
+    const credential = EmailAuthProvider.credential(
+      auth.currentUser.email,
+      oldPassword
+    );
+    await reauthenticateWithCredential(auth.currentUser, credential).then(
+      () => {
+        updatePassword(auth.currentUser, newPassword);
+      }
+    );
+    // dispatch(reAuthEnd());
+  } catch (error) {
+    dispatch(signInFailure());
+    // console.log(error);
+  }
+};

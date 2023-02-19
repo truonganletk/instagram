@@ -67,6 +67,11 @@ const Input = () => {
     setText("");
     setImg(null);
   };
+
+  const handleKeyDown = (e) => {
+    if (e.key === "Enter") handleSend();
+  }
+
   return (
     <div className="absolute bottom-2 left-0 right-0">
       <div className="px-3 relative">
@@ -76,6 +81,7 @@ const Input = () => {
           placeholder="Type something..."
           onChange={(e) => setText(e.target.value)}
           value={text}
+          onKeyDown={handleKeyDown}
         />
         <div className="absolute top-2 right-16">
           <input
@@ -96,7 +102,7 @@ const Input = () => {
           </svg>
 
         </div>
-        <button disabled={text.length == 0 && img == null } className={`absolute top-2 right-6 ${text.length > 0 || img != null ? 'text-blue-500' : ''}`} onClick={handleSend}>
+        <button disabled={text.length == 0 && img == null} className={`absolute top-2 right-6 ${text.length > 0 || img != null ? 'text-blue-500' : ''}`} onClick={handleSend}>
           <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
             <path strokeLinecap="round" strokeLinejoin="round" d="M6 12L3.269 3.126A59.768 59.768 0 0121.485 12 59.77 59.77 0 013.27 20.876L5.999 12zm0 0h7.5" />
           </svg>

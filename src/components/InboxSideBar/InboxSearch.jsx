@@ -106,7 +106,7 @@ const Search = () => {
     };
 
     return (
-        <div className="p-3 h-full">
+        <div className="p-3 h-[400px] w-[800px]">
             <div className="">
                 <input
                     className="text-gray-700 border border-gray-3 w-full rounded-md py-2 px-5"

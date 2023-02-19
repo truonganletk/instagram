@@ -30,18 +30,25 @@ function SignIn() {
           <Formik
             enableReinitialize={isReAuthenticated}
             initialValues={{
-              email: user?.email,
+              email: user.email || "",
               password: "",
             }}
             validationSchema={SignInSchema}
             onSubmit={(value) => {
               // console.log(isReAuthenticated);
-              isReAuthenticated?
-              reLogin(dispatch, value.email, value.password, navigate ):
-              signIn(dispatch, value.email, value.password);
+              isReAuthenticated
+                ? reLogin(dispatch, value.email, value.password, navigate)
+                : signIn(dispatch, value.email, value.password);
             }}
           >
-            {({ errors, touched, handleBlur, handleChange, handleSubmit,values }) => (
+            {({
+              errors,
+              touched,
+              handleBlur,
+              handleChange,
+              handleSubmit,
+              values,
+            }) => (
               <form onSubmit={handleSubmit} className="flex flex-col w-full">
                 <div className="mt-6 flex flex-col">
                   <div className="mx-10 mb-2">
@@ -64,6 +71,7 @@ function SignIn() {
                       onChange={handleChange}
                       placeholder="Password"
                       name="password"
+                      type="password"
                       onBlur={handleBlur}
                     />
                     {errors.password && touched.password && (

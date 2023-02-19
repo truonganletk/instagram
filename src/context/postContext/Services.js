@@ -1,5 +1,12 @@
 import { getListsFailure, getListsStart, getListsSuccess } from "./PostActions";
-import { addDoc, collection, getDocs } from "firebase/firestore";
+import {
+  addDoc,
+  collection,
+  deleteDoc,
+  doc,
+  getDocs,
+  updateDoc,
+} from "firebase/firestore";
 import { firestore } from "../../firebase-config";
 import { storage } from "../../firebase-config";
 import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
@@ -24,23 +31,42 @@ export const getLists = async (dispatch) => {
 export const createPost = async (dispatch, caption, userId, Img) => {
   try {
     const storageRef = ref(storage, `/images/${uuid()}`);
-    await uploadBytesResumable(storageRef, Img).then(
-      async () => {
-        await getDownloadURL(storageRef).then(async (url) => {
-          const post = {
-            post_content: caption,
-            post_number_of_reactions: 0,
-            post_created_date: new Date(),
-            post_created_by: userId,
-            img: url,
-          };
-          await addDoc(collection(firestore, "posts"), post);
-        });
-      }
-    );
+    await uploadBytesResumable(storageRef, Img).then(async () => {
+      await getDownloadURL(storageRef).then(async (url) => {
+        const post = {
+          post_content: caption,
+          post_number_of_reactions: 0,
+          post_created_date: new Date(),
+          post_created_by: userId,
+          img: url,
+        };
+        await addDoc(collection(firestore, "posts"), post);
+      });
+    });
     // console.log(post);
     getLists(dispatch);
   } catch (err) {
     console.log(err);
+  }
+};
+
+export const updatePost = async (dispatch, id, caption) => {
+  const refUpdate = doc(firestore, "posts", id);
+  try {
+    await updateDoc(refUpdate, {
+      post_content: caption,
+    });
+    getLists(dispatch);
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const deletePost = async (dispatch, id) => {
+  try {
+    await deleteDoc(doc(firestore, "posts", id));
+    getLists(dispatch);
+  } catch (error) {
+    console.log(error);
   }
 };

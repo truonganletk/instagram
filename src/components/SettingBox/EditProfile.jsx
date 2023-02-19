@@ -79,12 +79,12 @@ function EditProfile() {
           <div className="mb-6 flex w-full items-start">
             <div className="basis-2/12 mr-5"></div>
             <div className="basis-10/12">
-              <p className="text-xs text-gray-500">
+              <div className="text-xs text-gray-500">
                 Help people discover your account by using the name you&apos;re
                 known by: either your full name, nickname, or business name.
                 <div className="mb-3"></div>
                 You can only change your name twice within 14 days.
-              </p>
+              </div>
             </div>
           </div>
           <div className="mb-5 flex w-full items-center">

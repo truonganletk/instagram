@@ -96,3 +96,21 @@ export const handleLikePost = async (dispatch, id) => {
     console.log(error);
   }
 };
+
+export const handleCommentPost = async (dispatch, postId, text) => {
+  const user = getAuth().currentUser;
+  try {
+    const comment = {
+      text: text,
+      user: user.displayName,
+      avatar: user.photoURL,
+      user_id: user.uid,
+      createdAt: new Date(),
+      reply: [],
+    };
+
+    await addDoc(collection(firestore, "posts", postId, "comment"), comment);
+  } catch (error) {
+    console.log(error);
+  }
+};

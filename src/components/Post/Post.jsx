@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import PropTypes from "prop-types";
 // import FirebaseContext from "../../context/firebase";
 // import { getDownloadURL, ref } from "firebase/storage";
@@ -11,17 +11,32 @@ import { ModalContext } from "../../context/modalContext/ModalContext";
 import { showModal } from "../../context/modalContext/ModalActions";
 import { getPostDetail } from "../../context/postContext/PostActions";
 import { PostContext } from "../../context/postContext/PostContext";
-import { handleLikePost } from "../../context/postContext/Services";
+import {
+  handleCommentPost,
+  handleLikePost,
+} from "../../context/postContext/Services";
+import PostDetail from "./PostDetail";
 
 function Post({ ...props }) {
   const { users, dispatch, user } = useContext(AuthContext);
 
   const { post } = props;
+  console.log(post);
   const userCreated = users.find((user) => user.id === post.post_created_by);
 
   const { dispatch: modalDispatch } = useContext(ModalContext);
 
   const { dispatch: postDispatch } = useContext(PostContext);
+
+  // const [comment, setComment] = useState("");
+  const inputRef = useRef();
+  const handleComment = () => {
+    if (inputRef.current.value.length > 0) {
+      const text = inputRef.current.value;
+      handleCommentPost(dispatch, post.id, text);
+      inputRef.current.value = "";
+    }
+  };
 
   const [like, setLike] = useState(
     post.like.filter((i) => i.id === user.id).length > 0
@@ -50,7 +65,7 @@ function Post({ ...props }) {
           </Link>
           <div
             onClick={() => {
-              modalDispatch(showModal(<MoreOptions />, "Setting post"));
+              modalDispatch(showModal(<MoreOptions />, ""));
               postDispatch(getPostDetail(post));
             }}
             className="cursor-pointer"
@@ -153,16 +168,25 @@ function Post({ ...props }) {
 
           {/* caption section */}
 
-          <p className="my-3">
+          <p className="my-3 text-sm">
             <Link to={`/${userCreated?.username}`}>
               <span className="font-bold mr-2">{userCreated?.username}</span>
             </Link>
             {post.post_content}
           </p>
+
+          <p
+            className="cursor-pointer hover:opacity-30"
+            onClick={() => {
+              modalDispatch(showModal(<PostDetail post={post} />, ""));
+            }}
+          >
+            View all comments
+          </p>
         </div>
 
         {/* input section */}
-        <form className="flex items-center px-5 py-3 justify-between border-t-[0.875px]">
+        <div className="flex items-center px-5 py-3 justify-between border-t-[0.875px]">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             fill="none"
@@ -179,12 +203,18 @@ function Post({ ...props }) {
           </svg>
 
           <input
+            ref={inputRef}
             className="flex-1 border-none focus:outline-none"
             type="text"
             placeholder="Add a comment ..."
           />
-          <button className="text-ig-primary-button font-bold">Post</button>
-        </form>
+          <button
+            onClick={handleComment}
+            className="text-ig-primary-button font-bold"
+          >
+            Post
+          </button>
+        </div>
       </div>
     </>
   );

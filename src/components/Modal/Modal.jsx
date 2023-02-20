@@ -17,7 +17,11 @@ function Modal() {
             ref={ref}
             className="relative mx-auto my-auto bg-white rounded-lg shadow dark:bg-gray-700"
           >
-            <div className="relative flex items-start justify-center p-3 border-b rounded-t dark:border-gray-600">
+            <div
+              className={`${
+                title.length == 0 && "hidden"
+              } relative flex items-start justify-center p-3 border-b rounded-t dark:border-gray-600`}
+            >
               <h3 className="text-xl text-center font-semibold text-gray-900 dark:text-white">
                 {title}
               </h3>

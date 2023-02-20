@@ -5,7 +5,7 @@ import ChangeProfilePhoto from "../../components/MoreOptions/ChangeProfilePhoto"
 import SettingOptions from "../../components/MoreOptions/SettingOptions";
 import Postpreview from "../../components/Post/Post-preview";
 import { AuthContext } from "../../context/authContext/AuthContext";
-import { getAllUsers } from "../../context/authContext/service";
+import { followUser, getAllUsers } from "../../context/authContext/service";
 import { showModal } from "../../context/modalContext/ModalActions";
 import { ModalContext } from "../../context/modalContext/ModalContext";
 import { useNavigate } from "react-router-dom";
@@ -16,11 +16,16 @@ function Account() {
   const { username } = useParams();
   const [check, setCheck] = useState('');
   const [user, setUser] = useState({});
+  const [disable, setDisable] = useState(false);
+  const [followed, setFollowed] = useState(false);
   if (users.length > 0 && check != username) {
+    // console.log(check);
     const promise = new Promise((resolve) => resolve(users.find((user) => user.username === username)));
     promise.then(async (u) => {
       setUser(u);
       setCheck(username);
+      setFollowed(u.follower?.filter((i) => i.id === currentUser.id).length > 0);
+      // console.log(u.follower);
     });
   }
   // console.log(user);
@@ -60,8 +65,16 @@ function Account() {
                           <button className="bg-transparent border-[1px] rounded px-[9px] py-[5px] cursor-pointer text-sm font-semibold">
                             Message
                           </button>
-                          <button className="bg-transparent border-[1px] rounded px-5 py-[5px] cursor-pointer text-sm font-semibold">
-                            Follow
+                          <button
+                          disabled = {disable}
+                          onClick={async() => {
+                            await setDisable(true);
+                            await followUser(dispatch, user.id, user.username)
+                            await setFollowed(!followed);
+                            await setCheck('');
+                            await setDisable(false);
+                          }} className="bg-ig-primary-button text-white border-[1px] rounded px-5 py-[5px] cursor-pointer text-sm font-semibold">
+                            {followed ? 'Unfollow' : 'Follow'}
                           </button>
                         </>
                       }
@@ -92,11 +105,11 @@ function Account() {
                     <span className="font-bold">{user?.number_of_posts} </span>posts
                   </div>
                   <div>
-                    <span className="font-bold">{user?.number_of_followers} </span>
+                    <span className="font-bold">{user?.follower?.length || 0} </span>
                     followers
                   </div>
                   <div>
-                    <span className="font-bold">{user?.number_of_following} </span>
+                    <span className="font-bold">{user?.follow?.length || 0} </span>
                     following
                   </div>
                 </div>

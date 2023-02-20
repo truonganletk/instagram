@@ -22,21 +22,18 @@ const AuthReducer = (state, action) => {
     case SIGN_IN_START:
       return {
         ...state,
-
         isFetching: true,
         error: false,
       };
     case SIGN_IN_SUCCESS:
       return {
         ...state,
-
         isFetching: false,
         error: false,
       };
     case SIGN_IN_FAILURE:
       return {
         ...state,
-
         isFetching: false,
         error: true,
       };
@@ -44,21 +41,18 @@ const AuthReducer = (state, action) => {
     case SIGN_UP_START:
       return {
         ...state,
-
         isFetching: true,
         error: false,
       };
     case SIGN_UP_SUCCESS:
       return {
         ...state,
-
         isFetching: false,
         error: false,
       };
     case SIGN_UP_FAILURE:
       return {
         ...state,
-
         isFetching: false,
         error: true,
       };
@@ -66,14 +60,12 @@ const AuthReducer = (state, action) => {
     case GET_ALL_USERS_START:
       return {
         ...state,
-
         isFetching: true,
         error: false,
       };
     case GET_ALL_USERS_SUCCESS:
       return {
         ...state,
-
         isFetching: false,
         error: false,
         users: action.payload,
@@ -81,7 +73,6 @@ const AuthReducer = (state, action) => {
     case GET_ALL_USERS_FAILURE:
       return {
         ...state,
-
         isFetching: false,
         error: true,
       };
@@ -89,7 +80,6 @@ const AuthReducer = (state, action) => {
     case GET_INFO_START:
       return {
         ...state,
-
         isFetching: true,
         error: false,
       };
@@ -104,7 +94,6 @@ const AuthReducer = (state, action) => {
     case GET_INFO_FAILURE:
       return {
         ...state,
-
         isFetching: false,
         error: true,
       };
@@ -112,14 +101,12 @@ const AuthReducer = (state, action) => {
     case LOG_OUT:
       return {
         ...state,
-
         user: {},
       };
 
     case UPDATE_INFO:
       return {
         ...state,
-
         user: { ...state.user, ...action.payload },
       };
     case RE_AUTH:

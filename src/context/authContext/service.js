@@ -12,6 +12,7 @@ import {
 import {
   collection,
   doc,
+  getDoc,
   getDocs,
   query,
   setDoc,
@@ -74,6 +75,7 @@ export const signUp = async (dispatch, values) => {
       number_of_posts: 0,
       number_of_followers: 0,
       number_of_following: 0,
+      follow: []
     });
     await updateProfileFirebase(getAuth().currentUser, {
       displayName: values.username,
@@ -248,5 +250,41 @@ export const changePassword = async (dispatch, oldPassword, newPassword) => {
   } catch (error) {
     dispatch(signInFailure());
     // console.log(error);
+  }
+};
+
+export const followUser = async (dispatch, id, username) => {
+  const user = getAuth().currentUser;
+  const ref = doc(firestore, "users", id);
+  const refCurrentUser = doc(firestore, "users", user.uid);
+  try {
+    let userFollower = (await getDoc(ref)).data().follower || [];
+    let userFollow = (await getDoc(refCurrentUser)).data().follow || [];
+    const find = userFollower.find((i) => i.id === user.uid);
+    if (find) {
+      userFollower = userFollower.filter((i) => i.id != user.uid);
+      userFollow = userFollow.filter((i) => i.id != id);
+    } else {
+      userFollower.push({
+        username: user.displayName,
+        id: user.uid,
+      });
+      userFollow.push({
+        username: username,
+        id: id,
+      });
+    }
+    await updateDoc(refCurrentUser, {
+      follow: userFollow,
+    });
+    await updateDoc(ref, {
+      follower: userFollower,
+    });
+    // console.log(userFollower);
+    // console.log(userFollow);
+    await getInfo(dispatch);
+    await getAllUsers(dispatch);
+  } catch (error) {
+    console.log(error);
   }
 };

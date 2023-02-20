@@ -6,7 +6,7 @@ import SettingOptions from "../../components/MoreOptions/SettingOptions";
 import Postpreview from "../../components/Post/Post-preview";
 import { AuthContext } from "../../context/authContext/AuthContext";
 import { followUser, getAllUsers } from "../../context/authContext/service";
-import { showModal } from "../../context/modalContext/ModalActions";
+import { showModal, updateData } from "../../context/modalContext/ModalActions";
 import { ModalContext } from "../../context/modalContext/ModalContext";
 import { useNavigate } from "react-router-dom";
 
@@ -82,6 +82,7 @@ function Account() {
                   </div>
 
                   <div onClick={() => {
+                    modalDispatch(updateData({username:user.username}));
                     modalDispatch(showModal(<SettingOptions />, "Settings", navigate));
                   }}>
                     <svg

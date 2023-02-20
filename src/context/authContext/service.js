@@ -73,8 +73,7 @@ export const signUp = async (dispatch, values) => {
       avatar:
         "https://firebasestorage.googleapis.com/v0/b/instagram-f4e13.appspot.com/o/avatar%2Fdefault-avatar-profile.jpg?alt=media&token=a50eb747-c832-4173-a037-2be77e8bd913",
       number_of_posts: 0,
-      number_of_followers: 0,
-      number_of_following: 0,
+      follower: [],
       follow: []
     });
     await updateProfileFirebase(getAuth().currentUser, {

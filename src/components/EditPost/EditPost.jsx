@@ -12,7 +12,8 @@ function EditPost() {
   const { dispatch: modalDispatch } = useContext(ModalContext);
   const { dispatch, postDetail } = useContext(PostContext);
   const [caption, setCaption] = useState(postDetail.post_content);
-  console.log(postDetail);
+  const characterLimit = 100;
+
   const textarea = useRef(null);
 
   useEffect(() => {
@@ -44,7 +45,8 @@ function EditPost() {
             ref={textarea}
             value={caption}
             onChange={(e) => {
-              setCaption(e.target.value);
+              characterLimit - e.target.value.length >= 0 &&
+                setCaption(e.target.value);
             }}
             rows="4"
             className="bg-transparent resize-none outline-none text-ig-primary-background w-full"
@@ -53,7 +55,9 @@ function EditPost() {
           />
         </div>
         <div className="flex justify-between px-2 items-center">
-          <p className="text-white text-xs">{caption.length}/2200</p>
+          <p className="text-white text-xs">
+            {caption.length}/{characterLimit}
+          </p>
           <p
             onClick={() => {
               updatePost(dispatch, postDetail.id, caption);

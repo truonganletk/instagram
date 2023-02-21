@@ -7,10 +7,11 @@ import { createPost } from "../../context/postContext/Services";
 
 function CreatePost() {
   const [caption, setCaption] = useState("");
+  const characterLimit = 100;
   const { data, dispatch: modalDispatch } = useContext(ModalContext);
   const { user } = useContext(AuthContext);
   const { dispatch } = useContext(PostContext);
-
+  console.log(caption);
   return (
     <div className="flex items-start h-[600px] w-[860px]">
       <div className="w-3/5 h-full">
@@ -37,7 +38,8 @@ function CreatePost() {
           <textarea
             value={caption}
             onChange={(e) => {
-              setCaption(e.target.value);
+              characterLimit - e.target.value.length >= 0 &&
+                setCaption(e.target.value);
             }}
             rows="4"
             className="bg-transparent resize-none outline-none text-ig-primary-background w-full"
@@ -46,7 +48,9 @@ function CreatePost() {
           />
         </div>
         <div className="flex justify-between px-2 items-center">
-          <p className="text-white text-xs">{caption.length}/2200</p>
+          <p className="text-white text-xs">
+            {caption.length}/{characterLimit}
+          </p>
           <p
             onClick={() => {
               createPost(dispatch, caption, user.id, data?.file);

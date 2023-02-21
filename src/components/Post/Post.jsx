@@ -16,19 +16,19 @@ import {
   handleLikePost,
 } from "../../context/postContext/Services";
 import PostDetail from "./PostDetail";
+import { doc, onSnapshot } from "firebase/firestore";
+import { firestore } from "../../firebase-config";
 
 function Post({ ...props }) {
   const { users, dispatch, user } = useContext(AuthContext);
 
   const { post } = props;
-  console.log(post);
   const userCreated = users.find((user) => user.id === post.post_created_by);
 
   const { dispatch: modalDispatch } = useContext(ModalContext);
 
   const { dispatch: postDispatch } = useContext(PostContext);
 
-  // const [comment, setComment] = useState("");
   const inputRef = useRef();
   const handleComment = () => {
     if (inputRef.current.value.length > 0) {
@@ -38,9 +38,20 @@ function Post({ ...props }) {
     }
   };
 
-  const [like, setLike] = useState(
-    post.like.filter((i) => i.id === user.id).length > 0
+  const [like, setLike] = useState(false);
+
+  const [numberOfLike, setNumberOfLike] = useState([]);
+  useEffect(
+    () =>
+      onSnapshot(doc(firestore, "posts", post.id), (doc) => {
+        setNumberOfLike(doc.data().like?.length);
+        post.like = doc.data().like;
+        setLike(doc.data().like.filter((i) => i.id === user.id).length > 0);
+      }),
+
+    [firestore]
   );
+  // console.log(post.id, ">>>>>>>>>>>>>>>>>>", numberOfLike);
 
   useEffect(() => {
     getAllUsers(dispatch);
@@ -120,20 +131,26 @@ function Post({ ...props }) {
                 </svg>
               </div>
 
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-                strokeWidth={2}
-                stroke="currentColor"
-                className="w-6 h-6 hover:opacity-30 cursor-pointer"
+              <div
+                onClick={() => {
+                  inputRef.current && inputRef.current.focus();
+                }}
               >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  d="M12 20.25c4.97 0 9-3.694 9-8.25s-4.03-8.25-9-8.25S3 7.444 3 12c0 2.104.859 4.023 2.273 5.48.432.447.74 1.04.586 1.641a4.483 4.483 0 01-.923 1.785A5.969 5.969 0 006 21c1.282 0 2.47-.402 3.445-1.087.81.22 1.668.337 2.555.337z"
-                />
-              </svg>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  strokeWidth={2}
+                  stroke="currentColor"
+                  className="w-6 h-6 hover:opacity-30 cursor-pointer"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="M12 20.25c4.97 0 9-3.694 9-8.25s-4.03-8.25-9-8.25S3 7.444 3 12c0 2.104.859 4.023 2.273 5.48.432.447.74 1.04.586 1.641a4.483 4.483 0 01-.923 1.785A5.969 5.969 0 006 21c1.282 0 2.47-.402 3.445-1.087.81.22 1.668.337 2.555.337z"
+                  />
+                </svg>
+              </div>
 
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -165,10 +182,16 @@ function Post({ ...props }) {
               />
             </svg>
           </div>
+          {/* like */}
+          {numberOfLike > 0 && (
+            <p className="my-3 text-sm font-bold">
+              {numberOfLike} like{numberOfLike > 1 && "s"}
+            </p>
+          )}
 
           {/* caption section */}
 
-          <p className="my-3 text-sm">
+          <p className="my-3 text-sm whitespace-pre-wrap">
             <Link to={`/${userCreated?.username}`}>
               <span className="font-bold mr-2">{userCreated?.username}</span>
             </Link>
@@ -179,6 +202,7 @@ function Post({ ...props }) {
             className="cursor-pointer hover:opacity-30"
             onClick={() => {
               modalDispatch(showModal(<PostDetail post={post} />, ""));
+              document.body.classList.add("overflow-y-hidden");
             }}
           >
             View all comments

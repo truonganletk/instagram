@@ -8,7 +8,10 @@ import { useOnClickOutside } from "../../hooks/useOnClickOutside";
 function Modal() {
   const { show, title, modal, dispatch } = useContext(ModalContext);
   const ref = useRef();
-  useOnClickOutside(ref, () => dispatch(hideModal()));
+  useOnClickOutside(ref, () => {
+    dispatch(hideModal());
+    document.body.classList.remove("overflow-y-hidden");
+  });
   return show ? (
     <div>
       <div className="fixed top-0 left-0 right-0 z-50 mx-auto overflow-x-hidden overflow-y-auto md:inset-0 bg-black bg-opacity-40 h-modal md:h-full">

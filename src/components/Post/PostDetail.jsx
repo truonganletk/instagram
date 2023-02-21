@@ -1,9 +1,6 @@
 import React, { useContext, useEffect, useRef, useState } from "react";
 import PropTypes from "prop-types";
-// import FirebaseContext from "../../context/firebase";
-// import { getDownloadURL, ref } from "firebase/storage";
 import { AuthContext } from "../../context/authContext/AuthContext";
-// import moment from "moment";
 import MoreOptions from "../MoreOptions/MoreOptions";
 import { ModalContext } from "../../context/modalContext/ModalContext";
 import { showModal } from "../../context/modalContext/ModalActions";
@@ -14,7 +11,13 @@ import {
   handleLikePost,
 } from "../../context/postContext/Services";
 import UserComment from "../UserComment/UserComment";
-import { collection, onSnapshot, orderBy, query } from "firebase/firestore";
+import {
+  doc,
+  collection,
+  onSnapshot,
+  orderBy,
+  query,
+} from "firebase/firestore";
 import { firestore } from "../../firebase-config";
 
 function PostDetail({ ...props }) {
@@ -27,9 +30,7 @@ function PostDetail({ ...props }) {
   const inputRef = useRef();
   const [comments, setComments] = useState([]);
   const userCreated = users.find((user) => user.id === post.post_created_by);
-  const [like, setLike] = useState(
-    post.like.filter((i) => i.id === user.id).length > 0
-  );
+  const [like, setLike] = useState(false);
   const handleComment = () => {
     if (inputRef.current.value.length > 0) {
       const text = inputRef.current.value;
@@ -37,7 +38,17 @@ function PostDetail({ ...props }) {
       inputRef.current.value = "";
     }
   };
+  const [numberOfLike, setNumberOfLike] = useState([]);
+  useEffect(
+    () =>
+      onSnapshot(doc(firestore, "posts", post.id), (doc) => {
+        setNumberOfLike(doc.data().like?.length);
+        post.like = doc.data().like;
+        setLike(doc.data().like.filter((i) => i.id === user.id).length > 0);
+      }),
 
+    [firestore]
+  );
   useEffect(
     () =>
       onSnapshot(
@@ -145,21 +156,26 @@ function PostDetail({ ...props }) {
                   />
                 </svg>
               </div>
-
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-                strokeWidth={2}
-                stroke="currentColor"
-                className="w-6 h-6 hover:opacity-30 cursor-pointer"
+              <div
+                onClick={() => {
+                  inputRef.current && inputRef.current.focus();
+                }}
               >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  d="M12 20.25c4.97 0 9-3.694 9-8.25s-4.03-8.25-9-8.25S3 7.444 3 12c0 2.104.859 4.023 2.273 5.48.432.447.74 1.04.586 1.641a4.483 4.483 0 01-.923 1.785A5.969 5.969 0 006 21c1.282 0 2.47-.402 3.445-1.087.81.22 1.668.337 2.555.337z"
-                />
-              </svg>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  strokeWidth={2}
+                  stroke="currentColor"
+                  className="w-6 h-6 hover:opacity-30 cursor-pointer"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="M12 20.25c4.97 0 9-3.694 9-8.25s-4.03-8.25-9-8.25S3 7.444 3 12c0 2.104.859 4.023 2.273 5.48.432.447.74 1.04.586 1.641a4.483 4.483 0 01-.923 1.785A5.969 5.969 0 006 21c1.282 0 2.47-.402 3.445-1.087.81.22 1.668.337 2.555.337z"
+                  />
+                </svg>
+              </div>
 
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -191,7 +207,12 @@ function PostDetail({ ...props }) {
               />
             </svg>
           </div>
-
+          {/* like */}
+          {numberOfLike > 0 && (
+            <p className="px-4 py-3 text-sm font-bold">
+              {numberOfLike} like{numberOfLike > 1 && "s"}
+            </p>
+          )}
           {/* write comment */}
           <div className="flex items-center px-4 py-3 justify-between border-t-[0.875px] w-full">
             <svg

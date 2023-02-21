@@ -13,7 +13,7 @@ function UserComment(props) {
             src={avatar}
             alt=""
           />
-          <p className="flex-1">
+          <p className="flex-1 whitespace-pre-wrap">
             <span className="text-sm font-bold mr-2">{user}</span>
             {text}
           </p>

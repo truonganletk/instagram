@@ -1,12 +1,15 @@
 import React from "react";
+import PropTypes from "prop-types";
 
-function Postpreview() {
+function Postpreview({ ...props }) {
+  const { post } = props;
+
   return (
     <>
       <figure className="max-w-full relative h-[293px] overflow-hidden cursor-pointer">
         <img
           className="object-cover w-full h-full"
-          src="https://wallpaperaccess.com/full/639483.jpg"
+          src={post.img}
           alt=""
         />
         <figcaption className="absolute flex space-x-5 items-center justify-center w-full h-full top-0 box-border bg-ig-explore-post-hover opacity-0 hover:opacity-100">
@@ -26,7 +29,7 @@ function Postpreview() {
               />
             </svg>
 
-            <span className="text-white">123</span>
+            <span className="text-white">{post.like.length}</span>
           </div>
           <div className="flex space-x-2">
             <svg
@@ -51,5 +54,9 @@ function Postpreview() {
     </>
   );
 }
+
+Postpreview.propTypes = {
+  post: PropTypes.object,
+};
 
 export default Postpreview;

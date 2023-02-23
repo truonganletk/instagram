@@ -3,15 +3,19 @@ import { useParams } from "react-router-dom";
 import Header from "../../components/Header/Header";
 import ChangeProfilePhoto from "../../components/MoreOptions/ChangeProfilePhoto";
 import SettingOptions from "../../components/MoreOptions/SettingOptions";
-import Postpreview from "../../components/Post/Post-preview";
 import { AuthContext } from "../../context/authContext/AuthContext";
 import { followUser, getAllUsers } from "../../context/authContext/service";
 import { showModal, updateData } from "../../context/modalContext/ModalActions";
 import { ModalContext } from "../../context/modalContext/ModalContext";
 import { useNavigate } from "react-router-dom";
+import ProfilePost from "../../components/ProfilePost/ProfilePost";
+import { getLists } from "../../context/postContext/Services";
+import { PostContext } from "../../context/postContext/PostContext";
 
 function Account() {
   const { user: currentUser, users, dispatch } = useContext(AuthContext);
+  const { dispatch : postDispatch , lists} = useContext(PostContext);
+
   const navigate = useNavigate();
   const { username } = useParams();
   const [check, setCheck] = useState('');
@@ -32,7 +36,8 @@ function Account() {
   const { dispatch: modalDispatch } = useContext(ModalContext);
 
   useEffect(() => {
-    getAllUsers(dispatch);
+        getAllUsers(dispatch);
+        getLists(postDispatch);
   }, [currentUser]);
 
   return (
@@ -66,14 +71,14 @@ function Account() {
                             Message
                           </button>
                           <button
-                          disabled = {disable}
-                          onClick={async() => {
-                            await setDisable(true);
-                            await followUser(dispatch, user.id, user.username)
-                            await setFollowed(!followed);
-                            await setCheck('');
-                            await setDisable(false);
-                          }} className="bg-ig-primary-button text-white border-[1px] rounded px-5 py-[5px] cursor-pointer text-sm font-semibold">
+                            disabled={disable}
+                            onClick={async () => {
+                              await setDisable(true);
+                              await followUser(dispatch, user.id, user.username)
+                              await setFollowed(!followed);
+                              await setCheck('');
+                              await setDisable(false);
+                            }} className="bg-ig-primary-button text-white border-[1px] rounded px-5 py-[5px] cursor-pointer text-sm font-semibold">
                             {followed ? 'Unfollow' : 'Follow'}
                           </button>
                         </>
@@ -82,7 +87,7 @@ function Account() {
                   </div>
 
                   <div onClick={() => {
-                    modalDispatch(updateData({username:user.username}));
+                    modalDispatch(updateData({ username: user.username }));
                     modalDispatch(showModal(<SettingOptions />, "Settings", navigate));
                   }}>
                     <svg
@@ -103,7 +108,7 @@ function Account() {
                 </div>
                 <div className="flex space-x-16">
                   <div>
-                    <span className="font-bold">{user?.number_of_posts} </span>posts
+                    <span className="font-bold">{lists?.filter((post)=> post.post_created_by === user?.id).length} </span>posts
                   </div>
                   <div>
                     <span className="font-bold">{user?.follower?.length || 0} </span>
@@ -130,14 +135,7 @@ function Account() {
             </header>
 
             {/* posts */}
-            <section className="w-full grid grid-cols-3 gap-5">
-              <Postpreview />
-              <Postpreview />
-              <Postpreview />
-              <Postpreview />
-              <Postpreview />
-              <Postpreview />
-            </section>
+            <ProfilePost id={user.id}/>
           </main> :
           <>
             <div className="text-center m-10">

@@ -1,29 +1,39 @@
-import React, { Component } from 'react'
+import React from 'react'
+import PropTypes from 'prop-types';
+import { NavLink } from 'react-router-dom';
 
-export class NotificationItem extends Component {
-    render() {
-        return (
-            <a href='/home'>
+function NotificationItem(props) {
+
+    const { notif } = props;
+    // console.log(notif);
+    return (
+        <div className=''>
+            <NavLink to={notif.url}>
                 <div className="flex justify-center">
-                    <div className="flex flex-row bg-white shadow-lg items-center ">
+                    <div className="flex flex-row bg-white shadow-lg items-center w-full">
                         <div className='basis-2/12 flex justify-center'>
-                            <img className="w-16 h-16 rounded-full p-2 " src="https://picsum.photos/200" alt="" />
+                            <img className="w-16 h-16 rounded-full p-2 " src={notif.image || "https://picsum.photos/200"} alt="" />
                         </div>
                         <div className=" py-5 flex flex-col justify-center items-center basis-8/12">
                             <p className="text-gray-700 text-xs">
-                                This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.
-                                <span className="text-gray-600 text-xs">Last updated 3 mins ago</span>
+                                {notif.user && notif.user}{notif.content}
                             </p>
                         </div>
-                        <div className='basis-2/12 flex justify-center'>
-                            <img className="h-16 w-16 p-2" src="https://picsum.photos/200" alt="" />
-                        </div>
+                        {/* <div className='basis-2/12 flex justify-center'>
+                                <img className="h-16 w-16 p-2" src="https://picsum.photos/200" alt="" />
+                            </div> */}
                     </div>
                 </div>
 
-            </a>
-        )
-    }
+            </NavLink>
+
+            <hr className="h-0 border border-solid border-t-0 border-gray-700 opacity-25 " />
+        </div>
+    )
 }
+
+NotificationItem.propTypes = {
+    notif: PropTypes.any,
+};
 
 export default NotificationItem

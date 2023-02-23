@@ -38,6 +38,7 @@ import {
   reAuth,
 } from "./AuthAction";
 import { v4 as uuid } from "uuid";
+import { createNotification } from "../firebaseContext/Services";
 
 export const signIn = async (dispatch, email, password) => {
   dispatch(signInStart());
@@ -272,6 +273,7 @@ export const followUser = async (dispatch, id, username) => {
         username: username,
         id: id,
       });
+      await createNotification(id, user.photoURL, ` has started following you`,`/${user.displayName}`);
     }
     await updateDoc(refCurrentUser, {
       follow: userFollow,

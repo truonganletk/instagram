@@ -1,12 +1,11 @@
 import React, { useEffect, useState, useRef, useContext } from "react";
 import { Link, useLocation } from "react-router-dom";
-import NotificationItem from "./NotificationItem";
-// import { getAuth } from "firebase/auth";
 import { AuthContext } from "../../context/authContext/AuthContext";
 import { logOut } from "../../context/authContext/service";
 import { showModal } from "../../context/modalContext/ModalActions";
 import { ModalContext } from "../../context/modalContext/ModalContext";
 import Upload from "../Upload/Upload";
+import Notifications from "./Notifications";
 
 function Navbar() {
   const [onHome, setOnHome] = useState(false);
@@ -194,16 +193,10 @@ function Navbar() {
             )}
           </button>
           <ul
-            className="w-[500px] dropdown-menu absolute bg-white text-base z-50 float-left pt-2 list-none text-left rounded-lg shadow-lg mt-1 hidden mx-3 bg-clip-padding border-none"
+            className="w-[400px] dropdown-menu absolute bg-white text-base z-50 float-left pt-2 list-none text-left rounded-lg shadow-lg mt-1 hidden mx-3 bg-clip-padding border-none"
             aria-labelledby="dropdownMenuButton1"
           >
-            <li>
-              <NotificationItem />
-            </li>
-            <hr className="h-0 border border-solid border-t-0 border-gray-700 opacity-25 " />
-            <li>
-              <NotificationItem />
-            </li>
+              <Notifications/>
           </ul>
         </div>
       </div>

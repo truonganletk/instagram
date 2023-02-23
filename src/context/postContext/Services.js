@@ -1,116 +1,123 @@
 import { getListsFailure, getListsStart, getListsSuccess } from "./PostActions";
 import {
-  addDoc,
-  collection,
-  deleteDoc,
-  doc,
-  getDoc,
-  getDocs,
-  updateDoc,
+    addDoc,
+    collection,
+    deleteDoc,
+    doc,
+    getDoc,
+    getDocs,
+    updateDoc,
 } from "firebase/firestore";
 import { firestore } from "../../firebase-config";
 import { storage } from "../../firebase-config";
 import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
 import { v4 as uuid } from "uuid";
 import { getAuth } from "firebase/auth";
+import { createNotification } from "../firebaseContext/Services";
 
 export const getLists = async (dispatch) => {
-  let list = [];
-  dispatch(getListsStart());
-  try {
-    const res = await getDocs(collection(firestore, "posts"));
-    res.forEach((doc) => {
-      // doc.data() is never undefined for query doc snapshots
-      // console.log(doc.id, " => ", doc.data());
-      list.push({ id: doc.id, ...doc.data() });
-    });
-    dispatch(getListsSuccess(list));
-  } catch (err) {
-    dispatch(getListsFailure());
-  }
+    let list = [];
+    dispatch(getListsStart());
+    try {
+        const res = await getDocs(collection(firestore, "posts"));
+        res.forEach((doc) => {
+            // doc.data() is never undefined for query doc snapshots
+            // console.log(doc.id, " => ", doc.data());
+            list.push({ id: doc.id, ...doc.data() });
+        });
+        dispatch(getListsSuccess(list));
+    } catch (err) {
+        dispatch(getListsFailure());
+    }
 };
 
 export const createPost = async (dispatch, caption, userId, Img) => {
-  try {
-    const storageRef = ref(storage, `/images/${uuid()}`);
-    await uploadBytesResumable(storageRef, Img).then(async () => {
-      await getDownloadURL(storageRef).then(async (url) => {
-        const post = {
-          post_content: caption,
-          like: [],
-          post_created_date: new Date(),
-          post_created_by: userId,
-          img: url,
-        };
-        await addDoc(collection(firestore, "posts"), post);
-      });
-    });
-    // console.log(post);
-    getLists(dispatch);
-  } catch (err) {
-    console.log(err);
-  }
+    try {
+        const storageRef = ref(storage, `/images/${uuid()}`);
+        await uploadBytesResumable(storageRef, Img).then(async () => {
+            await getDownloadURL(storageRef).then(async (url) => {
+                const post = {
+                    post_content: caption,
+                    like: [],
+                    post_created_date: new Date(),
+                    post_created_by: userId,
+                    img: url,
+                };
+                await addDoc(collection(firestore, "posts"), post);
+            });
+        });
+        const currentUser = (await getDoc(doc(firestore, "users", getAuth().currentUser.uid))).data();
+        // console.log(currentUser);
+        currentUser.follower.forEach( async (u) => {
+            await createNotification(u.id, currentUser.avatar, ` have posted a new post`, '/');
+        });
+        // console.log(post);
+        getLists(dispatch);
+    } catch (err) {
+        console.log(err);
+    }
 };
 
 export const updatePost = async (dispatch, id, caption) => {
-  const refUpdate = doc(firestore, "posts", id);
-  try {
-    await updateDoc(refUpdate, {
-      post_content: caption,
-    });
-    getLists(dispatch);
-  } catch (error) {
-    console.log(error);
-  }
+    const refUpdate = doc(firestore, "posts", id);
+    try {
+        await updateDoc(refUpdate, {
+            post_content: caption,
+        });
+        getLists(dispatch);
+    } catch (error) {
+        console.log(error);
+    }
 };
 
 export const deletePost = async (dispatch, id) => {
-  try {
-    await deleteDoc(doc(firestore, "posts", id));
-    getLists(dispatch);
-  } catch (error) {
-    console.log(error);
-  }
+    try {
+        await deleteDoc(doc(firestore, "posts", id));
+        getLists(dispatch);
+    } catch (error) {
+        console.log(error);
+    }
 };
 
 export const handleLikePost = async (dispatch, id) => {
-  const user = getAuth().currentUser;
-  const refUpdate = doc(firestore, "posts", id);
-  try {
-    const post = (await getDoc(refUpdate)).data();
+    const user = getAuth().currentUser;
+    const refUpdate = doc(firestore, "posts", id);
+    try {
+        const post = (await getDoc(refUpdate)).data();
 
-    const find = post.like.find((i) => i.id === user.uid);
+        const find = post.like.find((i) => i.id === user.uid);
 
-    if (find) {
-      post.like = post.like.filter((i) => i.id != user.uid);
-    } else {
-      post.like.push({
-        username: user.displayName,
-        id: user.uid,
-      });
+        if (find) {
+            post.like = post.like.filter((i) => i.id != user.uid);
+        } else {
+            await post.like.push({
+                username: user.displayName,
+                id: user.uid,
+            });
+            await createNotification(post.post_created_by, post.img, ` has been liked your post`, '/');
+        }
+        await updateDoc(refUpdate, {
+            like: post.like,
+        });
+    } catch (error) {
+        console.log(error);
     }
-    await updateDoc(refUpdate, {
-      like: post.like,
-    });
-  } catch (error) {
-    console.log(error);
-  }
 };
 
 export const handleCommentPost = async (dispatch, postId, text) => {
-  const user = getAuth().currentUser;
-  try {
-    const comment = {
-      text: text,
-      user: user.displayName,
-      avatar: user.photoURL,
-      user_id: user.uid,
-      createdAt: new Date(),
-      reply: [],
-    };
+    const user = getAuth().currentUser;
+    try {
+        const comment = {
+            text: text,
+            user: user.displayName,
+            avatar: user.photoURL,
+            user_id: user.uid,
+            createdAt: new Date(),
+            reply: [],
+        };
 
-    await addDoc(collection(firestore, "posts", postId, "comment"), comment);
-  } catch (error) {
-    console.log(error);
-  }
+        await addDoc(collection(firestore, "posts", postId, "comment"), comment);
+    } catch (error) {
+        console.log(error);
+    }
 };

@@ -114,3 +114,24 @@ export const handleCommentPost = async (dispatch, postId, text) => {
     console.log(error);
   }
 };
+
+export const handleReply = async (dispatch, postID, cmtID, replyTo, text) => {
+  const user = getAuth().currentUser;
+  const refUpdate = doc(firestore, "posts", postID, "comment", cmtID);
+  try {
+    const comment = (await getDoc(refUpdate)).data();
+    comment.reply.push({
+      replyTo: replyTo,
+      text: text,
+      user: user.displayName,
+      avatar: user.photoURL,
+      user_id: user.uid,
+      createdAt: new Date(),
+    });
+    await updateDoc(refUpdate, {
+      reply: comment.reply,
+    });
+  } catch (error) {
+    console.log(error);
+  }
+};

@@ -1,49 +1,44 @@
-import React, { useState, useEffect } from "react";
+import React, { useContext, useState } from 'react'
+import PropTypes from "prop-types";
+import { AuthContext } from '../../context/authContext/AuthContext';
+import { followUser } from '../../context/authContext/service';
 
-function Suggestion() {
-  const [suggestions, setSuggestions] = useState([]);
+function Suggestion({ ...props }) {
+    const { profile } = props;
+    const [followed, setFollowed] = useState(false);
+    const [disable, setDisable] = useState(false);
+    const { dispatch } = useContext(AuthContext);
 
-  useEffect(() => {
-    const suggestions = [...Array(5)].map((_, i) => ({
-      id: i,
-      userName: "tuanrider",
-      avatar:
-        "https://picsum.photos/200",
-    }));
-    setSuggestions(suggestions);
-  }, []);
-
-  return (
-    <div className="mb-8">
-      <div className="flex items-center justify-between mb-[10px]">
-        <h2>Suggestions For You</h2>
-        <a className="cursor-pointer" href="">
-          See all
-        </a>
-      </div>
-      {suggestions.map((profile) => (
+    return (
         <div
-          key={profile.id}
-          className="flex items-center justify-between mb-[10px]"
+            className="flex items-center justify-between mb-[10px]"
         >
-          <img
-            className="w-10 h-10 rounded-full p-[2px] mr-3"
-            src={profile.avatar}
-            alt=""
-          />
-          <div className="mr-auto">
-            <h2>{profile.userName}</h2>
-            <p>
-              <small>New to Instagram</small>
-            </p>
-          </div>
-          <button className="cursor-pointer text-ig-primary-button">
-            Follow
-          </button>
+            <img
+                className="w-10 h-10 rounded-full p-[2px] mr-3"
+                src={profile.avatar}
+                alt=""
+            />
+            <div className="mr-auto">
+                <h2>{profile.username}</h2>
+                <p>
+                    <small>New to Instagram</small>
+                </p>
+            </div>
+            <button disabled={disable}
+                onClick={async () => {
+                    await setDisable(true);
+                    await followUser(dispatch, profile.id, profile.username)
+                    await setFollowed(!followed);
+                    await setDisable(false);
+                }} className="cursor-pointer text-ig-primary-button">
+                {followed ? 'Unfollow' : 'Follow'}
+            </button>
         </div>
-      ))}
-    </div>
-  );
+    )
 }
 
-export default Suggestion;
+Suggestion.propTypes = {
+    profile: PropTypes.object,
+};
+
+export default Suggestion

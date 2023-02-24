@@ -69,7 +69,7 @@ function UserComment({ handleReplyTo, ...props }) {
                       key={index}
                       text={reply.text}
                       user={reply.user}
-                      avatar={reply.user}
+                      avatar={reply.avatar}
                       createdAt={reply.createdAt}
                       replyTo={reply.replyTo}
                     />

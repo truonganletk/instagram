@@ -9,19 +9,19 @@ function Reply(props) {
       <div className="my-5">
         <div className="flex items-start">
           <img
-            className="rounded-full h-8 w-8 object-contain border mr-3"
+            className="rounded-full h-6 w-6 object-contain border mr-3"
             src={avatar}
             alt=""
           />
-          <p className="flex-1 whitespace-pre-wrap">
-            <span className="text-sm font-bold mr-2">{user}</span>
+          <p className="flex-1 text-sm whitespace-pre-wrap">
+            <span className=" font-bold mr-2">{user}</span>
 
-            <span className="text-cyan-700 text-sm font-bold">{replyTo}</span>
+            <span className="text-cyan-700 font-bold">{replyTo}</span>
 
             {text.replace(replyTo, "").trim()}
           </p>
         </div>
-        <div className="ml-11 flex text-sm font-light gap-6 items-center">
+        <div className="ml-11 flex text-xs font-light gap-6 items-center">
           <p>{moment(createdAt.toDate()).fromNow()}</p>
         </div>
       </div>

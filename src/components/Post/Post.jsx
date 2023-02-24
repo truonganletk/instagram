@@ -1,7 +1,5 @@
 import React, { useContext, useEffect, useRef, useState } from "react";
 import PropTypes from "prop-types";
-// import FirebaseContext from "../../context/firebase";
-// import { getDownloadURL, ref } from "firebase/storage";
 import { AuthContext } from "../../context/authContext/AuthContext";
 import { getAllUsers } from "../../context/authContext/service";
 import { Link } from "react-router-dom";
@@ -18,15 +16,17 @@ import {
 import PostDetail from "./PostDetail";
 import { doc, onSnapshot } from "firebase/firestore";
 import { firestore } from "../../firebase-config";
+import { getIndexOfWhitespace } from "../../utils";
 
 function Post({ ...props }) {
   const { users, dispatch, user } = useContext(AuthContext);
   const { post } = props;
   const userCreated = users.find((user) => user.id === post.post_created_by);
-
   const { dispatch: modalDispatch } = useContext(ModalContext);
-
   const { dispatch: postDispatch } = useContext(PostContext);
+  const [seeMore, setSeeMore] = useState(
+    getIndexOfWhitespace(post.post_content, 5) < post.post_content.length
+  );
 
   const inputRef = useRef();
   const handleComment = () => {
@@ -36,6 +36,13 @@ function Post({ ...props }) {
       inputRef.current.value = "";
     }
   };
+  console.log(
+    post.post_content,
+    ">>>>>",
+    post.post_content.length,
+    ">>>>>>>>",
+    getIndexOfWhitespace(post.post_content, 5)
+  );
 
   const [like, setLike] = useState(false);
 
@@ -53,6 +60,7 @@ function Post({ ...props }) {
   useEffect(() => {
     getAllUsers(dispatch);
   }, []);
+
   return (
     <>
       <div className="bg-white mb-7 border rounded-lg">
@@ -64,7 +72,7 @@ function Post({ ...props }) {
               src={`${userCreated?.avatar}`}
               alt=""
             />
-            <p className="flex-1">{userCreated?.username}</p>
+            <p className="flex-1 font-bold">{userCreated?.username}</p>
 
             <p className="text-xs ml-2">
               {moment(post.post_created_date.toDate()).fromNow()}
@@ -191,7 +199,25 @@ function Post({ ...props }) {
             <Link to={`/${userCreated?.username}`}>
               <span className="font-bold mr-2">{userCreated?.username}</span>
             </Link>
-            <span>{post.post_content}</span>
+            {seeMore ? (
+              <>
+                <span>
+                  {post.post_content.substring(
+                    0,
+                    getIndexOfWhitespace(post.post_content, 5)
+                  )}
+                  ...
+                </span>
+                <span
+                  className="cursor-pointer hover:opacity-30"
+                  onClick={() => setSeeMore(!seeMore)}
+                >
+                  See more
+                </span>
+              </>
+            ) : (
+              <span>{post.post_content}</span>
+            )}
           </div>
 
           <p

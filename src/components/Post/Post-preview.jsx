@@ -22,6 +22,12 @@ function Postpreview({ ...props }) {
       ),
     [firestore]
   );
+  let totalReplies = 0;
+  comments?.map((comment) => {
+    comment.data().reply?.length > 0 &&
+      (totalReplies = totalReplies + comment.data().reply.length);
+  });
+
   return (
     <>
       <figure
@@ -67,7 +73,7 @@ function Postpreview({ ...props }) {
               />
             </svg>
 
-            <span className="text-white">{comments.length}</span>
+            <span className="text-white">{comments.length + totalReplies}</span>
           </div>
         </figcaption>
       </figure>

@@ -18,6 +18,7 @@ import useAuthListener from "./hooks/use-auth-listener";
 import Account from "./pages/Account/Account";
 import Modal from "./components/Modal/Modal";
 import { AuthContext } from "./context/authContext/AuthContext";
+import ExplorePeople from "./pages/ExplorePeople/ExplorePeople";
 
 function App() {
   const { user } = useAuthListener();
@@ -56,6 +57,7 @@ function App() {
             {user && (
               <>
                 <Route path="/home" element={<Home />} />
+                <Route path="/explore/people" element={<ExplorePeople />} />
                 <Route path="/inbox" element={<Inbox />} />
                 <Route path="/explore" element={<Explore />} />
                 <Route path="/:username" element={<Account />} />

@@ -3,7 +3,7 @@ import Footer from "../../components/Footer/Footer";
 import Header from "../../components/Header/Header";
 import MiniProfile from "../../components/MiniProfile/MiniProfile";
 import Posts from "../../components/Posts/Posts";
-import Suggestion from "../../components/Suggestion/Suggestion";
+import Suggestions from "../../components/Suggestion/Suggestions";
 
 function Home() {
   return (
@@ -17,7 +17,7 @@ function Home() {
 
         <section className="hidden lg:block w-96 ml-10">
           <MiniProfile />
-          <Suggestion />
+          <Suggestions />
           <Footer />
         </section>
       </main>

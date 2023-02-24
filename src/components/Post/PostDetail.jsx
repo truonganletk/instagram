@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useRef, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import { AuthContext } from "../../context/authContext/AuthContext";
 import MoreOptions from "../MoreOptions/MoreOptions";
@@ -9,6 +9,7 @@ import { PostContext } from "../../context/postContext/PostContext";
 import {
   handleCommentPost,
   handleLikePost,
+  handleReply,
 } from "../../context/postContext/Services";
 import UserComment from "../UserComment/UserComment";
 import {
@@ -24,20 +25,12 @@ function PostDetail({ ...props }) {
   const { post } = props;
   const { users, dispatch, user } = useContext(AuthContext);
   const { dispatch: modalDispatch } = useContext(ModalContext);
-
   const { dispatch: postDispatch } = useContext(PostContext);
-
-  const inputRef = useRef();
+  const [comment, setComment] = useState("");
   const [comments, setComments] = useState([]);
   const userCreated = users.find((user) => user.id === post.post_created_by);
   const [like, setLike] = useState(false);
-  const handleComment = () => {
-    if (inputRef.current.value.length > 0) {
-      const text = inputRef.current.value;
-      handleCommentPost(dispatch, post.id, text);
-      inputRef.current.value = "";
-    }
-  };
+
   const [numberOfLike, setNumberOfLike] = useState([]);
   useEffect(
     () =>
@@ -61,6 +54,19 @@ function PostDetail({ ...props }) {
     [firestore]
   );
 
+  const [replyTo, setReplyTo] = useState({ username: "", cmtID: "" });
+  const handleReplyTo = (username, cmtID) => {
+    const mod_username = `@${username} `;
+    setReplyTo({ username: mod_username, cmtID });
+    setComment(mod_username);
+  };
+
+  const handleComment = () => {
+    if (comment.startsWith("@")) {
+      handleReply(dispatch, post.id, replyTo.cmtID, replyTo.username, comment);
+    } else handleCommentPost(dispatch, post.id, comment);
+    setComment("");
+  };
   return (
     <>
       <div className="flex w-[1080px] h-[625px] bg-white">
@@ -111,6 +117,7 @@ function PostDetail({ ...props }) {
           <div className="px-4 py-3 h-[535px] overflow-y-scroll scrollbar-hide">
             {/* caption */}
             <UserComment
+              isAuthor={true}
               text={post.post_content}
               avatar={userCreated?.avatar}
               user={userCreated?.username}
@@ -124,10 +131,13 @@ function PostDetail({ ...props }) {
                 return (
                   <UserComment
                     key={cmt.id}
+                    id={cmt.id}
+                    postID={post.id}
                     text={cmt.data().text}
                     avatar={cmt.data().avatar}
                     user={cmt.data().user}
                     createdAt={cmt.data().createdAt}
+                    handleReplyTo={handleReplyTo}
                   />
                 );
               })}
@@ -157,9 +167,9 @@ function PostDetail({ ...props }) {
                 </svg>
               </div>
               <div
-                onClick={() => {
-                  inputRef.current && inputRef.current.focus();
-                }}
+              // onClick={() => {
+              //   inputRef.current && inputRef.current.focus();
+              // }}
               >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -231,10 +241,18 @@ function PostDetail({ ...props }) {
             </svg>
 
             <input
-              ref={inputRef}
+              // ref={inputRef}
+              value={comment}
               className="flex-1 border-none focus:outline-none"
               type="text"
               placeholder="Add a comment ..."
+              onChange={(e) => {
+                setComment(e.target.value);
+                // if (e.target.value.startsWith("@")) {
+                //   const modValue = e.target.value.replace(replyTo.username, "");
+                //   setComment(modValue);
+                // } else setComment(e.target.value);
+              }}
             />
             <button
               onClick={handleComment}

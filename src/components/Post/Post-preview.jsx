@@ -29,7 +29,7 @@ function Postpreview({ ...props }) {
           modalDispatch(showModal(<PostDetail post={post} />, ""));
           document.body.classList.add("overflow-y-hidden");
         }}
-        className="max-w-full relative h-[293px] overflow-hidden cursor-pointer"
+        className="max-w-full relative h-full overflow-hidden cursor-pointer"
       >
         <img className="object-cover w-full h-full" src={post.img} alt="" />
         <figcaption className="absolute flex space-x-5 items-center justify-center w-full h-full top-0 box-border bg-ig-explore-post-hover opacity-0 hover:opacity-100">

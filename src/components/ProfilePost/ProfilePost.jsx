@@ -15,10 +15,11 @@ function ProfilePost({ ...props }) {
     return (
         <section className="w-full grid grid-cols-3 gap-5">
             {lists?.filter((post) => post.post_created_by === id).map((post, index) => (
-                <Postpreview
-                    key={index}
-                    post={post}
-                />
+                <div className='' key={index}>
+                    <Postpreview
+                        post={post}
+                    />
+                </div>
             ))}
         </section>
     )

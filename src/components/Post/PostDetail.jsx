@@ -166,11 +166,7 @@ function PostDetail({ ...props }) {
                   />
                 </svg>
               </div>
-              <div
-              // onClick={() => {
-              //   inputRef.current && inputRef.current.focus();
-              // }}
-              >
+              <div>
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   fill="none"
@@ -248,10 +244,6 @@ function PostDetail({ ...props }) {
               placeholder="Add a comment ..."
               onChange={(e) => {
                 setComment(e.target.value);
-                // if (e.target.value.startsWith("@")) {
-                //   const modValue = e.target.value.replace(replyTo.username, "");
-                //   setComment(modValue);
-                // } else setComment(e.target.value);
               }}
             />
             <button

@@ -7,7 +7,7 @@ import Reply from "../Reply/Reply";
 
 function UserComment({ handleReplyTo, ...props }) {
   const { isAuthor = false, id, postID, text, user, avatar, createdAt } = props;
-  // console.log(props);
+
   const [replies, setReplies] = useState([]);
   useEffect(() => {
     onSnapshot(

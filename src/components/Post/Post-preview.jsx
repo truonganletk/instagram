@@ -1,17 +1,37 @@
-import React from "react";
+import React, { useContext, useEffect, useState } from "react";
 import PropTypes from "prop-types";
+import { collection, onSnapshot, orderBy, query } from "firebase/firestore";
+
+import { firestore } from "../../firebase-config";
+import PostDetail from "./PostDetail";
+import { showModal } from "../../context/modalContext/ModalActions";
+import { ModalContext } from "../../context/modalContext/ModalContext";
 
 function Postpreview({ ...props }) {
   const { post } = props;
-
+  const [comments, setComments] = useState([]);
+  const { dispatch: modalDispatch } = useContext(ModalContext);
+  useEffect(
+    () =>
+      onSnapshot(
+        query(
+          collection(firestore, "posts", post.id, "comment"),
+          orderBy("createdAt", "desc")
+        ),
+        (snapshot) => setComments(snapshot.docs)
+      ),
+    [firestore]
+  );
   return (
     <>
-      <figure className="max-w-full relative h-[293px] overflow-hidden cursor-pointer">
-        <img
-          className="object-cover w-full h-full"
-          src={post.img}
-          alt=""
-        />
+      <figure
+        onClick={() => {
+          modalDispatch(showModal(<PostDetail post={post} />, ""));
+          document.body.classList.add("overflow-y-hidden");
+        }}
+        className="max-w-full relative h-[293px] overflow-hidden cursor-pointer"
+      >
+        <img className="object-cover w-full h-full" src={post.img} alt="" />
         <figcaption className="absolute flex space-x-5 items-center justify-center w-full h-full top-0 box-border bg-ig-explore-post-hover opacity-0 hover:opacity-100">
           <div className="flex space-x-2">
             <svg
@@ -47,7 +67,7 @@ function Postpreview({ ...props }) {
               />
             </svg>
 
-            <span className="text-white">456</span>
+            <span className="text-white">{comments.length}</span>
           </div>
         </figcaption>
       </figure>

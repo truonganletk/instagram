@@ -21,7 +21,6 @@ import { firestore } from "../../firebase-config";
 
 function Post({ ...props }) {
   const { users, dispatch, user } = useContext(AuthContext);
-
   const { post } = props;
   const userCreated = users.find((user) => user.id === post.post_created_by);
 
@@ -51,12 +50,9 @@ function Post({ ...props }) {
 
     [firestore]
   );
-  // console.log(post.id, ">>>>>>>>>>>>>>>>>>", numberOfLike);
-
   useEffect(() => {
     getAllUsers(dispatch);
   }, []);
-
   return (
     <>
       <div className="bg-white mb-7 border rounded-lg">
@@ -191,12 +187,12 @@ function Post({ ...props }) {
 
           {/* caption section */}
 
-          <p className="my-3 text-sm whitespace-pre-wrap">
+          <div className="my-3 text-sm whitespace-pre-wrap">
             <Link to={`/${userCreated?.username}`}>
               <span className="font-bold mr-2">{userCreated?.username}</span>
             </Link>
-            {post.post_content}
-          </p>
+            <span>{post.post_content}</span>
+          </div>
 
           <p
             className="cursor-pointer hover:opacity-30"

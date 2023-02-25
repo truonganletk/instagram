@@ -2,6 +2,7 @@ import React, { useContext, useState } from "react";
 import PropTypes from "prop-types";
 import { AuthContext } from "../../context/authContext/AuthContext";
 import { followUser } from "../../context/authContext/service";
+import { NavLink } from "react-router-dom";
 
 function Suggestion({ ...props }) {
   const { profile } = props;
@@ -18,7 +19,9 @@ function Suggestion({ ...props }) {
         alt=""
       />
       <div className="mr-auto">
-        <h2>{profile.username}</h2>
+        <NavLink to={`/${profile.username}`}>
+          <h2>{profile.username}</h2>
+          </NavLink>
         <p>
           <small>New to Instagram</small>
         </p>

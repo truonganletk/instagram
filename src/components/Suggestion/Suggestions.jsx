@@ -12,7 +12,7 @@ function Suggestions() {
   const { pathname } = useLocation();
   if (users.length > 0 && !_.isEmpty(user) && suggestions.length === 0) {
     const res = users
-      .filter((u) => user.follow.findIndex((res) => res.id === u.id) === -1)
+      .filter((u) => user.follow.findIndex((res) => res.id === u.id) === -1 && user.id != u.id)
       .slice(0, 5);
 
     setSuggestions(res);

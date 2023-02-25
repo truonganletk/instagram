@@ -16,7 +16,7 @@ function Modal() {
         <div className="flex mx-auto h-full w-full">
           <div
             ref={ref}
-            className="relative mx-auto my-auto bg-white rounded-lg shadow dark:bg-gray-700"
+            className="relative mx-auto my-auto bg-white text-black dark:text-white rounded-lg shadow dark:bg-black"
           >
             <div
               className={`${

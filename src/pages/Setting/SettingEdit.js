@@ -6,7 +6,7 @@ function SettingEdit() {
   return (
     <>
       <div className="container flex justify-center m-auto mt-10">
-        <div className="flex border border-gray-300 lg:mx-auto w-[96%] bg-white min-h-max">
+        <div className="flex border border-gray-300 lg:mx-auto w-[96%] bg-white min-h-max dark:bg-black dark:text-white">
           <SettingSidebar />
           <EditProfile />
         </div>

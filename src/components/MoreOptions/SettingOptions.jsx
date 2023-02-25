@@ -9,9 +9,9 @@ function SettingOptions() {
   const { dispatch: authDispatch, user } = useContext(AuthContext);
 
   return (
-    <ul className=" bg-ig-primary-background w-[400px] z-100 rounded-xl">
+    <ul className=" bg-ig-primary-background dark:bg-black dark:text-white w-[400px] z-100 rounded-xl">
       {data.username === user.username && (
-        <li className="text-base text-center text-ig-primary-text bg-transparent  px-2 py-3 rounded-t-xl border-0 hover:bg-gray-100 cursor-pointer">
+        <li className="text-sm text-center text-ig-primary-text bg-transparent  px-2 py-3 rounded-b-xl border-0 dark:hover:bg-ig-primary-text dark:text-white hover:bg-gray-100 border-t border-ig-elevated-separator dark:border-ig-primary-text cursor-pointer">
           <button
             onClick={() => {
               dispatch(hideModal());
@@ -23,7 +23,7 @@ function SettingOptions() {
           </button>
         </li>
       )}
-      <li className="text-sm text-center text-ig-primary-text bg-transparent  px-2 py-3  border-0 hover:bg-gray-100 border-t border-ig-elevated-separator cursor-pointer">
+      <li className="text-sm text-center text-ig-primary-text bg-transparent  px-2 py-3 rounded-b-xl border-0 dark:hover:bg-ig-primary-text dark:text-white hover:bg-gray-100 border-t border-ig-elevated-separator dark:border-ig-primary-text cursor-pointer">
         <button
           onClick={() => {
             dispatch(hideModal());
@@ -34,7 +34,7 @@ function SettingOptions() {
         </button>
       </li>
       {data.username === user.username && (
-        <li className="text-sm text-center text-ig-primary-text bg-transparent  px-2 py-3  border-0 hover:bg-gray-100 border-t border-ig-elevated-separator cursor-pointer">
+        <li className="text-sm text-center text-ig-primary-text bg-transparent  px-2 py-3 rounded-b-xl border-0 dark:hover:bg-ig-primary-text dark:text-white hover:bg-gray-100 border-t border-ig-elevated-separator dark:border-ig-primary-text cursor-pointer">
           <button
             onClick={() => {
               logOut(authDispatch);
@@ -46,7 +46,7 @@ function SettingOptions() {
           </button>
         </li>
       )}
-      <li className="text-sm text-center text-ig-primary-text bg-transparent  px-2 py-3 rounded-b-xl border-0 hover:bg-gray-100 border-t border-ig-elevated-separator cursor-pointer">
+      <li className="text-sm text-center text-ig-primary-text bg-transparent  px-2 py-3 rounded-b-xl border-0 dark:hover:bg-ig-primary-text dark:text-white hover:bg-gray-100 border-t border-ig-elevated-separator dark:border-ig-primary-text cursor-pointer">
         <button className="w-full" onClick={() => dispatch(hideModal())}>
           Cancel
         </button>

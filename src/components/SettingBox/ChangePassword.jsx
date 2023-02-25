@@ -47,10 +47,10 @@ function ChangePassword() {
         {({ errors, touched, handleChange, handleBlur, handleSubmit }) => (
           <form
             onSubmit={handleSubmit}
-            className="p-10 basis-full md:basis-9/12"
+            className="p-10 basis-full md:basis-9/12 "
           >
             <div className="mb-6 flex w-full items-center">
-              <div className="flex text-sm font-medium text-gray-900 basis-2/12 mr-5 justify-end ">
+              <div className="flex text-sm font-medium text-gray-900 dark:text-white basis-2/12 mr-5 justify-end ">
                 <img
                   className="w-16 h-16 rounded-full p-2"
                   src={user?.avatar}
@@ -64,7 +64,7 @@ function ChangePassword() {
             <div className="mb-6 flex w-full items-center">
               <label
                 htmlFor="oldPassword"
-                className="block text-sm font-medium text-gray-900 basis-3/12 mr-2"
+                className="block text-sm font-medium text-gray-900 dark:text-white basis-3/12 mr-2"
               >
                 Old password
               </label>
@@ -73,7 +73,7 @@ function ChangePassword() {
                 onChange={handleChange}
                 name="oldPassword"
                 type="password"
-                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
+                className="bg-gray-50 dark:bg-ig-primary-text border border-gray-300 text-gray-900 dark:text-white text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
                 placeholder=""
                 required
               />
@@ -84,7 +84,7 @@ function ChangePassword() {
             <div className="mb-6 flex w-full items-center">
               <label
                 htmlFor="newPassword"
-                className="block text-sm font-medium text-gray-900 basis-3/12 mr-2"
+                className="block text-sm font-medium text-gray-900 dark:text-white basis-3/12 mr-2"
               >
                 New password
               </label>
@@ -93,7 +93,7 @@ function ChangePassword() {
                 onChange={handleChange}
                 type="password"
                 name="newPassword"
-                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
+                className="bg-gray-50 dark:bg-ig-primary-text border border-gray-300 text-gray-900 dark:text-white text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
                 placeholder=""
                 required
               />
@@ -104,7 +104,7 @@ function ChangePassword() {
             <div className="mt-6 flex w-full items-center">
               <label
                 htmlFor="confirmPassword"
-                className="block text-sm font-medium text-gray-900 basis-3/12 mr-2"
+                className="block text-sm font-medium text-gray-900 dark:text-white basis-3/12 mr-2"
               >
                 Confirm new password
               </label>
@@ -113,7 +113,7 @@ function ChangePassword() {
                 onChange={handleChange}
                 type="password"
                 name="confirmPassword"
-                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
+                className="bg-gray-50 dark:bg-ig-primary-text border border-gray-300 text-gray-900 dark:text-white text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
                 placeholder=""
                 required
               />

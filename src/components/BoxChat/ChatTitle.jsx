@@ -23,9 +23,9 @@ function ChatTitle() {
           </div>
         </div>
         <div className="flex">
-          <div className="px-2">{Icon("phone")}</div>
-          <div className="px-2">{Icon("videoCall")}</div>
-          <div className="px-2">{Icon("info")}</div>
+          <div className="px-2 cursor-pointer">{Icon("phone")}</div>
+          <div className="px-2 cursor-pointer">{Icon("videoCall")}</div>
+          <div className="px-2 cursor-pointer">{Icon("info")}</div>
         </div>
       </div>
     </div>

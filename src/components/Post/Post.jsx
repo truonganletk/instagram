@@ -57,7 +57,7 @@ function Post({ ...props }) {
 
   return (
     <>
-      <div className="bg-white mb-7 border rounded-lg">
+      <div className="bg-white dark:bg-black dark:text-white dark:border-ig-secondary-text  mb-7 border rounded-lg">
         {/* header section */}
         <div className="flex px-5 py-3 items-center justify-between">
           <Link className="flex items-center " to={`/${userCreated?.username}`}>
@@ -168,7 +168,7 @@ function Post({ ...props }) {
 
           <input
             ref={inputRef}
-            className="flex-1 border-none focus:outline-none"
+            className="flex-1 border-none focus:outline-none dark:bg-ig-primary-text dark:text-white"
             type="text"
             placeholder="Add a comment ..."
           />

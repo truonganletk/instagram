@@ -34,7 +34,7 @@ function CreatePost() {
             alt="profile-avatar"
           />
           <div className="mr-auto">
-            <p className="text-ig-primary-background">{user.username}</p>
+            <p className="dark:text-ig-primary-background text-black">{user.username}</p>
           </div>
         </div>
         <div className="px-2">
@@ -45,13 +45,13 @@ function CreatePost() {
                 setCaption(e.target.value);
             }}
             rows="4"
-            className="bg-transparent resize-none outline-none text-ig-primary-background w-full"
+            className="bg-transparent resize-none outline-none text-black dark:text-ig-primary-background w-full"
             type="text"
             placeholder="Write a caption..."
           />
         </div>
         <div className="flex justify-between px-2 items-center">
-          <p className="text-white text-xs">
+          <p className="text-black dark:text-ig-primary-background text-xs">
             {caption.length}/{characterLimit}
           </p>
           <p
@@ -68,9 +68,9 @@ function CreatePost() {
           <input
             type="text"
             placeholder="Add location ..."
-            className="px-2 py-3 placeholder-slate-300 text-white relative bg-transparent rounded text-sm border-none outline-none focus:outline-none w-full pr-10"
+            className="px-2 py-3 placeholder-slate-300 text-black dark:text-ig-primary-background relative bg-transparent rounded text-sm border-none outline-none focus:outline-none w-full pr-10"
           />
-          <span className="z-10 h-full leading-snug font-normal absolute text-center text-slate-300  bg-transparent rounded text-base items-center justify-center w-8 right-0 pr-3 py-3">
+          <span className="z-10 h-full leading-snug font-normal absolute text-center text-black dark:text-ig-primary-background  bg-transparent rounded text-base items-center justify-center w-8 right-0 pr-3 py-3">
             {Icon("location")}
           </span>
         </div>

@@ -40,7 +40,7 @@ export default function Search() {
   return (
     <>
       <div className="flex flex-col relative">
-        <div className="hidden bg-gray-100 sm:flex p-2 rounded-md max-w-xs sm:basis-1/3">
+        <div className="hidden bg-gray-100 dark:bg-black dark:text-white sm:flex p-2 rounded-md max-w-xs sm:basis-1/3">
           <button className="btn btn-square mr-3">{Icon("search")}</button>
 
           <input
@@ -48,11 +48,11 @@ export default function Search() {
             onChange={handleChange}
             type="text"
             placeholder="Search…"
-            className="input input-bordered bg-transparent flex-auto focus:outline-none"
+            className="input dark:bg-ig-primary-text input-bordered bg-transparent flex-auto focus:outline-none"
           />
         </div>
         {result.length > 0 && debounceSearchTerm && (
-          <ul className="w-full bg-white rounded absolute top-[3rem] left-0 shadow-xl z-50 ">
+          <ul className="w-full bg-white dark:bg-black dark:text-white rounded absolute top-[3rem] left-0 shadow-xl z-50 ">
             {result.map((item, index) => (
               <Link
                 to={`/${item.username}`}
@@ -61,7 +61,7 @@ export default function Search() {
                   setResult([]);
                 }}
                 key={index}
-                className="flex items-center gap-x-4 p-3 border-b cursor-pointer hover:bg-gray-100"
+                className="flex items-center gap-x-4 p-3 border-b cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-800"
               >
                 <img
                   className="w-8 h-8 rounded-full"

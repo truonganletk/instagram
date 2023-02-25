@@ -9,7 +9,7 @@ function NotificationItem(props) {
     <>
       <NavLink to={notif.url}>
         <div className="flex justify-center">
-          <div className="flex flex-row bg-white shadow-lg items-center w-full">
+          <div className="flex flex-row bg-white dark:bg-black dark:text-white  dark:hover:bg-ig-secondary-text shadow-lg items-center w-full">
             <div className="basis-2/12 flex justify-center">
               <img
                 loading="lazy"
@@ -19,7 +19,7 @@ function NotificationItem(props) {
               />
             </div>
             <div className=" py-5 flex flex-col justify-center items-center basis-8/12">
-              <p className="text-gray-700 text-xs">
+              <p className="text-gray-700 dark:text-white  dark:hover:bg-ig-secondary-text text-xs">
                 {notif.user && notif.user}
                 {notif.content}
               </p>

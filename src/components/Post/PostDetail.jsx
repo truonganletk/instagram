@@ -70,7 +70,7 @@ function PostDetail({ ...props }) {
   };
   return (
     <>
-      <div className="flex w-[1080px] h-[625px] bg-white">
+      <div className="flex w-[1080px] h-[625px] bg-white dark:bg-black dark:text-white">
         {/* image section */}
         <div className="w-[55%]">
           <img className="h-full" src={post.img} alt="" />
@@ -159,7 +159,7 @@ function PostDetail({ ...props }) {
 
             <input
               value={comment}
-              className="flex-1 border-none focus:outline-none"
+              className="flex-1 border-none focus:outline-none dark:bg-ig-primary-text dark:text-white"
               type="text"
               placeholder="Add a comment ..."
               onChange={(e) => {

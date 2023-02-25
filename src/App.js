@@ -11,6 +11,7 @@ import useAuthListener from "./hooks/use-auth-listener";
 import Modal from "./components/Modal/Modal";
 import { AuthContext } from "./context/authContext/AuthContext";
 import PageWithHeader from "./PageTemplates/PageWithHeader";
+import { useDarkMode } from "./hooks/useDarkMode";
 
 
 const Home = lazy(() => import('./pages/Home/Home'))
@@ -25,11 +26,12 @@ const SettingEdit = lazy(() => import('./pages/Setting/SettingEdit'))
 
 function App() {
   const { user } = useAuthListener();
+  useDarkMode();
   const { isReAuthenticated } = useContext(AuthContext);
   return (
     <>
       <Modal></Modal>
-      <div className="bg-ig-secondary-background min-h-screen">
+      <div className="bg-ig-secondary-background dark:bg-black dark:text-white min-h-screen">
         <Router>
           <Routes>
             <Route

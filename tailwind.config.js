@@ -1,6 +1,7 @@
 /* eslint-env node */
 /** @type {import('tailwindcss').Config} */
 module.exports = {
+  darkMode: 'class',
   content: [
     "./src/**/*.{js,jsx,ts,tsx}", './node_modules/tw-elements/dist/js/**/*.js'
   ],
@@ -21,7 +22,7 @@ module.exports = {
         'ig-elevated-separator': "rgb(219, 219, 219)",
         'ig-highlight-background': "rgb(239, 239, 239)",
         'ig-green-active': "#78de45",
-        'ig-explore-post-hover': "rgba(0, 0, 0, 0.3)"
+        'ig-explore-post-hover': "rgba(0, 0, 0, 0.3)",
       }
     },
     container: {

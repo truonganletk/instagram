@@ -42,7 +42,7 @@ function EditProfile() {
       {({ dirty, errors, touched, values, handleChange, handleSubmit }) => (
         <form onSubmit={handleSubmit} className="p-10 basis-full md:basis-9/12">
           <div className="mb-6 flex w-full items-center">
-            <div className="flex text-sm font-medium text-gray-900 basis-2/12 mr-5 justify-end ">
+            <div className="flex text-sm font-medium text-gray-900 dark:text-white basis-2/12 mr-5 justify-end ">
               <img
                 loading="lazy"
                 className="w-16 h-16 rounded-full p-2"
@@ -58,7 +58,7 @@ function EditProfile() {
                     showModal(<ChangeProfilePhoto />, "Change profile photo")
                   );
                 }}
-                className="text-sky-500 cursor-pointer"
+                className="text-sky-500 dark:hover:text-white cursor-pointer"
               >
                 Change profile photo
               </h2>
@@ -67,7 +67,7 @@ function EditProfile() {
           <div className="mb-5 flex w-full items-center">
             <label
               htmlFor="fullname"
-              className="text-right block text-sm font-medium text-gray-900 basis-2/12 mr-5 py-3"
+              className="text-right block text-sm font-medium text-gray-900 dark:text-white basis-2/12 mr-5 py-3"
             >
               <strong>Name</strong>
             </label>
@@ -75,7 +75,7 @@ function EditProfile() {
               <input
                 type="text"
                 name="fullname"
-                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+                className="bg-gray-50 dark:bg-ig-primary-text border border-gray-300 text-gray-900 dark:text-white text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
                 value={values.fullname || ""}
                 onChange={handleChange}
               />
@@ -98,7 +98,7 @@ function EditProfile() {
           <div className="mb-5 flex w-full items-center">
             <label
               htmlFor="username"
-              className="text-right block text-sm font-medium text-gray-900 basis-2/12 mr-5 py-3"
+              className="text-right block text-sm font-medium text-gray-900 dark:text-white basis-2/12 mr-5 py-3"
             >
               <strong>Username</strong>
             </label>
@@ -106,7 +106,7 @@ function EditProfile() {
               <input
                 type="text"
                 name="username"
-                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+                className="bg-gray-50 dark:bg-ig-primary-text border border-gray-300 text-gray-900 dark:text-white text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
                 value={values.username || ""}
                 onChange={handleChange}
               />
@@ -130,7 +130,7 @@ function EditProfile() {
           <div className="mb-5 flex w-full items-center">
             <label
               htmlFor="name"
-              className="text-right block text-sm font-medium text-gray-900 basis-2/12 mr-5 py-3"
+              className="text-right block text-sm font-medium text-gray-900 dark:text-white basis-2/12 mr-5 py-3"
             >
               <strong>Website</strong>
             </label>
@@ -157,7 +157,7 @@ function EditProfile() {
           <div className="mb-1 flex w-full items-center">
             <label
               htmlFor="name"
-              className="text-right block text-sm font-medium text-gray-900 basis-2/12 mr-5 py-3"
+              className="text-right block text-sm font-medium text-gray-900 dark:text-white basis-2/12 mr-5 py-3"
             >
               <strong>Bio</strong>
             </label>
@@ -165,7 +165,7 @@ function EditProfile() {
               <textarea
                 type="text"
                 id="name"
-                className="bg-gray-50 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 mb-2"
+                className="bg-gray-50 dark:bg-ig-primary-text border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 mb-2"
               />
             </div>
           </div>
@@ -191,7 +191,7 @@ function EditProfile() {
           <div className="mb-5 flex w-full items-center">
             <label
               htmlFor="email"
-              className="text-right block text-sm font-medium text-gray-900 basis-2/12 mr-5 py-3"
+              className="text-right block text-sm font-medium text-gray-900 dark:text-white basis-2/12 mr-5 py-3"
             >
               <strong>Email</strong>
             </label>
@@ -199,7 +199,7 @@ function EditProfile() {
               <input
                 type="text"
                 name="email"
-                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+                className="bg-gray-50 dark:bg-ig-primary-text border border-gray-300 text-gray-900 dark:text-white text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
                 value={values.email || ""}
                 onChange={handleChange}
               />
@@ -211,7 +211,7 @@ function EditProfile() {
           <div className="mb-6 flex w-full items-center">
             <label
               htmlFor="name"
-              className="text-right block text-sm font-medium text-gray-900 basis-2/12 mr-5 py-3"
+              className="text-right block text-sm font-medium text-gray-900 dark:text-white basis-2/12 mr-5 py-3"
             >
               <strong>Phone number</strong>
             </label>
@@ -219,7 +219,7 @@ function EditProfile() {
               <input
                 type="text"
                 id="name"
-                className="bg-gray-50 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
+                className="bg-gray-50 dark:bg-ig-primary-text border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
                 placeholder=""
               />
             </div>
@@ -227,7 +227,7 @@ function EditProfile() {
           <div className="mb-6 flex w-full items-center">
             <label
               htmlFor="name"
-              className="text-right block text-sm font-medium text-gray-900 basis-2/12 mr-5 py-3"
+              className="text-right block text-sm font-medium text-gray-900 dark:text-white basis-2/12 mr-5 py-3"
             >
               <strong>Gender</strong>
             </label>
@@ -235,7 +235,7 @@ function EditProfile() {
               <input
                 type="text"
                 id="name"
-                className="bg-gray-50 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
+                className="bg-gray-50 dark:bg-ig-primary-text border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
                 placeholder=""
               />
             </div>
@@ -243,7 +243,7 @@ function EditProfile() {
           <div className="mb-6 flex w-full items-center">
             <label
               htmlFor="name"
-              className="text-right block text-sm font-medium text-gray-900 basis-2/12 mr-5 py-3"
+              className="text-right block text-sm font-medium text-gray-900 dark:text-white basis-2/12 mr-5 py-3"
             >
               <strong>Similar account suggestions</strong>
             </label>

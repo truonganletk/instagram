@@ -32,7 +32,7 @@ function BoxChat() {
               dispatch(showModal(<InboxSearch />, "Search User"));
             }}
             type="submit"
-            className="text-white bg-blue-700 hover:bg-blue-800 font-medium rounded-sm text-sm  w-auto px-3 py-1 text-center"
+            className="dark:text-white text-black bg-blue-700 hover:bg-blue-800 font-medium rounded-sm text-sm  w-auto px-3 py-1 text-center"
           >
             Gửi tin nhắn
           </button>

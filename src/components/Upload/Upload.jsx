@@ -16,7 +16,7 @@ function Upload() {
       <div className="flex justify-center items-center h-[600px] w-[860px]">
         <div className=" text-center flex-row justify-center items-center">
           <img loading="lazy" className="max-h-24 m-auto" src={img} alt="" />
-          <h2 className="text-white my-5">Drag photos and videos here</h2>
+          <h2 className="text-dark dark:text-white my-5">Drag photos and videos here</h2>
           <input
             className="custom-file-input"
             type="file"

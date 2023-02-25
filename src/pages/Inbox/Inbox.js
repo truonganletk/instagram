@@ -6,7 +6,7 @@ function Inbox() {
   return (
     <>
       <div className='container flex justify-center m-auto mt-10'>
-        <div className='flex border border-gray-300 lg:mx-auto w-[96%] bg-white h-[84vh]'>
+        <div className='flex border border-gray-300 lg:mx-auto w-[96%] bg-white dark:bg-black dark:text-white  h-[84vh]'>
           <InboxSideBar />
           <BoxChat />
         </div>

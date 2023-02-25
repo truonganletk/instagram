@@ -5,6 +5,8 @@ import { AuthContext } from "../../context/authContext/AuthContext";
 import { logOut } from "../../context/authContext/service";
 import { showModal } from "../../context/modalContext/ModalActions";
 import { ModalContext } from "../../context/modalContext/ModalContext";
+import { useDarkMode } from "../../hooks/useDarkMode";
+// import { changeTheme } from "../../utils/spaghetti";
 import Upload from "../Upload/Upload";
 import Notifications from "./Notifications";
 
@@ -12,6 +14,8 @@ function Navbar() {
   const [onHome, setOnHome] = useState(false);
   const [onChat, setOnChat] = useState(false);
   const [onExplore, setOnExplore] = useState(false);
+  const [ mode, setMode ] = useDarkMode();
+  // console.log(mode);
   const [toggleNotification, setToggleNotification] = useState(false);
   const [toggleUser, setToggleUser] = useState(false);
 
@@ -83,7 +87,7 @@ function Navbar() {
               : Icon("notification_solid")}
           </button>
           <ul
-            className="w-[400px] dropdown-menu absolute bg-white text-base z-50 float-left pt-2 list-none text-left rounded-lg shadow-lg mt-1 hidden mx-3 bg-clip-padding border-none"
+            className="w-[400px] dropdown-menu absolute bg-white dark:bg-black dark:text-white text-base z-50 float-left pt-2 list-none text-left rounded-lg shadow-lg mt-1 hidden mx-3 bg-clip-padding border-none"
             aria-labelledby="dropdownMenuButton1"
           >
             <Notifications />
@@ -105,12 +109,12 @@ function Navbar() {
             {toggleUser ? Icon("user_regular") : Icon("user_solid")}
           </button>
           <ul
-            className=" dropdown-menu min-w-max absolute bg-white text-base z-50 float-left py-2  px-5 list-none text-left rounded-lg shadow-lg mt-1 hidden mx-3 bg-clip-padding border-none"
+            className=" dropdown-menu min-w-max absolute bg-white dark:bg-black dark:text-white text-base z-50 float-left py-2  px-5 list-none text-left rounded-lg shadow-lg mt-1 hidden mx-3 bg-clip-padding border-none"
             aria-labelledby="dropdownMenuButton1"
           >
             <li>
               <Link
-                className=" dropdown-item text-sm py-2  px-5 font-normal block w-full whitespace-nowrap bg-transparent text-gray-700 hover:bg-gray-100"
+                className=" dropdown-item text-sm py-2  px-5 font-normal block w-full whitespace-nowrap bg-transparent text-gray-700 dark:text-white  dark:hover:bg-ig-secondary-text hover:bg-gray-100"
                 to={`/${user.username}`}
               >
                 <div className="flex items-center ">
@@ -120,21 +124,32 @@ function Navbar() {
               </Link>
             </li>
             <li>
-              <a
-                className=" dropdown-item text-sm py-2  px-5 font-normal block w-full whitespace-nowrap bg-transparent text-gray-700 hover:bg-gray-100"
-                href="/accounts/edit"
+              <Link
+                className=" dropdown-item text-sm py-2  px-5 font-normal block w-full whitespace-nowrap bg-transparent text-gray-700 dark:text-white  dark:hover:bg-ig-secondary-text  hover:bg-gray-100"
+                to="/accounts/edit"
               >
                 <div className="flex items-center">
                   {Icon("settings")}
                   <p className="ml-2">Settings</p>
                 </div>
-              </a>
+              </Link>
+            </li>
+            <li>
+              <div
+                className=" cursor-pointer dropdown-item text-sm py-2  px-5 font-normal block w-full whitespace-nowrap bg-transparent text-gray-700 dark:text-white  dark:hover:bg-ig-secondary-text  hover:bg-gray-100"
+                onClick={()=>{setMode()}}
+              >
+                <div className="flex items-center">
+                  {mode === 'dark' ? Icon("moon") : Icon("moon")}
+                  <p className="ml-2">Switch appearance</p>
+                </div>
+              </div>
             </li>
             <hr className="h-0 border border-solid border-t-0 border-gray-700 opacity-25 " />
             <li>
               <a
                 onClick={() => logOut(dispatch)}
-                className="dropdown-item text-sm py-2  px-5 font-normal block w-full whitespace-nowrap bg-transparent text-gray-700 hover:bg-gray-100"
+                className="dropdown-item text-sm py-2  px-5 font-normal block w-full whitespace-nowrap bg-transparent text-gray-700 dark:text-white  dark:hover:bg-ig-secondary-text    hover:bg-gray-100"
                 href="#"
               >
                 <div className="flex items-center">

@@ -16,15 +16,6 @@ export const createNotification = async (id, image, content, url) => {
   const ref = doc(firestore, "notifications", id);
   const results = await getDoc(ref);
   if (!results.exists()) await setDoc(ref, { notifications: [] });
-  console.log({
-    id: uuid(),
-    user: user.displayName,
-    content,
-    image,
-    date: Timestamp.now(),
-    status: false,
-    url,
-  });
   await updateDoc(ref, {
     notifications: arrayUnion({
       id: uuid(),

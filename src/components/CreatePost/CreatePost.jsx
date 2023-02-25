@@ -12,7 +12,7 @@ function CreatePost() {
   const { data, dispatch: modalDispatch } = useContext(ModalContext);
   const { user } = useContext(AuthContext);
   const { dispatch } = useContext(PostContext);
-  console.log(caption);
+  // console.log(caption);
   return (
     <div className="flex items-start h-[600px] w-[860px]">
       <div className="w-3/5 h-full">

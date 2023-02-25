@@ -6,6 +6,8 @@ import {
   doc,
   getDoc,
   getDocs,
+  orderBy,
+  query,
   updateDoc,
 } from "firebase/firestore";
 import { firestore } from "../../firebase-config";
@@ -19,7 +21,7 @@ export const getLists = async (dispatch) => {
   let list = [];
   dispatch(getListsStart());
   try {
-    const res = await getDocs(collection(firestore, "posts"));
+    const res = await getDocs(query(collection(firestore, "posts"),orderBy("post_created_date", "desc")));
     res.forEach((doc) => {
       list.push({ id: doc.id, ...doc.data() });
     });

@@ -1,6 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import Header from "../../components/Header/Header";
 import ChangeProfilePhoto from "../../components/MoreOptions/ChangeProfilePhoto";
 import SettingOptions from "../../components/MoreOptions/SettingOptions";
 import { AuthContext } from "../../context/authContext/AuthContext";
@@ -44,7 +43,6 @@ function Account() {
 
   return (
     <>
-      <Header />
       {check &&
         (user ? (
           <main className="max-w-[935px] mx-auto mt-8">

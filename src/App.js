@@ -1,24 +1,27 @@
 import "./asset/css/index.css";
 import "tw-elements";
-import Home from "./pages/Home/Home";
 import {
   BrowserRouter as Router,
   Routes,
   Route,
   Navigate,
 } from "react-router-dom";
-import React, { useContext } from "react";
-import SettingChangePassword from "./pages/Setting/SettingChangePassword";
-import SettingEdit from "./pages/Setting/SettingEdit";
-import Explore from "./pages/Explore/Explore";
-import Inbox from "./pages/Inbox/Inbox";
-import SignIn from "./pages/SignIn/SignIn";
-import SignUp from "./pages/Signup/SignUp";
+import React, { lazy, useContext } from "react";
 import useAuthListener from "./hooks/use-auth-listener";
-import Account from "./pages/Account/Account";
 import Modal from "./components/Modal/Modal";
 import { AuthContext } from "./context/authContext/AuthContext";
-import ExplorePeople from "./pages/ExplorePeople/ExplorePeople";
+import PageWithHeader from "./PageTemplates/PageWithHeader";
+
+
+const Home = lazy(() => import('./pages/Home/Home'))
+const SignIn = lazy(() => import('./pages/SignIn/SignIn'))
+const SignUp = lazy(() => import('./pages/SignUp/SignUp'))
+const ExplorePeople = lazy(() => import('./pages/ExplorePeople/ExplorePeople'))
+const Explore = lazy(() => import('./pages/Explore/Explore'))
+const Inbox = lazy(() => import('./pages/Inbox/Inbox'))
+const Account = lazy(() => import('./pages/Account/Account'))
+const SettingChangePassword = lazy(() => import('./pages/Setting/SettingChangePassword'))
+const SettingEdit = lazy(() => import('./pages/Setting/SettingEdit'))
 
 function App() {
   const { user } = useAuthListener();
@@ -26,7 +29,6 @@ function App() {
   return (
     <>
       <Modal></Modal>
-
       <div className="bg-ig-secondary-background min-h-screen">
         <Router>
           <Routes>
@@ -55,21 +57,21 @@ function App() {
               element={user ? <Navigate to="/" replace /> : <SignUp />}
             />
             {user && (
-              <>
+              <Route path='' element={<PageWithHeader />}>
+                <Route path="" element={<Home />} />
                 <Route path="/home" element={<Home />} />
                 <Route path="/explore/people" element={<ExplorePeople />} />
                 <Route path="/inbox" element={<Inbox />} />
                 <Route path="/explore" element={<Explore />} />
                 <Route path="/:username" element={<Account />} />
                 <Route path="/accounts/edit" element={<SettingEdit />} />
-                <Route
-                  path="/accounts/changepass"
-                  element={<SettingChangePassword />}
+                <Route path="/accounts/changepass" element={<SettingChangePassword />}
                 />
-              </>
+              </Route>
             )}
           </Routes>
         </Router>
+
       </div>
     </>
   );

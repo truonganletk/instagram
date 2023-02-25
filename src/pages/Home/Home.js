@@ -1,6 +1,5 @@
 import React from "react";
 import Footer from "../../components/Footer/Footer";
-import Header from "../../components/Header/Header";
 import MiniProfile from "../../components/MiniProfile/MiniProfile";
 import Posts from "../../components/Posts/Posts";
 import Suggestions from "../../components/Suggestion/Suggestions";
@@ -9,7 +8,6 @@ function Home() {
   return (
     <>
       {/* <div>{msg}</div> */}
-      <Header />
       <main className="max-w-[820px] flex justify-center mt-5 mx-auto">
         <section className="lg:w-3/4 max-w-[470px]">
           <Posts />

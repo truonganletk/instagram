@@ -7,7 +7,6 @@ import {
   updateEmail,
   updatePassword,
   updateProfile as updateProfileFirebase,
-  // updateEmail,
 } from "firebase/auth";
 import {
   collection,
@@ -42,7 +41,6 @@ import { createNotification } from "../firebaseContext/Services";
 
 export const signIn = async (dispatch, email, password) => {
   dispatch(signInStart());
-  // console.log(email, password);
   try {
     const authentication = getAuth();
     await signInWithEmailAndPassword(authentication, email, password);
@@ -54,7 +52,6 @@ export const signIn = async (dispatch, email, password) => {
 
 export const signUp = async (dispatch, values) => {
   dispatch(signUpStart());
-  // console.log(values);
   try {
     const authentication = getAuth();
     await createUserWithEmailAndPassword(
@@ -75,7 +72,7 @@ export const signUp = async (dispatch, values) => {
         "https://firebasestorage.googleapis.com/v0/b/instagram-f4e13.appspot.com/o/avatar%2Fdefault-avatar-profile.jpg?alt=media&token=a50eb747-c832-4173-a037-2be77e8bd913",
       number_of_posts: 0,
       follower: [],
-      follow: []
+      follow: [],
     });
     await updateProfileFirebase(getAuth().currentUser, {
       displayName: values.username,
@@ -112,10 +109,9 @@ export const getInfo = async (dispatch) => {
       user = { ...user, ...doc.data(), id: doc.id };
     });
     dispatch(getInfoSuccess(user));
-    // console.log(user);
   } catch (error) {
     dispatch(getInfoFailure());
-    // console.log("error", error);
+    console.log("error", error);
   }
 };
 
@@ -128,7 +124,6 @@ export const getAllUsers = async (dispatch) => {
     querySnapshot.forEach((doc) => {
       users.push({ ...doc.data(), id: doc.id });
     });
-    // console.log("service ", users);
     dispatch(getAllUsersSuccess(users));
   } catch (error) {
     dispatch(getAllUsersFailure());
@@ -202,7 +197,6 @@ export const updatePhotoProfile = async (dispatch, img) => {
     const storageRef = ref(storage, `/avatar/${uuid()}`);
     await uploadBytesResumable(storageRef, img).then(async () => {
       await getDownloadURL(storageRef).then(async (url) => {
-        //await addDoc(collection(firestore, "posts"), post);
         await updateDoc(doc(firestore, "users", getAuth().currentUser.uid), {
           avatar: url,
         });
@@ -246,10 +240,9 @@ export const changePassword = async (dispatch, oldPassword, newPassword) => {
         updatePassword(auth.currentUser, newPassword);
       }
     );
-    // dispatch(reAuthEnd());
   } catch (error) {
     dispatch(signInFailure());
-    // console.log(error);
+    console.log(error);
   }
 };
 
@@ -273,7 +266,12 @@ export const followUser = async (dispatch, id, username) => {
         username: username,
         id: id,
       });
-      await createNotification(id, user.photoURL, ` has started following you`,`/${user.displayName}`);
+      await createNotification(
+        id,
+        user.photoURL,
+        ` has started following you`,
+        `/${user.displayName}`
+      );
     }
     await updateDoc(refCurrentUser, {
       follow: userFollow,
@@ -281,8 +279,6 @@ export const followUser = async (dispatch, id, username) => {
     await updateDoc(ref, {
       follower: userFollower,
     });
-    // console.log(userFollower);
-    // console.log(userFollow);
     await getInfo(dispatch);
     await getAllUsers(dispatch);
   } catch (error) {

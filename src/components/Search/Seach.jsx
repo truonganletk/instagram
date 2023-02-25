@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import { firestore } from "../../firebase-config";
 import useDebounce from "../../hooks/useDebounce";
 import { Link } from "react-router-dom";
+import { Icon } from "../../asset/icons";
 
 export default function Search() {
   const [searchTerm, setSearchTerm] = useState("");
@@ -34,31 +35,13 @@ export default function Search() {
   useEffect(() => {
     if (debounceSearchTerm) {
       querySearch(debounceSearchTerm);
-    } else {
-      // console.log("tuanrider");
     }
   }, [debounceSearchTerm]);
-  // console.log(result, ">>>>>>>>", debounceSearchTerm);
   return (
     <>
       <div className="flex flex-col relative">
         <div className="hidden bg-gray-100 sm:flex p-2 rounded-md max-w-xs sm:basis-1/3">
-          <button className="btn btn-square mr-3">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              className="h-6 w-6"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth="2"
-                d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
-              />
-            </svg>
-          </button>
+          <button className="btn btn-square mr-3">{Icon("search")}</button>
 
           <input
             value={searchTerm}

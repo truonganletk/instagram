@@ -35,6 +35,7 @@ function SignUp() {
         <div className="bg-white border border-solid rounded border-ig-elevated-separator w-[350px] flex flex-col items-center mb-3 mx-auto">
           <div className="mt-5 mb-3 w-[175px] h-[51px]">
             <img
+              loading="lazy"
               src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/2a/Instagram_logo.svg/800px-Instagram_logo.svg.png?20160616034027"
               alt=""
             />

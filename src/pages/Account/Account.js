@@ -11,6 +11,7 @@ import { useNavigate } from "react-router-dom";
 import ProfilePost from "../../components/ProfilePost/ProfilePost";
 import { getLists } from "../../context/postContext/Services";
 import { PostContext } from "../../context/postContext/PostContext";
+import { Icon } from "../../asset/icons";
 
 function Account() {
   const { user: currentUser, users, dispatch } = useContext(AuthContext);
@@ -23,7 +24,6 @@ function Account() {
   const [disable, setDisable] = useState(false);
   const [followed, setFollowed] = useState(false);
   if (users.length > 0 && check != username) {
-    // console.log(check);
     const promise = new Promise((resolve) =>
       resolve(users.find((user) => user.username === username))
     );
@@ -33,10 +33,8 @@ function Account() {
       setFollowed(
         u.follower?.filter((i) => i.id === currentUser.id).length > 0
       );
-      // console.log(u.follower);
     });
   }
-  // console.log(user);
   const { dispatch: modalDispatch } = useContext(ModalContext);
 
   useEffect(() => {
@@ -53,6 +51,7 @@ function Account() {
             <header className="flex justify-center space-x-28 flex-1 mb-20">
               {/* avatar */}
               <img
+                loading="lazy"
                 className={`w-44 h-44 border rounded-full p-[2px] ${
                   currentUser.username === user?.username && "cursor-pointer"
                 }`}
@@ -107,20 +106,7 @@ function Account() {
                       );
                     }}
                   >
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                      strokeWidth={1.5}
-                      stroke="currentColor"
-                      className="w-6 h-6 cursor-pointer"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        d="M6.75 12a.75.75 0 11-1.5 0 .75.75 0 011.5 0zM12.75 12a.75.75 0 11-1.5 0 .75.75 0 011.5 0zM18.75 12a.75.75 0 11-1.5 0 .75.75 0 011.5 0z"
-                      />
-                    </svg>
+                    {Icon("more")}
                   </div>
                 </div>
                 <div className="flex space-x-16">

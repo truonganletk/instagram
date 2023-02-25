@@ -44,6 +44,7 @@ function EditProfile() {
           <div className="mb-6 flex w-full items-center">
             <div className="flex text-sm font-medium text-gray-900 basis-2/12 mr-5 justify-end ">
               <img
+                loading="lazy"
                 className="w-16 h-16 rounded-full p-2"
                 src={user.avatar}
                 alt=""
@@ -51,9 +52,16 @@ function EditProfile() {
             </div>
             <div className="focus:ring-blue-500 focus:border-blue-500 block w-full basis-10/12">
               <h2>{user?.fullname}</h2>
-              <h2 onClick={()=>{
-                modalDispatch(showModal(<ChangeProfilePhoto />, "Change profile photo"));
-              }} className="text-sky-500 cursor-pointer">Change profile photo</h2>
+              <h2
+                onClick={() => {
+                  modalDispatch(
+                    showModal(<ChangeProfilePhoto />, "Change profile photo")
+                  );
+                }}
+                className="text-sky-500 cursor-pointer"
+              >
+                Change profile photo
+              </h2>
             </div>
           </div>
           <div className="mb-5 flex w-full items-center">

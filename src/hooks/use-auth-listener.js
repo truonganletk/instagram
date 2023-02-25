@@ -18,7 +18,6 @@ export default function useAuthListener() {
         // we have a user...therefore we can store the user in localstorage
         localStorage.setItem("authUser", JSON.stringify(authUser));
         setUser(authUser);
-        // getAllUsers(dispatch);
         getInfo(dispatch, authUser.email);
       } else {
         // we don't have an authUser, therefore clear the localstorage

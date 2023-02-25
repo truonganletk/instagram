@@ -1,9 +1,8 @@
 import React, { useContext, useEffect, useRef, useState } from "react";
+import { Icon } from "../../asset/icons";
 import { AuthContext } from "../../context/authContext/AuthContext";
 import { hideModal } from "../../context/modalContext/ModalActions";
 import { ModalContext } from "../../context/modalContext/ModalContext";
-// import { hideModal } from "../../context/modalContext/ModalActions";
-// import { ModalContext } from "../../context/modalContext/ModalContext";
 import { PostContext } from "../../context/postContext/PostContext";
 import { updatePost } from "../../context/postContext/Services";
 
@@ -26,12 +25,18 @@ function EditPost() {
     <div className="flex items-start h-[600px] w-[860px]">
       <div className="w-3/5 h-full">
         <div className="w-full h-full">
-          <img className="w-full h-full" src={postDetail.img} alt="" />
+          <img
+            loading="lazy"
+            className="w-full h-full"
+            src={postDetail.img}
+            alt=""
+          />
         </div>
       </div>
       <div className="w-2/5 p-3">
         <div className="flex items-center justify-between mb-[10px]">
           <img
+            loading="lazy"
             className="w-10 h-10 rounded-full p-[2px] mr-3"
             src={user.avatar}
             alt="profile-avatar"
@@ -75,25 +80,7 @@ function EditPost() {
             className="px-2 py-3 placeholder-slate-300 text-white relative bg-transparent rounded text-sm border-none outline-none focus:outline-none w-full pr-10"
           />
           <span className="z-10 h-full leading-snug font-normal absolute text-center text-slate-300  bg-transparent rounded text-base items-center justify-center w-8 right-0 pr-3 py-3">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 24 24"
-              strokeWidth={1.5}
-              stroke="currentColor"
-              className="w-6 h-6"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                d="M15 10.5a3 3 0 11-6 0 3 3 0 016 0z"
-              />
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1115 0z"
-              />
-            </svg>
+            {Icon("location")}
           </span>
         </div>
       </div>

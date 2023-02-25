@@ -89,7 +89,6 @@ const AuthReducer = (state, action) => {
         isFetching: false,
         error: false,
         user: action.payload,
-        // isReAuthenticated: false,
       };
     case GET_INFO_FAILURE:
       return {

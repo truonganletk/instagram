@@ -21,8 +21,6 @@ export const getLists = async (dispatch) => {
   try {
     const res = await getDocs(collection(firestore, "posts"));
     res.forEach((doc) => {
-      // doc.data() is never undefined for query doc snapshots
-      // console.log(doc.id, " => ", doc.data());
       list.push({ id: doc.id, ...doc.data() });
     });
     dispatch(getListsSuccess(list));
@@ -49,7 +47,6 @@ export const createPost = async (dispatch, caption, userId, Img) => {
     const currentUser = (
       await getDoc(doc(firestore, "users", getAuth().currentUser.uid))
     ).data();
-    // console.log(currentUser);
     currentUser.follower.forEach(async (u) => {
       await createNotification(
         u.id,
@@ -58,7 +55,6 @@ export const createPost = async (dispatch, caption, userId, Img) => {
         "/"
       );
     });
-    // console.log(post);
     getLists(dispatch);
   } catch (err) {
     console.log(err);

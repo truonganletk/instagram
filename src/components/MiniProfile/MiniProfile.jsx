@@ -12,6 +12,7 @@ function MiniProfile() {
         className="flex items-center justify-between mb-[10px]"
       >
         <img
+          loading="lazy"
           className="w-16 h-16 rounded-full p-[2px] mr-3"
           src={user.avatar}
           alt="profile-avatar"

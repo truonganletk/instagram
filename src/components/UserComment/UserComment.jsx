@@ -24,6 +24,7 @@ function UserComment({ handleReplyTo, ...props }) {
       <div className="mb-5">
         <div className="flex items-start">
           <img
+            loading="lazy"
             className="rounded-full h-8 w-8 object-contain border mr-3"
             src={avatar}
             alt=""

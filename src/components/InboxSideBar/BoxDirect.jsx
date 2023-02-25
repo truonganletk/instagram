@@ -3,7 +3,7 @@ import React, { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../../context/authContext/AuthContext";
 import { changeUser } from "../../context/chatContext/ChatActions";
 import { ChatContext } from "../../context/chatContext/ChatContext";
-import FirebaseContext from "../../context/firebase";
+import FirebaseContext from "../../context/firebaseContext/firebase";
 import InboxCard from "../InboxCard/InboxCard";
 
 function BoxDirect() {

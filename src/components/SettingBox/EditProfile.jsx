@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { AuthContext } from "../../context/authContext/AuthContext";
 import * as Yup from "yup";
 import { Formik } from "formik";
-import { getInfo, updateProfile } from "../../context/authContext/service";
+import { updateProfile } from "../../context/authContext/service";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { showModal } from "../../context/modalContext/ModalActions";
@@ -16,7 +16,7 @@ function EditProfile() {
   const { dispatch: modalDispatch } = useContext(ModalContext);
 
   useEffect(() => {
-    getInfo(dispatch);
+    // getInfo(dispatch);
   }, []);
 
   const EditSchema = Yup.object().shape({

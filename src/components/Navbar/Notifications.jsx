@@ -1,7 +1,7 @@
 import { doc, onSnapshot } from "firebase/firestore";
 import React, { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../../context/authContext/AuthContext";
-import FirebaseContext from "../../context/firebase";
+import FirebaseContext from "../../context/firebaseContext/firebase";
 import NotificationItem from "./NotificationItem";
 
 function Notifications() {

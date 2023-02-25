@@ -1,13 +1,13 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import App from './App';
-import FirebaseContext from './context/firebase';
 import reportWebVitals from './reportWebVitals';
 import { AuthContextProvider } from './context/authContext/AuthContext';
 import { firebase, firestore, storage } from './firebase-config';
 import { PostContextProvider } from './context/postContext/PostContext';
 import { ModalContextProvider } from './context/modalContext/ModalContext';
 import { ChatContextProvider } from './context/chatContext/ChatContext';
+import FirebaseContext from './context/firebaseContext/firebase';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(

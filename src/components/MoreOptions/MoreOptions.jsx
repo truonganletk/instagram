@@ -40,7 +40,10 @@ function MoreOptions() {
         <button className="w-full">Copy Link</button>
       </li>
       <li className="text-sm text-center text-ig-primary-text bg-transparent  px-2 py-3 rounded-b-xl border-0 dark:hover:bg-ig-primary-text dark:text-white hover:bg-gray-100 border-t border-ig-elevated-separator dark:border-ig-primary-text cursor-pointer">
-        <button className="w-full" onClick={() => dispatch(hideModal())}>
+        <button className="w-full" onClick={() => {
+          dispatch(hideModal())
+          document.body.classList.remove("overflow-y-hidden");
+        }}>
           Cancel
         </button>
       </li>

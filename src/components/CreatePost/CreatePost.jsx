@@ -30,11 +30,13 @@ function CreatePost() {
           <img
             loading="lazy"
             className="w-10 h-10 rounded-full p-[2px] mr-3"
-            src="https://picsum.photos/200"
+            src={user.avatar}
             alt="profile-avatar"
           />
           <div className="mr-auto">
-            <p className="dark:text-ig-primary-background text-black">{user.username}</p>
+            <p className="dark:text-ig-primary-background text-black">
+              {user.username}
+            </p>
           </div>
         </div>
         <div className="px-2">

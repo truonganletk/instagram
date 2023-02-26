@@ -1,9 +1,10 @@
 import { collection, getDocs, query } from "firebase/firestore";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { firestore } from "../../firebase-config";
 import useDebounce from "../../hooks/useDebounce";
 import { Link } from "react-router-dom";
 import { Icon } from "../../asset/icons";
+import { useOnClickOutside } from "../../hooks/useOnClickOutside";
 
 export default function Search() {
   const [searchTerm, setSearchTerm] = useState("");
@@ -34,9 +35,16 @@ export default function Search() {
 
   useEffect(() => {
     if (debounceSearchTerm) {
+      setShowResult("");
       querySearch(debounceSearchTerm);
     }
   }, [debounceSearchTerm]);
+
+  const ref = useRef();
+  useOnClickOutside(ref, () => {
+    setShowResult("hidden");
+  });
+  const [showResult, setShowResult] = useState("hidden");
   return (
     <>
       <div className="flex flex-col relative ">
@@ -52,7 +60,11 @@ export default function Search() {
           />
         </div>
         {result.length > 0 && debounceSearchTerm && (
-          <ul className="w-full bg-white dark:bg-ig-dark-secondary-background  dark:text-white rounded absolute top-[3rem] left-0 shadow-xl z-50 ">
+          <ul
+            ref={ref}
+            id="search-result"
+            className={`${showResult} w-full bg-white dark:bg-ig-dark-secondary-background  dark:text-white rounded absolute top-[3rem] left-0 shadow-xl z-50`}
+          >
             {result.map((item, index) => (
               <Link
                 to={`/${item.username}`}

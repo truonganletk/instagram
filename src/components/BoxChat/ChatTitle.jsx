@@ -6,7 +6,7 @@ function ChatTitle() {
   const { data } = useContext(ChatContext);
 
   return (
-    <div className="h-14 border-b border-b-ig-elevated-separator flex items-center justify-center">
+    <div className="h-14 border-b border-b-ig-elevated-separator dark:border-ig-dark-elevated-separator flex items-center justify-center">
       <div className="w-full flex px-3 justify-between items-center">
         <div className="flex w-full items-center">
           <div className=" ">

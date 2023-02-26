@@ -70,7 +70,7 @@ function PostDetail({ ...props }) {
   };
   return (
     <>
-      <div className="flex w-[1080px] h-[625px] bg-white dark:bg-black dark:text-white">
+      <div className="flex w-[1080px] h-[625px] bg-white dark:bg-ig-dark-secondary-background dark:text-white">
         {/* image section */}
         <div className="w-[55%]">
           <img className="h-full" src={post.img} alt="" />
@@ -79,7 +79,7 @@ function PostDetail({ ...props }) {
         {/* detail section */}
         <div className="flex flex-col flex-1 items-start">
           {/* header */}
-          <div className="w-full border-b-[0.875px] border-ig-elevated-separator px-4 py-3">
+          <div className="w-full border-b-[0.875px] border-ig-elevated-separator dark:border-ig-dark-elevated-separator px-4 py-3">
             <div className="flex items-center w-full">
               <img
                 className="rounded-full h-8 w-8 object-contain border mr-3"
@@ -131,7 +131,7 @@ function PostDetail({ ...props }) {
               })}
           </div>
           {/* reaction */}
-          <div className="flex justify-between w-full px-4 py-3 mt-auto border-t-[0.875px]">
+          <div className="flex justify-between w-full px-4 py-3 mt-auto border-t-[0.875px] dark:border-ig-dark-elevated-separator">
             <div className="flex space-x-3">
               <div
                 onClick={() => {
@@ -154,12 +154,12 @@ function PostDetail({ ...props }) {
             </p>
           )}
           {/* write comment */}
-          <div className="flex items-center px-4 py-3 justify-between border-t-[0.875px] w-full">
+          <div className="flex items-center px-4 py-3 justify-between border-t-[0.875px] dark:border-ig-dark-elevated-separator w-full">
             {Icon("emoji")}
 
             <input
               value={comment}
-              className="flex-1 border-none focus:outline-none dark:bg-ig-primary-text dark:text-white"
+              className="flex-1 border-none focus:outline-none dark:bg-ig-dark-secondary-background dark:text-white"
               type="text"
               placeholder="Add a comment ..."
               onChange={(e) => {

@@ -28,7 +28,7 @@ function Notifications() {
           <NotificationItem notif={notif} key={index} />
         ))
       ) : (
-        <div className="py-3 text-center">
+        <div className="py-3 text-center dark:bg-ig-dark-secondary-background">
           <p> There are currently no announcements </p>
         </div>
       )}

@@ -82,7 +82,7 @@ const Input = () => {
     <div className="absolute bottom-2 left-0 right-0">
       <div className="px-3 relative">
         <input
-          className="text-gray-700 dark: bg-ig-primary-text dark:text-white border border-gray-3 w-full rounded-md py-2 pr-14 pl-10"
+          className="text-gray-700 dark:bg-ig-dark-secondary-background dark:text-white border border-gray-3 dark:border-ig-dark-elevated-separator w-full rounded-md py-2 pr-14 pl-10"
           type="text"
           placeholder="Type something..."
           onChange={(e) => setText(e.target.value)}
@@ -100,7 +100,9 @@ const Input = () => {
             {Icon("image")}
           </label>
         </div>
-        <div className="absolute top-2 left-6 cursor-pointer">{Icon("emoji")}</div>
+        <div className="absolute top-2 left-6 cursor-pointer">
+          {Icon("emoji")}
+        </div>
         <button
           disabled={text.length == 0 && img == null}
           className={`absolute top-2 right-6 ${

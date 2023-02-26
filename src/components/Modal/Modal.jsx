@@ -12,18 +12,18 @@ function Modal() {
   });
   return show ? (
     <>
-      <div className="fixed top-0 left-0 right-0 z-50 mx-auto overflow-x-hidden overflow-y-auto md:inset-0 bg-black bg-opacity-40 h-modal md:h-full">
+      <div className="fixed top-0 left-0 right-0 z-50 mx-auto overflow-x-hidden overflow-y-auto md:inset-0 bg-opacity-40 h-modal md:h-full bg-black">
         <div className="flex mx-auto h-full w-full">
           <div
             ref={ref}
-            className="relative mx-auto my-auto bg-white text-black dark:text-white rounded-lg shadow dark:bg-black"
+            className="relative mx-auto my-auto bg-white text-black dark:text-white rounded-lg shadow dark:bg-ig-dark-secondary-background"
           >
             <div
               className={`${
                 title.length == 0 && "hidden"
-              } relative flex items-start justify-center p-3 border-b rounded-t dark:border-gray-600`}
+              } relative flex items-start justify-center p-3 border-b rounded-t dark:border-ig-dark-elevated-separator`}
             >
-              <h3 className="text-xl text-center font-semibold text-gray-900 dark:text-white">
+              <h3 className="text-xl text-center font-semibold text-gray-900 dark:bg-ig-dark-secondary-background dark:text-white">
                 {title}
               </h3>
             </div>

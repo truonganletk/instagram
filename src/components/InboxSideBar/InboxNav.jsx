@@ -10,7 +10,7 @@ function InboxNav() {
   const { dispatch } = useContext(ModalContext);
 
   return (
-    <div className="h-14 border-b border-b-ig-elevated-separator flex items-center justify-center relative">
+    <div className="h-14 border-b border-b-ig-elevated-separator dark:border-ig-dark-elevated-separator flex items-center justify-center relative">
       <div className=" text-center">
         <h3 className="font-bold"> {user.username} </h3>
       </div>

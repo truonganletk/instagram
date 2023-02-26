@@ -75,7 +75,7 @@ function EditProfile() {
               <input
                 type="text"
                 name="fullname"
-                className="bg-gray-50 dark:bg-ig-primary-text border border-gray-300 text-gray-900 dark:text-white text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+                className="bg-gray-50 dark:bg-ig-dark-secondary-background border border-gray-300 dark:border-ig-dark-elevated-separator text-gray-900 dark:text-white text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
                 value={values.fullname || ""}
                 onChange={handleChange}
               />
@@ -106,7 +106,7 @@ function EditProfile() {
               <input
                 type="text"
                 name="username"
-                className="bg-gray-50 dark:bg-ig-primary-text border border-gray-300 text-gray-900 dark:text-white text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+                className="bg-gray-50 dark:bg-ig-dark-secondary-background border border-gray-300 dark:border-ig-dark-elevated-separator text-gray-900 dark:text-white text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
                 value={values.username || ""}
                 onChange={handleChange}
               />
@@ -139,7 +139,7 @@ function EditProfile() {
                 type="text"
                 id="name"
                 disabled
-                className="bg-gray-200 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+                className="bg-gray-200 dark:bg-ig-dark-secondary-background border border-gray-300 dark:border-ig-dark-elevated-separator text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
                 placeholder="Website"
               />
             </div>
@@ -165,7 +165,7 @@ function EditProfile() {
               <textarea
                 type="text"
                 id="name"
-                className="bg-gray-50 dark:bg-ig-primary-text border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 mb-2"
+                className="bg-gray-50 dark:bg-ig-dark-secondary-background border border-gray-300 dark:border-ig-dark-elevated-separator text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 mb-2"
               />
             </div>
           </div>
@@ -199,7 +199,7 @@ function EditProfile() {
               <input
                 type="text"
                 name="email"
-                className="bg-gray-50 dark:bg-ig-primary-text border border-gray-300 text-gray-900 dark:text-white text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+                className="bg-gray-50 dark:bg-ig-dark-secondary-background border border-gray-300 dark:border-ig-dark-elevated-separator text-gray-900 dark:text-white text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
                 value={values.email || ""}
                 onChange={handleChange}
               />
@@ -219,7 +219,7 @@ function EditProfile() {
               <input
                 type="text"
                 id="name"
-                className="bg-gray-50 dark:bg-ig-primary-text border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
+                className="bg-gray-50 dark:bg-ig-dark-secondary-background border border-gray-300 dark:border-ig-dark-elevated-separator text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
                 placeholder=""
               />
             </div>
@@ -235,7 +235,7 @@ function EditProfile() {
               <input
                 type="text"
                 id="name"
-                className="bg-gray-50 dark:bg-ig-primary-text border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
+                className="bg-gray-50 dark:bg-ig-dark-secondary-background border border-gray-300 dark:border-ig-dark-elevated-separator text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
                 placeholder=""
               />
             </div>

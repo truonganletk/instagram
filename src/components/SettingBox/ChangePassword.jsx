@@ -73,7 +73,7 @@ function ChangePassword() {
                 onChange={handleChange}
                 name="oldPassword"
                 type="password"
-                className="bg-gray-50 dark:bg-ig-primary-text border border-gray-300 text-gray-900 dark:text-white text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
+                className="bg-gray-50 dark:bg-ig-dark-secondary-background dark:border-ig-dark-elevated-separator border border-gray-300 text-gray-900 dark:text-white text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
                 placeholder=""
                 required
               />
@@ -93,7 +93,7 @@ function ChangePassword() {
                 onChange={handleChange}
                 type="password"
                 name="newPassword"
-                className="bg-gray-50 dark:bg-ig-primary-text border border-gray-300 text-gray-900 dark:text-white text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
+                className="bg-gray-50 dark:bg-ig-dark-secondary-background dark:border-ig-dark-elevated-separator border border-gray-300 text-gray-900 dark:text-white text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
                 placeholder=""
                 required
               />
@@ -113,7 +113,7 @@ function ChangePassword() {
                 onChange={handleChange}
                 type="password"
                 name="confirmPassword"
-                className="bg-gray-50 dark:bg-ig-primary-text border border-gray-300 text-gray-900 dark:text-white text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
+                className="bg-gray-50 dark:bg-ig-dark-secondary-background dark:border-ig-dark-elevated-separator border border-gray-300 text-gray-900 dark:text-white text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
                 placeholder=""
                 required
               />

@@ -6,8 +6,10 @@ export class InboxCard extends Component {
     return (
       <div>
         <div
-          className={`flex justify-start items-center px-5 py-1 ${
-            this.props.active ? "bg-gray-200" : "hover:bg-gray-100"
+          className={`flex justify-start items-center px-5 py-1 cursor-pointer ${
+            this.props.active
+              ? "bg-gray-200 dark:bg-ig-dark-highlight-background"
+              : "hover:bg-gray-100 hover:dark:bg-ig-dark-secondary-background"
           }`}
         >
           <img

@@ -100,14 +100,9 @@ export const logOut = async (dispatch) => {
 export const getInfo = async (dispatch) => {
   try {
     let user = getAuth().currentUser;
-    const q = query(
-      collection(firestore, "users"),
-      where("email", "==", user.email)
-    );
-    const querySnapshot = await getDocs(q);
-    querySnapshot.forEach((doc) => {
-      user = { ...user, ...doc.data(), id: doc.id };
-    });
+    const ref = doc(firestore, "users", user.uid);
+    const res = await getDoc(ref);
+    user = { ...user, ...res.data(), id: res.id };
     dispatch(getInfoSuccess(user));
   } catch (error) {
     dispatch(getInfoFailure());
@@ -205,7 +200,8 @@ export const updatePhotoProfile = async (dispatch, img) => {
         });
       });
     });
-    getInfo(dispatch);
+    await getAllUsers(dispatch)
+    await getInfo(dispatch);
   } catch (error) {
     console.log(error);
   }
@@ -221,7 +217,8 @@ export const removePhotoProfile = async (dispatch) => {
       photoURL:
         "https://firebasestorage.googleapis.com/v0/b/instagram-f4e13.appspot.com/o/avatar%2Fdefault-avatar-profile.jpg?alt=media&token=a50eb747-c832-4173-a037-2be77e8bd913",
     });
-    getInfo(dispatch);
+    await getAllUsers(dispatch)
+    await getInfo(dispatch);
   } catch (error) {
     console.log(error);
   }

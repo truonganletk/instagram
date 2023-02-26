@@ -35,10 +35,10 @@ function Account() {
     });
   }
   const { dispatch: modalDispatch } = useContext(ModalContext);
-
   useEffect(() => {
     getAllUsers(dispatch);
     getLists(postDispatch);
+    setCheck('');
   }, [currentUser]);
 
   return (

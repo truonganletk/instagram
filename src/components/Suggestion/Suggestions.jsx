@@ -7,10 +7,10 @@ import Suggestion from "./Suggestion";
 import _ from "lodash";
 
 function Suggestions() {
-  const [suggestions, setSuggestions] = useState([]);
+  const [suggestions, setSuggestions] = useState(null);
   const { dispatch, users, user } = useContext(AuthContext);
   const { pathname } = useLocation();
-  if (users.length > 1 && !_.isEmpty(user) && suggestions.length === 0) {
+  if (users.length > 1 && !_.isEmpty(user) && suggestions === null) {
     const res = users
       .filter(
         (u) =>
@@ -39,7 +39,7 @@ function Suggestions() {
               </NavLink>
             </div>
           )}
-          {suggestions.map((profile) => (
+          {suggestions?.map((profile) => (
             <Suggestion key={profile.id} profile={profile} />
           ))}
         </div>

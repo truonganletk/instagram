@@ -112,17 +112,17 @@ function Navbar() {
             className=" dropdown-menu min-w-max absolute bg-white dark:bg-ig-dark-secondary-background dark:text-white text-base z-50 float-left list-none text-left rounded-lg shadow-lg hidden mx-3 bg-clip-padding border-none"
             aria-labelledby="dropdownMenuButton1"
           >
-            <li className="px-8 py-4 dropdown-item text-sm font-normal block w-full whitespace-nowrap bg-transparent text-gray-700 dark:text-white  hover:dark:bg-ig-dark-highlight-background hover:bg-gray-100 hover:rounded-t-lg cursor-pointer">
+            <li className="dropdown-item text-sm font-normal block w-full whitespace-nowrap bg-transparent text-gray-700 dark:text-white  hover:dark:bg-ig-dark-highlight-background hover:bg-gray-100 hover:rounded-t-lg cursor-pointer">
               <Link to={`/${user.username}`}>
-                <div className="flex items-center ">
+                <div className="flex items-center px-8 py-4">
                   {Icon("profile")}
                   <p className="ml-2">Profile</p>
                 </div>
               </Link>
             </li>
-            <li className="px-8 py-4 dropdown-item text-sm font-normal block w-full whitespace-nowrap bg-transparent text-gray-700 dark:text-white  hover:dark:bg-ig-dark-highlight-background  hover:bg-gray-100 cursor-pointer">
-              <Link to="/accounts/edit">
-                <div className="flex items-center">
+            <li className="dropdown-item text-sm font-normal block w-full whitespace-nowrap bg-transparent text-gray-700 dark:text-white  hover:dark:bg-ig-dark-highlight-background  hover:bg-gray-100 cursor-pointer">
+              <Link to="/accounts/edit" className="">
+                <div className="flex items-center px-8 py-4">
                   {Icon("settings")}
                   <p className="ml-2">Settings</p>
                 </div>
@@ -132,9 +132,9 @@ function Navbar() {
               onClick={() => {
                 setMode();
               }}
-              className="px-8 py-4 cursor-pointer dropdown-item text-sm font-normal block w-full whitespace-nowrap bg-transparent text-gray-700 dark:text-white  hover:dark:bg-ig-dark-highlight-background  hover:bg-gray-100"
+              className=" cursor-pointer dropdown-item text-sm font-normal block w-full whitespace-nowrap bg-transparent text-gray-700 dark:text-white  hover:dark:bg-ig-dark-highlight-background  hover:bg-gray-100"
             >
-              <div className="flex items-center">
+              <div className="flex items-center px-8 py-4">
                 {mode === "dark" ? Icon("moon") : Icon("moon")}
                 <p className="ml-2">Switch appearance</p>
               </div>

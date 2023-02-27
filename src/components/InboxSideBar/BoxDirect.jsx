@@ -10,8 +10,7 @@ function BoxDirect() {
   const [chats, setChats] = useState([]);
   const { user } = useContext(AuthContext);
   const { firestore } = useContext(FirebaseContext);
-  const { dispatch } = useContext(ChatContext);
-
+  const { data,dispatch } = useContext(ChatContext);
   useEffect(() => {
     const getChats = () => {
       const unsub = onSnapshot(doc(firestore, "userChats", user.id), (doc) => {
@@ -40,6 +39,7 @@ function BoxDirect() {
               name={chat[1].userInfo.username}
               text={chat[1].lastMessage?.text}
               avatar={chat[1].userInfo.avatar}
+              active={chat[0]===data.chatId}
             />
           </div>
         ))}

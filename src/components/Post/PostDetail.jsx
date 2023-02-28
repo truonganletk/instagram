@@ -70,9 +70,9 @@ function PostDetail({ ...props }) {
   };
   return (
     <>
-      <div className="flex w-[1080px] h-[625px] bg-white dark:bg-ig-dark-secondary-background dark:text-white">
+      <div className="flex md:w-[500px] lg:w-[1080px] h-[520px] lg:h-[625px] bg-white dark:bg-ig-dark-secondary-background dark:text-white">
         {/* image section */}
-        <div className="w-[55%]">
+        <div className="basis-3/5 md:hidden lg:block">
           <img className="h-full" src={post.img} alt="" />
         </div>
 
@@ -100,7 +100,13 @@ function PostDetail({ ...props }) {
               </div>
             </div>
           </div>
-
+          <div className="w-full h-[35%] lg:hidden">
+            <img
+              className="h-full w-full object-fill mx-auto"
+              src={post.img}
+              alt=""
+            />
+          </div>
           {/* caption & comment */}
           <div className="px-4 py-3 h-[535px] overflow-y-scroll scrollbar-hide">
             {/* caption */}

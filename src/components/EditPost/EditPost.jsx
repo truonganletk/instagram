@@ -22,18 +22,18 @@ function EditPost() {
   }, []);
 
   return (
-    <div className="flex items-start h-[600px] w-[860px]">
-      <div className="w-3/5 h-full">
+    <div className="flex items-start lg:h-[600px] w-[320px] md:w-[450px] lg:w-[860px]">
+      <div className="lg:block lg:w-3/5 lg:h-full hidden">
         <div className="w-full h-full">
           <img
             loading="lazy"
-            className="w-full h-full"
+            className="w-full h-full "
             src={postDetail.img}
             alt=""
           />
         </div>
       </div>
-      <div className="w-2/5 p-3">
+      <div className="lg:w-2/5 w-full p-3">
         <div className="flex items-center justify-between mb-[10px]">
           <img
             loading="lazy"
@@ -42,7 +42,7 @@ function EditPost() {
             alt="profile-avatar"
           />
           <div className="mr-auto">
-            <p className="text-ig-primary-background">{user.username}</p>
+            <p className="dark:text-ig-primary-background">{user.username}</p>
           </div>
         </div>
         <div className="px-2">
@@ -54,13 +54,13 @@ function EditPost() {
                 setCaption(e.target.value);
             }}
             rows="4"
-            className="bg-transparent resize-none outline-none text-ig-primary-background w-full"
+            className="bg-transparent resize-none outline-none dark:text-ig-primary-background w-full"
             type="text"
             placeholder="Write a caption..."
           />
         </div>
         <div className="flex justify-between px-2 items-center">
-          <p className="text-white text-xs">
+          <p className="dark:text-white text-xs">
             {caption.length}/{characterLimit}
           </p>
           <p

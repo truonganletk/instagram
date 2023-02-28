@@ -14,8 +14,8 @@ function CreatePost() {
   const { dispatch } = useContext(PostContext);
   // console.log(caption);
   return (
-    <div className="flex items-start h-[600px] w-[860px]">
-      <div className="w-3/5 h-full">
+    <div className="flex items-start lg:h-[600px] w-[320px] md:w-[450px] lg:w-[860px]">
+      <div className="lg:block lg:w-3/5 lg:h-full hidden">
         <div className="w-full h-full">
           <img
             loading="lazy"
@@ -25,7 +25,7 @@ function CreatePost() {
           />
         </div>
       </div>
-      <div className="w-2/5 p-3">
+      <div className="lg:w-2/5 w-full p-3">
         <div className="flex items-center justify-between mb-[10px]">
           <img
             loading="lazy"

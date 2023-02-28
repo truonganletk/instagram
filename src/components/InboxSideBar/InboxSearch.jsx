@@ -100,7 +100,7 @@ const Search = () => {
     <div className="p-3 h-[400px] w-[800px]">
       <div className="">
         <input
-          className="text-gray-700 border border-gray-3 w-full rounded-md py-2 px-5 dark:bg-ig-dark-highlight-background dark:border-ig-dark-elevated-separator"
+          className="text-gray-700 border border-gray-3 w-full rounded-md py-2 px-5 dark:bg-ig-dark-highlight-background dark:border-ig-dark-elevated-separator dark:text-white"
           type="text"
           placeholder="Find a user"
           onChange={handleChange}

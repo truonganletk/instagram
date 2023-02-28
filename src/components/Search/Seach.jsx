@@ -48,7 +48,7 @@ export default function Search() {
   return (
     <>
       <div className="flex flex-col relative ">
-        <div className="hidden bg-gray-100 dark:bg-black dark:text-white dark:border-ig-dark-elevated-separator sm:flex p-2 rounded-md max-w-xs sm:basis-1/3">
+        <div className="hidden bg-gray-100 dark:bg-ig-dark-elevated-separator dark:text-white dark:border-ig-dark-elevated-separator sm:flex p-2 rounded-md max-w-xs sm:basis-1/3">
           <button className="btn btn-square mr-3">{Icon("search")}</button>
 
           <input

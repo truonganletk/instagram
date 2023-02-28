@@ -21,7 +21,7 @@ function Suggestions() {
 
     setSuggestions(res);
   }
-  console.log(users);
+  // console.log(users);
   useEffect(() => {
     getAllUsers(dispatch);
   }, []);

@@ -16,7 +16,6 @@ import {
   query,
   setDoc,
   updateDoc,
-  where,
 } from "firebase/firestore";
 import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
 import { firestore, storage } from "../../firebase-config";
@@ -125,24 +124,101 @@ export const getAllUsers = async (dispatch) => {
   }
 };
 
+export const updateData = async () => {
+  try {
+    const currentId = getAuth().currentUser.uid;
+    const ref = doc(firestore, "users", currentId);
+    const newData = await getDoc(ref);
+
+    // update user (following, follower)
+    const querySnapshot = await getDocs(query(collection(firestore, "users")));
+    querySnapshot.forEach(async (user) => {
+      // users.push({ ...doc.data(), id: doc.id });
+      const follow = user.data().follow;
+      // console.log(follow);
+      const followChange = follow.find(res => res.id === currentId);
+      if (followChange) {
+        await updateDoc(doc(firestore, "users", user.id), {
+          follow: [...follow.filter(res => res.id !== currentId), { id: currentId, username: newData.data().username }]
+        });
+        // console.log([...follow.filter(res => res.id !== currentId), { id: currentId, username: newData.data().username }])
+      }
+      const follower = user.data().follower;
+      const followerChange = follower.find(res => res.id === currentId);
+      if (followerChange) {
+        await updateDoc(doc(firestore, "users", user.id), {
+          follower: [...follower.filter(res => res.id !== currentId), { id: currentId, username: newData.data().username }]
+        });
+        // console.log([...follower.filter(res => res.id !== currentId), { id: currentId, username: newData.data().username }])
+      }
+    });
+
+    const querySnapshotUserChats = await getDocs(query(collection(firestore, "userChats")));
+    querySnapshotUserChats.forEach(async (userChat) => {
+      Object.entries(userChat.data()).map(async (chat) => {
+        if (chat[1].userInfo.id === currentId) {
+          await updateDoc(doc(firestore, "userChats", userChat.id), {
+            [chat[0]]: { ...chat[1], userInfo: { ...chat[1].userInfo, username: newData.data().username, avatar: newData.data().avatar } }
+          });
+        }
+      })
+    })
+
+    const querySnapshotPosts = await getDocs(query(collection(firestore, "posts")));
+    querySnapshotPosts.forEach(async (post) => {
+      const like = post.data().like;
+      const likeChange = like.find(res => res.id === currentId);
+      if (likeChange) {
+        await updateDoc(doc(firestore, "posts", post.id), {
+          like: [...like.filter(res => res.id !== currentId), { id: currentId, username: newData.data().username }]
+        });
+      }
+      const querySnapshotComments = await getDocs(query(collection(firestore, "posts", post.id, 'comment')));
+      querySnapshotComments.forEach(async (comment) => {
+        
+        const newReply = [];
+        comment.data().reply.map((reply) => {
+          if (reply.user_id === currentId) {
+            newReply.push({ ...reply, user: newData.data().username, avatar: newData.data().avatar })
+          } else {
+            newReply.push(reply)
+          }
+        })
+
+        if (comment.data().user_id === currentId) {
+          await updateDoc(doc(firestore, "posts", post.id, 'comment', comment.id), {
+            user: newData.data().username,
+            avatar: newData.data().avatar,
+            reply: newReply
+          });
+        } else {
+          await updateDoc(doc(firestore, "posts", post.id, 'comment', comment.id), {
+            reply: newReply
+          });
+        }
+        
+      })
+    });
+
+
+
+  } catch (error) {
+    confirm(error.message)
+  }
+
+
+  // update Posts
+}
+
 export const updateProfile = async (dispatch, value, navigate) => {
-  const db = firestore;
-  let id = "";
-  const q = query(
-    collection(db, "users"),
-    where("email", "==", getAuth().currentUser.email)
-  );
-  const querySnapshot = await getDocs(q);
-  querySnapshot.forEach((doc) => {
-    id = doc.id;
-  });
-  const refUpdate = doc(db, "users", id);
+  const ref = doc(firestore, "users", getAuth().currentUser.uid);
+  // const res = await getDoc(ref);
 
   try {
     if (getAuth().currentUser.email != value.email) {
       dispatch(updateInfo(value));
       dispatch(reAuth());
-      await updateDoc(refUpdate, {
+      await updateDoc(ref, {
         email: value.email,
         username: value.username,
         fullname: value.fullname,
@@ -151,17 +227,17 @@ export const updateProfile = async (dispatch, value, navigate) => {
     } else {
       dispatch(updateInfo(value));
 
-      await updateDoc(refUpdate, {
+      await updateDoc(ref, {
         username: value.username,
         fullname: value.fullname,
       })
-        .then(() => {
-          alert("updated");
-        })
         .catch((error) => {
           throw new Error(error.message);
         });
     }
+    await updateData();
+    await getInfo(dispatch);
+    alert("updated");
   } catch {
     (error) => {
       throw new Error(error.message);
@@ -202,6 +278,7 @@ export const updatePhotoProfile = async (dispatch, img) => {
     });
     await getAllUsers(dispatch)
     await getInfo(dispatch);
+    await updateData();
   } catch (error) {
     console.log(error);
   }
@@ -219,6 +296,7 @@ export const removePhotoProfile = async (dispatch) => {
     });
     await getAllUsers(dispatch)
     await getInfo(dispatch);
+    await updateData();
   } catch (error) {
     console.log(error);
   }

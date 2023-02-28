@@ -6,12 +6,13 @@ import {
   Route,
   Navigate,
 } from "react-router-dom";
-import React, { lazy, useContext } from "react";
+import React, { lazy, useContext, useRef } from "react";
 import useAuthListener from "./hooks/use-auth-listener";
-import Modal from "./components/Modal/Modal";
 import { AuthContext } from "./context/authContext/AuthContext";
 import PageWithHeader from "./PageTemplates/PageWithHeader";
 import { useDarkMode } from "./hooks/useDarkMode";
+import { useResize } from "./hooks/useResize";
+import Unsupport from "./pages/Unsupport/Unsupport";
 
 
 const Home = lazy(() => import('./pages/Home/Home'))
@@ -28,54 +29,57 @@ function App() {
   const { user } = useAuthListener();
   useDarkMode();
   const { isReAuthenticated } = useContext(AuthContext);
+  const ref = useRef(null);
+  const { width } = useResize(ref);
+  // console.log(width, height);
   return (
-    <>
-      <Modal></Modal>
-      <div className=" min-h-screen">
-        <Router>
-          <Routes>
-            <Route
-              path="*"
-              element={
-                user ? (
-                  <Navigate to="/home" replace />
-                ) : (
-                  <Navigate to="/login" replace />
-                )
-              }
-            />
-            <Route
-              path="/login"
-              element={
-                user && !isReAuthenticated ? (
-                  <Navigate to="/" replace />
-                ) : (
-                  <SignIn />
-                )
-              }
-            />
-            <Route
-              path="/signup"
-              element={user ? <Navigate to="/" replace /> : <SignUp />}
-            />
-            {user && (
-              <Route path='' element={<PageWithHeader />}>
-                <Route path="" element={<Home />} />
-                <Route path="/home" element={<Home />} />
-                <Route path="/explore/people" element={<ExplorePeople />} />
-                <Route path="/inbox" element={<Inbox />} />
-                <Route path="/explore" element={<Explore />} />
-                <Route path="/:username" element={<Account />} />
-                <Route path="/accounts/edit" element={<SettingEdit />} />
-                <Route path="/accounts/changepass" element={<SettingChangePassword />}
-                />
-              </Route>
-            )}
-          </Routes>
-        </Router>
-
-      </div>
-    </>
+    <div ref={ref}>
+      {width > 640 ?
+        <div className=" min-h-screen">
+          <Router>
+            <Routes>
+              <Route
+                path="*"
+                element={
+                  user ? (
+                    <Navigate to="/home" replace />
+                  ) : (
+                    <Navigate to="/login" replace />
+                  )
+                }
+              />
+              <Route
+                path="/login"
+                element={
+                  user && !isReAuthenticated ? (
+                    <Navigate to="/" replace />
+                  ) : (
+                    <SignIn />
+                  )
+                }
+              />
+              <Route
+                path="/signup"
+                element={user ? <Navigate to="/" replace /> : <SignUp />}
+              />
+              {user && (
+                <Route path='' element={<PageWithHeader />}>
+                  <Route path="" element={<Home />} />
+                  <Route path="/home" element={<Home />} />
+                  <Route path="/explore/people" element={<ExplorePeople />} />
+                  <Route path="/inbox" element={<Inbox />} />
+                  <Route path="/explore" element={<Explore />} />
+                  <Route path="/:username" element={<Account />} />
+                  <Route path="/accounts/edit" element={<SettingEdit />} />
+                  <Route path="/accounts/changepass" element={<SettingChangePassword />}
+                  />
+                </Route>
+              )}
+            </Routes>
+          </Router>
+        </div> : <Unsupport />
+      }
+    </div>
   );
 }
 

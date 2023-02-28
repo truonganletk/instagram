@@ -24,3 +24,8 @@ yarn-error.log*
 
 .eslintcache
 src/firebase-config.js
+.firebaserc
+firebase.json
+.firebase/hosting.YnVpbGQ.cache
+.github/workflows/firebase-hosting-merge.yml
+.github/workflows/firebase-hosting-pull-request.yml

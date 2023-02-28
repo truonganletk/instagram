@@ -12,7 +12,7 @@ function Modal() {
   });
   return show ? (
     <>
-      <div className="fixed top-0 left-0 right-0 z-50 mx-auto overflow-x-hidden overflow-y-auto md:inset-0 bg-opacity-40 h-modal md:h-full bg-black">
+      <div className="fixed top-0 left-0 right-0 bottom-0 z-50 mx-auto overflow-x-hidden overflow-y-auto md:inset-0 bg-opacity-40 h-modal md:h-full bg-black">
         <div className="flex mx-auto h-full w-full">
           <div
             ref={ref}

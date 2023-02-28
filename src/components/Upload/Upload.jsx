@@ -14,11 +14,12 @@ function Upload() {
   };
   return (
     <>
-      <div className="flex justify-center items-center h-[600px] w-[860px]">
-        <div className=" text-center flex-row justify-center items-center">
-          {/* <img loading="lazy" className="max-h-24 m-auto" src={img} alt="" /> */}
-          <div className="h-24 w-24 m-auto text-center">{Icon('image')}</div>
-          <h2 className="text-dark dark:text-white my-5">Drag photos and videos here</h2>
+      <div className="flex justify-center items-center lg:h-[600px] lg:w-[850px]">
+        <div className=" text-center flex-row justify-center items-center p-4">
+          <div className="h-24 w-24 m-auto text-center">{Icon("image")}</div>
+          <h2 className="text-dark dark:text-white my-5">
+            Drag photos and videos here
+          </h2>
           <input
             title=""
             className="custom-file-input"

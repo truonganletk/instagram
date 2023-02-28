@@ -38,19 +38,19 @@ function Account() {
   useEffect(() => {
     getAllUsers(dispatch);
     getLists(postDispatch);
-    setCheck('');
+    setCheck("");
   }, [currentUser]);
 
   return (
     <>
       {check &&
         (user ? (
-          <main className="max-w-[935px] mx-auto mt-8">
-            <header className="flex justify-center space-x-28 flex-1 mb-20">
+          <main className="max-w-[935px] mt-8 mx-auto">
+            <header className="flex flex-1 gap-x-10 md:justify-center mb-12 mx-2 md:mx-auto">
               {/* avatar */}
               <img
                 loading="lazy"
-                className={`w-44 h-44 border rounded-full p-[2px] ${
+                className={`w-28 h-28 lg:w-44 lg:h-44 border rounded-full p-[2px] ${
                   currentUser.username === user?.username && "cursor-pointer"
                 }`}
                 src={user?.avatar}
@@ -65,49 +65,47 @@ function Account() {
 
               {/* bio */}
               <div className="flex flex-col space-y-5 shrink">
-                <div className="flex space-x-5 items-center ">
-                  <h2 className="font-light text-[28px]">{user?.username}</h2>
-                  <div>
-                    <div className="flex space-x-2">
-                      {currentUser.username != user?.username && (
-                        <>
-                          <button className="bg-transparent border-[1px] rounded px-[9px] py-[5px] cursor-pointer text-sm font-semibold">
-                            Message
-                          </button>
-                          <button
-                            disabled={disable}
-                            onClick={async () => {
-                              await setDisable(true);
-                              await followUser(
-                                dispatch,
-                                user.id,
-                                user.username
-                              );
-                              await setFollowed(!followed);
-                              await setCheck("");
-                              await setDisable(false);
-                            }}
-                            className="bg-ig-primary-button text-white border-[1px] rounded px-5 py-[5px] cursor-pointer text-sm font-semibold"
-                          >
-                            {followed ? "Unfollow" : "Follow"}
-                          </button>
-                        </>
-                      )}
+                <div className="flex flex-wrap space-y-3 items-center ">
+                  <h2 className="font-light text-[28px] mr-5">
+                    {user?.username}
+                  </h2>
+                  {/* <div> */}
+                  <div className="flex space-x-2">
+                    {currentUser.username != user?.username && (
+                      <>
+                        <button className="bg-transparent border-[1px] rounded px-[9px] py-[5px] cursor-pointer text-sm font-semibold">
+                          Message
+                        </button>
+                        <button
+                          disabled={disable}
+                          onClick={async () => {
+                            await setDisable(true);
+                            await followUser(dispatch, user.id, user.username);
+                            await setFollowed(!followed);
+                            await setCheck("");
+                            await setDisable(false);
+                          }}
+                          className="bg-ig-primary-button text-white border-[1px] rounded px-5 py-[5px] cursor-pointer text-sm font-semibold"
+                        >
+                          {followed ? "Unfollow" : "Follow"}
+                        </button>
+                      </>
+                    )}
+                    <div
+                      onClick={() => {
+                        modalDispatch(updateData({ username: user.username }));
+                        modalDispatch(
+                          showModal(<SettingOptions />, "Settings", navigate)
+                        );
+                      }}
+                      className="ml-2"
+                    >
+                      {Icon("more")}
                     </div>
                   </div>
-
-                  <div
-                    onClick={() => {
-                      modalDispatch(updateData({ username: user.username }));
-                      modalDispatch(
-                        showModal(<SettingOptions />, "Settings", navigate)
-                      );
-                    }}
-                  >
-                    {Icon("more")}
-                  </div>
+                  {/* </div> */}
                 </div>
-                <div className="flex space-x-16">
+                <div className="hidden sm:flex sm:space-x-16">
                   <div>
                     <span className="font-bold">
                       {

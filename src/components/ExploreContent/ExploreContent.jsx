@@ -19,12 +19,12 @@ function ExploreContent() {
   }, []);
 
   return (
-    <div className="grid grid-cols-3 gap-4 lg:mx-[250px] mx-10 mt-10">
+    <div className="grid grid-cols-3 md:gap-4 lg:mx-[250px] sm:mx-10 mt-10">
       {lists.map((post, index) => {
         return (
           <div
             key={index}
-            className={`group h-72 min-h-full ${
+            className={`group lg:h-72 min-h-full ${
               Math.floor(Math.random() * 100) > 80 ? "row-span-2" : ""
             }`}
           >

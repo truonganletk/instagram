@@ -1,5 +1,5 @@
 import React, { createContext, useReducer } from "react";
-import ModalReducer from "./ModalReducers";
+import ModalReducer from "./modalReducers";
 import PropTypes from 'prop-types';
 
 const INITIAL_STATE = {

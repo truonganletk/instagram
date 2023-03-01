@@ -1,8 +1,8 @@
 import React, { useContext } from "react";
-import { hideModal } from "../../context/modalContext/ModalActions";
+import { hideModal } from "../../context/modalContext/modalActions";
 import { ModalContext } from "../../context/modalContext/ModalContext";
 import { PostContext } from "../../context/postContext/PostContext";
-import { deletePost } from "../../context/postContext/Services";
+import { deletePost } from "../../context/postContext/services";
 
 function DeletePost() {
   const { dispatch: modalDispatch } = useContext(ModalContext);

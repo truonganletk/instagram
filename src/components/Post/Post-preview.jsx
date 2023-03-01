@@ -4,7 +4,7 @@ import { collection, onSnapshot, orderBy, query } from "firebase/firestore";
 
 import { firestore } from "../../firebase-config";
 import PostDetail from "./PostDetail";
-import { showModal } from "../../context/modalContext/ModalActions";
+import { showModal } from "../../context/modalContext/modalActions";
 import { ModalContext } from "../../context/modalContext/ModalContext";
 import { Icon } from "../../asset/icons";
 

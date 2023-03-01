@@ -1,6 +1,6 @@
 import React, { useContext, useEffect } from "react";
 import { PostContext } from "../../context/postContext/PostContext";
-import { getLists } from "../../context/postContext/Services";
+import { getLists } from "../../context/postContext/services";
 import Postpreview from "../Post/Post-preview";
 import PropTypes from "prop-types";
 

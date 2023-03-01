@@ -3,12 +3,12 @@ import { useParams } from "react-router-dom";
 import ChangeProfilePhoto from "../../components/MoreOptions/ChangeProfilePhoto";
 import SettingOptions from "../../components/MoreOptions/SettingOptions";
 import { AuthContext } from "../../context/authContext/AuthContext";
-import { followUser, getAllUsers } from "../../context/authContext/service";
-import { showModal, updateData } from "../../context/modalContext/ModalActions";
+import { followUser, getAllUsers } from "../../context/authContext/services";
+import { showModal, updateData } from "../../context/modalContext/modalActions";
 import { ModalContext } from "../../context/modalContext/ModalContext";
 import { useNavigate } from "react-router-dom";
 import ProfilePost from "../../components/ProfilePost/ProfilePost";
-import { getLists } from "../../context/postContext/Services";
+import { getLists } from "../../context/postContext/services";
 import { PostContext } from "../../context/postContext/PostContext";
 import { Icon } from "../../asset/icons";
 

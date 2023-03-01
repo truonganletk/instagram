@@ -3,7 +3,7 @@ import {
   GET_LISTS_START,
   GET_LISTS_SUCCESS,
   GET_POST_DETAIL,
-} from "./PostType";
+} from "./postType";
 
 export const getListsStart = () => ({
   type: GET_LISTS_START,

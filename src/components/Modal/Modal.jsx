@@ -1,6 +1,6 @@
 import React, { useContext, useRef } from "react";
 import { ModalContext } from "../../context/modalContext/ModalContext";
-import { hideModal } from "../../context/modalContext/ModalActions";
+import { hideModal } from "../../context/modalContext/modalActions";
 import { useOnClickOutside } from "../../hooks/useOnClickOutside";
 
 function Modal() {

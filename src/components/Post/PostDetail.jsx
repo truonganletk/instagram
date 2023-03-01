@@ -3,14 +3,14 @@ import PropTypes from "prop-types";
 import { AuthContext } from "../../context/authContext/AuthContext";
 import MoreOptions from "../MoreOptions/MoreOptions";
 import { ModalContext } from "../../context/modalContext/ModalContext";
-import { showModal } from "../../context/modalContext/ModalActions";
-import { getPostDetail } from "../../context/postContext/PostActions";
+import { showModal } from "../../context/modalContext/modalActions";
+import { getPostDetail } from "../../context/postContext/postActions";
 import { PostContext } from "../../context/postContext/PostContext";
 import {
   handleCommentPost,
   handleLikePost,
   handleReply,
-} from "../../context/postContext/Services";
+} from "../../context/postContext/services";
 import UserComment from "../UserComment/UserComment";
 import {
   doc,

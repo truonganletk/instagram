@@ -2,7 +2,7 @@ import React, { useContext, useEffect } from "react";
 import * as Yup from "yup";
 import { Formik } from "formik";
 import { AuthContext } from "../../context/authContext/AuthContext";
-import { getAllUsers, signUp } from "../../context/authContext/service";
+import { getAllUsers, signUp } from "../../context/authContext/services";
 
 function SignUp() {
   const SignupSchema = Yup.object().shape({

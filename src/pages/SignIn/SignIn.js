@@ -3,7 +3,7 @@ import {
   getAllUsers,
   reLogin,
   signIn,
-} from "../../context/authContext/service";
+} from "../../context/authContext/services";
 import { AuthContext } from "../../context/authContext/AuthContext";
 import * as Yup from "yup";
 import { Formik } from "formik";
@@ -89,8 +89,8 @@ function SignIn() {
                     {errors.password
                       ? (errorPassword = null)
                       : errorPassword && (
-                          <p className="mt-3 text-red-600">wrong password</p>
-                        )}
+                        <p className="mt-3 text-red-600">wrong password</p>
+                      )}
                     {errors.password && touched.password && (
                       <p className="mt-3 text-red-600">{errors.password}</p>
                     )}

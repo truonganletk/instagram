@@ -1,5 +1,5 @@
 import React, { createContext, useReducer } from "react";
-import ChatReducer from "./ChatReducers";
+import ChatReducer from "./chatReducers";
 import PropTypes from 'prop-types';
 
 const INITIAL_STATE = {

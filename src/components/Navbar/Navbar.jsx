@@ -2,11 +2,10 @@ import React, { useEffect, useState, useRef, useContext } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { Icon } from "../../asset/icons";
 import { AuthContext } from "../../context/authContext/AuthContext";
-import { logOut } from "../../context/authContext/service";
-import { showModal } from "../../context/modalContext/ModalActions";
+import { logOut } from "../../context/authContext/services";
+import { showModal } from "../../context/modalContext/modalActions";
 import { ModalContext } from "../../context/modalContext/ModalContext";
 import { useDarkMode } from "../../hooks/useDarkMode";
-// import { changeTheme } from "../../utils/spaghetti";
 import Upload from "../Upload/Upload";
 import Notifications from "./Notifications";
 

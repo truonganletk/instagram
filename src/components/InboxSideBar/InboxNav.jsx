@@ -1,7 +1,7 @@
 import React, { useContext } from "react";
 import { Icon } from "../../asset/icons";
 import { AuthContext } from "../../context/authContext/AuthContext";
-import { showModal } from "../../context/modalContext/ModalActions";
+import { showModal } from "../../context/modalContext/modalActions";
 import { ModalContext } from "../../context/modalContext/ModalContext";
 import InboxSearch from "./InboxSearch";
 

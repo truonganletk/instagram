@@ -3,10 +3,9 @@ import { Link } from "react-router-dom";
 import { AuthContext } from "../../context/authContext/AuthContext";
 import * as Yup from "yup";
 import { Formik } from "formik";
-import { updateProfile } from "../../context/authContext/service";
-import { useEffect } from "react";
+import { updateProfile } from "../../context/authContext/services";
 import { useNavigate } from "react-router-dom";
-import { showModal } from "../../context/modalContext/ModalActions";
+import { showModal } from "../../context/modalContext/modalActions";
 import ChangeProfilePhoto from "../MoreOptions/ChangeProfilePhoto";
 import { ModalContext } from "../../context/modalContext/ModalContext";
 
@@ -14,10 +13,6 @@ function EditProfile() {
   const { user, dispatch } = useContext(AuthContext);
   let navigate = useNavigate();
   const { dispatch: modalDispatch } = useContext(ModalContext);
-
-  useEffect(() => {
-    // getInfo(dispatch);
-  }, []);
 
   const EditSchema = Yup.object().shape({
     fullname: Yup.string().required("Fullname required"),
@@ -120,7 +115,7 @@ function EditProfile() {
             <div className="basis-10/12">
               <p className="text-xs text-gray-500">
                 In most cases, you&apos;ll be able to change your username back
-                to anle16.8 for another 14 days.
+                to <b>{user?.username}</b> for another 14 days.
                 <span className="text-sky-500 hover:underline">
                   <Link to={"/#"}>Learn more</Link>
                 </span>

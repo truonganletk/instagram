@@ -1,6 +1,6 @@
 import React from "react";
 import { createContext, useReducer } from "react";
-import AuthReducer from "./AuthReducer";
+import AuthReducer from "./authReducer";
 import PropTypes from "prop-types";
 
 const INITIAL_STATE = {

@@ -1,7 +1,7 @@
 import { doc, onSnapshot } from "firebase/firestore";
 import React, { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../../context/authContext/AuthContext";
-import { changeUser } from "../../context/chatContext/ChatActions";
+import { changeUser } from "../../context/chatContext/chatActions";
 import { ChatContext } from "../../context/chatContext/ChatContext";
 import FirebaseContext from "../../context/firebaseContext/firebase";
 import InboxCard from "../InboxCard/InboxCard";

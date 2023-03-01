@@ -1,10 +1,10 @@
 import React, { useContext, useState } from "react";
 import { Icon } from "../../asset/icons";
 import { AuthContext } from "../../context/authContext/AuthContext";
-import { hideModal } from "../../context/modalContext/ModalActions";
+import { hideModal } from "../../context/modalContext/modalActions";
 import { ModalContext } from "../../context/modalContext/ModalContext";
 import { PostContext } from "../../context/postContext/PostContext";
-import { createPost } from "../../context/postContext/Services";
+import { createPost } from "../../context/postContext/services";
 
 function CreatePost() {
   const [caption, setCaption] = useState("");
@@ -12,7 +12,7 @@ function CreatePost() {
   const { data, dispatch: modalDispatch } = useContext(ModalContext);
   const { user } = useContext(AuthContext);
   const { dispatch } = useContext(PostContext);
-  // console.log(caption);
+  
   return (
     <div className="flex items-start lg:h-[600px] w-[320px] md:w-[450px] lg:w-[860px]">
       <div className="lg:block lg:w-3/5 lg:h-full hidden">

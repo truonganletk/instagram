@@ -1,5 +1,5 @@
 import { getAuth } from "firebase/auth";
-import { CHANGE_USER } from "./ChatType";
+import { CHANGE_USER } from "./chatType";
 
 const ChatReducer = (state, action) => {
     const user = getAuth().currentUser;

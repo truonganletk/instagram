@@ -4,7 +4,7 @@ import React, { useContext } from "react";
 import { ChatContext } from "../../context/chatContext/ChatContext";
 import ChatTitle from "./ChatTitle";
 import { ModalContext } from "../../context/modalContext/ModalContext";
-import { showModal } from "../../context/modalContext/ModalActions";
+import { showModal } from "../../context/modalContext/modalActions";
 import InboxSearch from "../InboxSideBar/InboxSearch";
 import { Icon } from "../../asset/icons";
 function BoxChat() {

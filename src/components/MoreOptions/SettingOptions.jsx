@@ -1,7 +1,7 @@
 import React, { useContext } from "react";
 import { AuthContext } from "../../context/authContext/AuthContext";
-import { logOut } from "../../context/authContext/service";
-import { hideModal } from "../../context/modalContext/ModalActions";
+import { logOut } from "../../context/authContext/services";
+import { hideModal } from "../../context/modalContext/modalActions";
 import { ModalContext } from "../../context/modalContext/ModalContext";
 
 function SettingOptions() {

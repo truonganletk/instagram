@@ -1,18 +1,18 @@
 import React, { useContext, useEffect, useRef, useState } from "react";
 import PropTypes from "prop-types";
 import { AuthContext } from "../../context/authContext/AuthContext";
-import { getAllUsers } from "../../context/authContext/service";
+import { getAllUsers } from "../../context/authContext/services";
 import { Link } from "react-router-dom";
 import moment from "moment";
 import MoreOptions from "../MoreOptions/MoreOptions";
 import { ModalContext } from "../../context/modalContext/ModalContext";
-import { showModal } from "../../context/modalContext/ModalActions";
-import { getPostDetail } from "../../context/postContext/PostActions";
+import { showModal } from "../../context/modalContext/modalActions";
+import { getPostDetail } from "../../context/postContext/postActions";
 import { PostContext } from "../../context/postContext/PostContext";
 import {
   handleCommentPost,
   handleLikePost,
-} from "../../context/postContext/Services";
+} from "../../context/postContext/services";
 import PostDetail from "./PostDetail";
 import { doc, onSnapshot } from "firebase/firestore";
 import { firestore } from "../../firebase-config";

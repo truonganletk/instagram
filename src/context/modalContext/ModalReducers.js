@@ -1,4 +1,4 @@
-import { HIDE_MODAL, SHOW_MODAL, UPDATE_DATA } from "./ModalType";
+import { HIDE_MODAL, SHOW_MODAL, UPDATE_DATA } from "./modalType";
 
 const ModalReducer = (state, action) => {
     switch (action.type) {

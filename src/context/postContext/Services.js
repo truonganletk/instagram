@@ -1,4 +1,4 @@
-import { getListsFailure, getListsStart, getListsSuccess } from "./PostActions";
+import { getListsFailure, getListsStart, getListsSuccess } from "./postActions";
 import {
   addDoc,
   collection,
@@ -8,6 +8,7 @@ import {
   getDocs,
   orderBy,
   query,
+  Timestamp,
   updateDoc,
 } from "firebase/firestore";
 import { firestore } from "../../firebase-config";
@@ -15,13 +16,13 @@ import { storage } from "../../firebase-config";
 import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
 import { v4 as uuid } from "uuid";
 import { getAuth } from "firebase/auth";
-import { createNotification } from "../firebaseContext/Services";
+import { createNotification } from "../firebaseContext/services";
 
 export const getLists = async (dispatch) => {
   let list = [];
   dispatch(getListsStart());
   try {
-    const res = await getDocs(query(collection(firestore, "posts"),orderBy("post_created_date", "desc")));
+    const res = await getDocs(query(collection(firestore, "posts"), orderBy("post_created_date", "desc")));
     res.forEach((doc) => {
       list.push({ id: doc.id, ...doc.data() });
     });
@@ -39,7 +40,7 @@ export const createPost = async (dispatch, caption, userId, Img) => {
         const post = {
           post_content: caption,
           like: [],
-          post_created_date: new Date(),
+          post_created_date: Timestamp.now(),
           post_created_by: userId,
           img: url,
         };
@@ -122,7 +123,7 @@ export const handleCommentPost = async (dispatch, postId, text) => {
       user: user.displayName,
       avatar: user.photoURL,
       user_id: user.uid,
-      createdAt: new Date(),
+      createdAt: Timestamp.now(),
       reply: [],
     };
 
@@ -143,7 +144,7 @@ export const handleReply = async (dispatch, postID, cmtID, replyTo, text) => {
       user: user.displayName,
       avatar: user.photoURL,
       user_id: user.uid,
-      createdAt: new Date(),
+      createdAt: Timestamp.now(),
     });
     await updateDoc(refUpdate, {
       reply: comment.reply,

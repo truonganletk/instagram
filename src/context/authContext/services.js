@@ -34,9 +34,9 @@ import {
   updateInfo,
   reAuthEnd,
   reAuth,
-} from "./AuthAction";
+} from "./authAction";
 import { v4 as uuid } from "uuid";
-import { createNotification } from "../firebaseContext/Services";
+import { createNotification } from "../firebaseContext/services";
 
 export const signIn = async (dispatch, email, password) => {
   dispatch(signInStart());
@@ -133,15 +133,12 @@ export const updateData = async () => {
     // update user (following, follower)
     const querySnapshot = await getDocs(query(collection(firestore, "users")));
     querySnapshot.forEach(async (user) => {
-      // users.push({ ...doc.data(), id: doc.id });
       const follow = user.data().follow;
-      // console.log(follow);
       const followChange = follow.find(res => res.id === currentId);
       if (followChange) {
         await updateDoc(doc(firestore, "users", user.id), {
           follow: [...follow.filter(res => res.id !== currentId), { id: currentId, username: newData.data().username }]
         });
-        // console.log([...follow.filter(res => res.id !== currentId), { id: currentId, username: newData.data().username }])
       }
       const follower = user.data().follower;
       const followerChange = follower.find(res => res.id === currentId);
@@ -149,7 +146,6 @@ export const updateData = async () => {
         await updateDoc(doc(firestore, "users", user.id), {
           follower: [...follower.filter(res => res.id !== currentId), { id: currentId, username: newData.data().username }]
         });
-        // console.log([...follower.filter(res => res.id !== currentId), { id: currentId, username: newData.data().username }])
       }
     });
 
@@ -200,19 +196,14 @@ export const updateData = async () => {
       })
     });
 
-
-
   } catch (error) {
     confirm(error.message)
   }
 
-
-  // update Posts
 }
 
 export const updateProfile = async (dispatch, value, navigate) => {
   const ref = doc(firestore, "users", getAuth().currentUser.uid);
-  // const res = await getDoc(ref);
 
   try {
     if (getAuth().currentUser.email != value.email) {

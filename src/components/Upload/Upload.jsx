@@ -1,7 +1,7 @@
 import React, { useContext } from "react";
 import { Icon } from "../../asset/icons";
 // import img from "../../asset/image/image_icon.png";
-import { showModal, updateData } from "../../context/modalContext/ModalActions";
+import { showModal, updateData } from "../../context/modalContext/modalActions";
 import { ModalContext } from "../../context/modalContext/ModalContext";
 import CreatePost from "../CreatePost/CreatePost";
 

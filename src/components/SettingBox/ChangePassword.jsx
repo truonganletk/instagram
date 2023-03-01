@@ -1,7 +1,7 @@
 import React, { useContext, useState } from "react";
 import { Formik } from "formik";
 import * as Yup from "yup";
-import { changePassword } from "../../context/authContext/service";
+import { changePassword } from "../../context/authContext/services";
 import { AuthContext } from "../../context/authContext/AuthContext";
 
 function ChangePassword() {
@@ -131,9 +131,8 @@ function ChangePassword() {
             </button>
             <div className="flex items-start mt-6">
               <p
-                className={`text-sm font-medium ${
-                  !error ? "text-green-600" : "text-red-500"
-                }`}
+                className={`text-sm font-medium ${!error ? "text-green-600" : "text-red-500"
+                  }`}
               >
                 {submitted &&
                   (error

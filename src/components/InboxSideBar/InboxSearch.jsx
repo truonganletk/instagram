@@ -13,8 +13,8 @@ import { AuthContext } from "../../context/authContext/AuthContext";
 import { firestore } from "../../firebase-config";
 import useDebounce from "../../hooks/useDebounce";
 import { ModalContext } from "../../context/modalContext/ModalContext";
-import { hideModal } from "../../context/modalContext/ModalActions";
-import { changeUser } from "../../context/chatContext/ChatActions";
+import { hideModal } from "../../context/modalContext/modalActions";
+import { changeUser } from "../../context/chatContext/chatActions";
 import { ChatContext } from "../../context/chatContext/ChatContext";
 
 const Search = () => {
@@ -98,7 +98,6 @@ const Search = () => {
 
   return (
     <div className="p-3 h-[400px] w-[320px] md:min-w-[800px]">
-      {/* <div className=""> */}
       <input
         className="w-full text-gray-700 border border-gray-3 rounded-md py-2 px-5 dark:bg-ig-dark-highlight-background dark:border-ig-dark-elevated-separator dark:text-white"
         type="text"
@@ -106,7 +105,6 @@ const Search = () => {
         onChange={handleChange}
         value={searchTerm}
       />
-      {/* </div> */}
       <div className="max-h-[79%] overflow-y-scroll scrollbar-hide">
         {result.length > 0 &&
           result.map((user) => {

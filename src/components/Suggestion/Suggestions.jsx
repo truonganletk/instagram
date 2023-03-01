@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useContext } from "react";
 import { NavLink, useLocation } from "react-router-dom";
 import { AuthContext } from "../../context/authContext/AuthContext";
-import { getAllUsers } from "../../context/authContext/service";
+import { getAllUsers } from "../../context/authContext/services";
 import Suggestion from "./Suggestion";
 import _ from "lodash";
 
@@ -21,7 +21,7 @@ function Suggestions() {
 
     setSuggestions(res);
   }
-  // console.log(users);
+
   useEffect(() => {
     getAllUsers(dispatch);
   }, []);

@@ -9,6 +9,10 @@ import { ModalContextProvider } from './context/modalContext/ModalContext';
 import { ChatContextProvider } from './context/chatContext/ChatContext';
 import FirebaseContext from './context/firebaseContext/firebase';
 
+
+if (process.env.REACT_APP_NODE_ENV !== "development")
+  console.log = () => { };
+
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <FirebaseContext.Provider value={{ firebase, firestore, storage }}>

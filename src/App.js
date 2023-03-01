@@ -7,7 +7,7 @@ import {
   Navigate,
 } from "react-router-dom";
 import React, { lazy, useContext, useRef } from "react";
-import useAuthListener from "./hooks/use-auth-listener";
+import useAuthListener from "./hooks/useAuthListener";
 import { AuthContext } from "./context/authContext/AuthContext";
 import PageWithHeader from "./PageTemplates/PageWithHeader";
 import { useDarkMode } from "./hooks/useDarkMode";

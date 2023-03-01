@@ -1,10 +1,10 @@
 import React, { useContext, useEffect, useRef, useState } from "react";
 import { Icon } from "../../asset/icons";
 import { AuthContext } from "../../context/authContext/AuthContext";
-import { hideModal } from "../../context/modalContext/ModalActions";
+import { hideModal } from "../../context/modalContext/modalActions";
 import { ModalContext } from "../../context/modalContext/ModalContext";
 import { PostContext } from "../../context/postContext/PostContext";
-import { updatePost } from "../../context/postContext/Services";
+import { updatePost } from "../../context/postContext/services";
 
 function EditPost() {
   const { user } = useContext(AuthContext);

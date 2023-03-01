@@ -1,6 +1,6 @@
 import { useState, useEffect, useContext } from "react";
 import { getAuth } from "firebase/auth";
-import { getInfo } from "../context/authContext/service";
+import { getInfo } from "../context/authContext/services";
 import { AuthContext } from "../context/authContext/AuthContext";
 import FirebaseContext from "../context/firebaseContext/firebase";
 

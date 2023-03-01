@@ -15,7 +15,7 @@ import {
   SIGN_UP_START,
   SIGN_UP_SUCCESS,
   UPDATE_INFO,
-} from "./AuthType";
+} from "./authType";
 
 // SIGN IN
 export const signInStart = () => ({

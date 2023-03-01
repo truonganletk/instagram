@@ -1,4 +1,4 @@
-import { CHANGE_USER } from "./ChatType"
+import { CHANGE_USER } from "./chatType"
 
 
 export const changeUser = (user) => ({

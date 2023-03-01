@@ -1,7 +1,7 @@
 import React, { useContext, useState } from "react";
 import PropTypes from "prop-types";
 import { AuthContext } from "../../context/authContext/AuthContext";
-import { followUser } from "../../context/authContext/service";
+import { followUser } from "../../context/authContext/services";
 import { NavLink } from "react-router-dom";
 
 function Suggestion({ ...props }) {

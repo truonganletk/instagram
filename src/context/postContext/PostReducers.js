@@ -3,7 +3,7 @@ import {
   GET_LISTS_START,
   GET_LISTS_SUCCESS,
   GET_POST_DETAIL,
-} from "./PostType";
+} from "./postType";
 
 const PostReducer = (state, action) => {
   switch (action.type) {

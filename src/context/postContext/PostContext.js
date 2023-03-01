@@ -1,5 +1,5 @@
 import React,{ createContext, useReducer } from "react";
-import PostReducer from "./PostReducers";
+import PostReducer from "./postReducers";
 import PropTypes from 'prop-types';
 
 const INITIAL_STATE = {

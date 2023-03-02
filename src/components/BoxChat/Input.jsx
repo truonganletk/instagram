@@ -25,26 +25,26 @@ const Input = () => {
     if (img) {
       const storageRef = ref(storage, `/image_message/${uuid()}`);
 
-      const uploadTask = uploadBytesResumable(storageRef, img);
-
-      uploadTask.on(
-        (error) => {
-          //TODO:Handle Error
-          confirm(error.message);
-        },
-        () => {
-          getDownloadURL(uploadTask.snapshot.ref).then(async (downloadURL) => {
-            await updateDoc(doc(firestore, "chats", data.chatId), {
-              messages: arrayUnion({
-                id: uuid(),
-                text,
-                senderId: user.id,
-                date: Timestamp.now(),
-                img: downloadURL,
-              }),
+      await uploadBytesResumable(storageRef, img).then(
+        (
+          (error) => {
+            //TODO:Handle Error
+            confirm(error.message);
+          },
+          async () => {
+            await getDownloadURL(storageRef).then(async (downloadURL) => {
+              await updateDoc(doc(firestore, "chats", data.chatId), {
+                messages: arrayUnion({
+                  id: uuid(),
+                  text,
+                  senderId: user.id,
+                  date: Timestamp.now(),
+                  img: downloadURL,
+                }),
+              });
             });
-          });
-        }
+          }
+        )
       );
     } else {
       await updateDoc(doc(firestore, "chats", data.chatId), {
@@ -105,9 +105,8 @@ const Input = () => {
         </div>
         <button
           disabled={text.length == 0 && img == null}
-          className={`absolute top-2 right-6 ${
-            text.length > 0 || img != null ? "text-blue-500" : ""
-          }`}
+          className={`absolute top-2 right-6 ${text.length > 0 || img != null ? "text-blue-500" : ""
+            }`}
           onClick={handleSend}
         >
           {Icon("direct")}

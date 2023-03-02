@@ -4,10 +4,10 @@ import { getIndexOfWhitespace } from "../../utils";
 
 export class InboxCard extends Component {
   render() {
-    const text = this.props.text ? `${this.props.text.substring(
+    const text = this.props.text!=undefined ? `${this.props.text.substring(
       0,
       Math.min(getIndexOfWhitespace(this.props.text, 3), 17)
-    )}${this.props.text.length > 17 ? '...': ''}${this.props.text.length==0 ? 'A new image was sent.':''}`: 'Tap to chat';
+    )}${this.props.text.length > 17 ? '...' : ''}${this.props.text.length == 0 ? 'A new image was sent.' : ''}` : 'Tap to chat';
     return (
       <div>
         <div
@@ -25,7 +25,7 @@ export class InboxCard extends Component {
           <div>
             <p>{this.props.name}</p>
             <p className="text-gray-500">
-              { text }
+              {text}
             </p>
           </div>
         </div>

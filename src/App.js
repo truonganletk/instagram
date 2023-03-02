@@ -31,7 +31,7 @@ function App() {
   const { isReAuthenticated } = useContext(AuthContext);
   const ref = useRef(null);
   const { width } = useResize(ref);
-  // console.log(width, height);
+  
   return (
     <div ref={ref}>
       {width > 640 ?

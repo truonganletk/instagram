@@ -21,6 +21,7 @@ const Input = () => {
   const { data } = useContext(ChatContext);
 
   const handleSend = async () => {
+    setText("");
     if (img) {
       const storageRef = ref(storage, `/image_message/${uuid()}`);
 
@@ -70,7 +71,6 @@ const Input = () => {
       [data.chatId + ".date"]: serverTimestamp(),
     });
 
-    setText("");
     setImg(null);
   };
 
@@ -82,7 +82,7 @@ const Input = () => {
     <div className="absolute bottom-2 left-0 right-0">
       <div className="px-3 relative">
         <input
-          className="text-gray-700 dark:bg-ig-dark-secondary-background dark:text-white border border-gray-3 dark:border-ig-dark-elevated-separator w-full rounded-md py-2 pr-14 pl-10"
+          className="text-gray-700 dark:bg-ig-dark-secondary-background dark:text-white border border-gray-3 dark:border-ig-dark-elevated-separator w-full rounded-md py-2 pr-14 pl-11"
           type="text"
           placeholder="Type something..."
           onChange={(e) => setText(e.target.value)}

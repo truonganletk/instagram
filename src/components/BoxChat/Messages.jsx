@@ -19,9 +19,11 @@ const Messages = () => {
 
     return (
         <div className="h-[80%] overflow-y-scroll scrollbar-hide px-3 py-3">            
-            {messages.map((m) => (
+            {messages.length >0 ? messages.map((m) => (
                 <Message message={m} key={m.id} />
-            ))}
+            )): <> 
+                <p className="text-center text-ig-secondary-text text-xs mt-10">Start to have a new conversation</p>
+             </>}
         </div>
     );
 };

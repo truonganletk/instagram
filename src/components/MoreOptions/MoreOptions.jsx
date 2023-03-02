@@ -15,7 +15,7 @@ function MoreOptions() {
     <ul className=" bg-ig-primary-background dark:bg-black dark:text-white w-[400px] z-100 rounded-xl">
       {postDetail.post_created_by === user.id && (
         <>
-          <li className="text-base text-center text-red-500 bg-transparent  px-2 py-3 rounded-t-xl border-0 hover:bg-gray-100 cursor-pointer">
+          <li className="text-base text-center text-red-500 bg-transparent  px-2 py-3 rounded-t-xl border-0 dark:hover:bg-ig-primary-text cursor-pointer">
             <button
               onClick={() =>
                 dispatch(showModal(<DeletePost />, "Delete Post?"))

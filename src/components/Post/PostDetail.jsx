@@ -70,14 +70,14 @@ function PostDetail({ ...props }) {
   };
   return (
     <>
-      <div className="flex md:w-[500px] lg:w-[1080px] h-[520px] lg:h-[625px] bg-white dark:bg-ig-dark-secondary-background dark:text-white">
+      <div className="flex md:w-[600px] lg:w-[1080px] h-[620px] w-[600px] lg:h-[775px] bg-white dark:bg-ig-dark-secondary-background dark:text-white">
         {/* image section */}
-        <div className="basis-3/5 md:hidden lg:block">
-          <img className="h-full" src={post.img} alt="" />
+        <div className="basis-3/5 sm:hidden lg:block">
+          <img className="h-full m-auto" src={post.img} alt="" />
         </div>
 
         {/* detail section */}
-        <div className="flex flex-col flex-1 items-start">
+        <div className="flex flex-col flex-1 items-start w-[30%] ">
           {/* header */}
           <div className="w-full border-b-[0.875px] border-ig-elevated-separator dark:border-ig-dark-elevated-separator px-4 py-3">
             <div className="flex items-center w-full">
@@ -100,9 +100,9 @@ function PostDetail({ ...props }) {
               </div>
             </div>
           </div>
-          <div className="w-full h-[35%] lg:hidden">
+          <div className="w-full m-auto h-[300px] lg:hidden">
             <img
-              className="h-full w-full object-fill mx-auto"
+              className="h-full w-full object-contain mx-auto"
               src={post.img}
               alt=""
             />

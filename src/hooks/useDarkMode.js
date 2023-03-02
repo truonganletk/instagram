@@ -5,7 +5,7 @@ export function useDarkMode() {
     const [mode, setMode] = useState(localStorage.theme);
 
     if (localStorage.theme === undefined) {
-        localStorage.theme = 'dark';
+        localStorage.theme = 'light';
         setMode(localStorage.theme);
     }
     const changeMode = useCallback(() => {

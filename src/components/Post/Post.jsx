@@ -147,7 +147,7 @@ function Post({ ...props }) {
                 </span>
               </>
             ) : (
-              <span>{post.post_content}</span>
+              <span className="break-words">{post.post_content}</span>
             )}
           </div>
 

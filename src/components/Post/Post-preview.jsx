@@ -45,12 +45,12 @@ function Postpreview({ ...props }) {
           alt=""
         />
         <figcaption className="absolute flex space-x-5 items-center justify-center w-full h-full top-0 box-border bg-ig-explore-post-hover opacity-0 hover:opacity-100">
-          <div className="flex space-x-2">
+          <div className="flex space-x-2 text-white">
             {Icon("heart")}
 
-            <span className="text-white">{post.like.length}</span>
+            <span className="text-white ">{post.like.length}</span>
           </div>
-          <div className="flex space-x-2">
+          <div className="flex space-x-2 text-white">
             {Icon("comment")}
 
             <span className="text-white">{comments.length + totalReplies}</span>

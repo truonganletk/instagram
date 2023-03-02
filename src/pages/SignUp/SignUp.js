@@ -5,7 +5,7 @@ import { AuthContext } from "../../context/authContext/AuthContext";
 import { getAllUsers, signUp } from "../../context/authContext/services";
 
 function SignUp() {
-  const SignupSchema = Yup.object().shape({
+  const SignupSchema = Yup.object().shape({ 
     username: Yup.string()
       .required("username required")
       .matches(/^[a-z0-9_.]+$/, "enter an invalid username")

@@ -21,7 +21,7 @@ function UserComment({ handleReplyTo, ...props }) {
   const [hide, setHide] = useState(true);
   return (
     <>
-      <div className="mb-5">
+      <div className="mb-5 w-full">
         <div className="flex items-start">
           <img
             loading="lazy"
@@ -29,9 +29,9 @@ function UserComment({ handleReplyTo, ...props }) {
             src={avatar}
             alt=""
           />
-          <p className="flex-1 whitespace-pre-wrap">
+          <p className="flex-1 whitespace-pre-wrap w-full">
             <span className="text-sm font-bold mr-2">{user}</span>
-            {text}
+            <span className="break-all">{text}</span>
           </p>
         </div>
         <div className="ml-11 flex text-sm font-light gap-6 items-center">

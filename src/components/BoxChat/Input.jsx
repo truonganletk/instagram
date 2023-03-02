@@ -96,7 +96,7 @@ const Input = () => {
             id="file"
             onChange={(e) => setImg(e.target.files[0])}
           />
-          <label htmlFor="file" className="cursor-pointer">
+          <label htmlFor="file" className="cursor-pointer h-6 w-6 block text-white">
             {Icon("image")}
           </label>
         </div>

@@ -11,6 +11,7 @@ function PostSkeleton() {
           <div className="flex items-center ">
           <div className={`h-10 w-10 mr-3`}>
             <Skeleton
+                className="dark:bg-ig-dark-elevated-separator"
               variant="circular"
               width="100%"
               height="100%"
@@ -18,10 +19,10 @@ function PostSkeleton() {
             />
           </div>
 
-          <Skeleton animation="wave" height={20} width="80px" />
+          <Skeleton className="dark:bg-ig-dark-elevated-separator" animation="wave" height={20} width="80px" />
           <Skeleton
             animation="wave"
-            className="ml-2"
+            className="ml-2 dark:bg-ig-dark-elevated-separator"
             height={20}
             width="60px"
           />
@@ -36,7 +37,7 @@ function PostSkeleton() {
           variant="rectangular"
           animation="wave"
           height={470}
-          className={` w-full`}
+          className={`w-full dark:bg-ig-dark-elevated-separator`}
         />
         <div className="px-5 py-5">
           <div className="flex justify-between">
@@ -53,12 +54,12 @@ function PostSkeleton() {
             <div className="flex flex-col w-[70%]">
               <Skeleton
                 variant="rectangular"
-                className="w-[70%] h-5 mb-2"
+                className="w-[70%] h-5 mb-2 dark:bg-ig-dark-elevated-separator"
                 animation="wave"
               />
               <Skeleton
                 variant="rectangular"
-                className="w-[60%] h-5"
+                className="w-[60%] h-5 dark:bg-ig-dark-elevated-separator"
                 animation="wave"
               />
             </div>

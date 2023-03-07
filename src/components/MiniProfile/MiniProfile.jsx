@@ -11,11 +11,11 @@ function MiniProfile() {
     <>
       <div className={`${_.isEmpty(user) || isFetching ? '' : 'hidden'} flex items-center justify-start mb-[10px]`}>
         <div className="w-16 h-16 rounded-full mr-3">
-          <Skeleton variant="circular" width='100%' height='100%' animation="wave" />
+          <Skeleton className="dark:bg-ig-dark-elevated-separator" variant="circular" width='100%' height='100%' animation="wave" />
         </div>
         <div className="flex flex-col w-[70%]">
-          <Skeleton variant="rectangular" className="w-[70%] h-5 mb-2" animation="wave" />
-          <Skeleton variant="rectangular" className="w-[60%] h-5" animation="wave" />
+          <Skeleton variant="rectangular" className="w-[70%] dark:bg-ig-dark-elevated-separator h-5 mb-2" animation="wave" />
+          <Skeleton variant="rectangular" className="w-[60%] dark:bg-ig-dark-elevated-separator h-5" animation="wave" />
         </div>
       </div>
       <Link

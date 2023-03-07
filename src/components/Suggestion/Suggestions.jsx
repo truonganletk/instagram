@@ -5,6 +5,7 @@ import { AuthContext } from "../../context/authContext/AuthContext";
 import { getAllUsers } from "../../context/authContext/services";
 import Suggestion from "./Suggestion";
 import _ from "lodash";
+import SuggestionSkeletion from "./SuggestionSkeletion";
 
 function Suggestions() {
   const [suggestions, setSuggestions] = useState(null);
@@ -27,24 +28,32 @@ function Suggestions() {
   }, []);
 
   return (
-    users && (
-      <>
-        {" "}
-        <div className="mb-8">
-          {pathname != "/explore/people" && (
-            <div className="flex items-center justify-between mb-[10px]">
-              <h2>Suggestions For You</h2>
-              <NavLink className="cursor-pointer" to="/explore/people">
-                See all
-              </NavLink>
-            </div>
-          )}
-          {suggestions?.map((profile) => (
+    <>
+      {" "}
+      <div className="mb-8">
+        {pathname != "/explore/people" && (
+          <div className="flex items-center justify-between mb-[10px]">
+            <h2>Suggestions For You</h2>
+            <NavLink className="cursor-pointer" to="/explore/people">
+              See all
+            </NavLink>
+          </div>
+        )}
+        {suggestions !== null ? (
+          suggestions?.map((profile) => (
             <Suggestion key={profile.id} profile={profile} />
-          ))}
-        </div>
-      </>
-    )
+          ))
+        ) : (
+          <>
+            <SuggestionSkeletion/>
+            <SuggestionSkeletion/>
+            <SuggestionSkeletion/>
+            <SuggestionSkeletion/>
+            <SuggestionSkeletion/>
+          </>
+        )}
+      </div>
+    </>
   );
 }
 

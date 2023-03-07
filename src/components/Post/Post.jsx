@@ -189,3 +189,4 @@ Post.propTypes = {
 };
 
 export default Post;
+

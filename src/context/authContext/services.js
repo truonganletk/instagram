@@ -29,6 +29,7 @@ import {
   signUpStart,
   signUpSuccess,
   LogOut,
+  getInfoStart,
   getInfoSuccess,
   getInfoFailure,
   updateInfo,
@@ -97,6 +98,7 @@ export const logOut = async (dispatch) => {
 };
 
 export const getInfo = async (dispatch) => {
+  dispatch(getInfoStart());
   try {
     let user = getAuth().currentUser;
     const ref = doc(firestore, "users", user.uid);

@@ -86,14 +86,14 @@ function Navbar() {
               : Icon("notification_solid")}
           </button>
           <ul
-            className="w-[400px] dropdown-menu absolute bg-white dark:bg-black dark:text-white text-base z-50 float-left pt-2 list-none text-left rounded-lg shadow-lg mt-1 hidden mx-3 bg-clip-padding border-none"
+            className="w-[400px] max-h-[465px] overflow-y-scroll scrollbar-hide  dropdown-menu absolute bg-white dark:bg-black dark:text-white text-base z-50 float-left pt-2 list-none text-left rounded-lg shadow-lg mt-1 hidden mx-3 bg-clip-padding border-none"
             aria-labelledby="dropdownMenuButton1"
           >
             <Notifications />
           </ul>
         </div>
       </div>
-      <div className="flex justify-center h" ref={ref2}>
+      <div className="flex justify-center" ref={ref2}>
         <div className="dropdown relative">
           <button
             className="dropdown-toggle transition duration-150 ease-in-out flex items-center "

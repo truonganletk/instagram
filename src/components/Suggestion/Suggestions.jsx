@@ -18,7 +18,7 @@ function Suggestions() {
           user.follow.findIndex((res) => res.id === u.id) === -1 &&
           user.id != u.id
       )
-      .slice(0, 5);
+      .slice(0, pathname != "/explore/people" ? 5 : 20);
 
     setSuggestions(res);
   }

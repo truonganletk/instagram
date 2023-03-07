@@ -98,7 +98,7 @@ function Account() {
                           showModal(<SettingOptions />, "Settings", navigate)
                         );
                       }}
-                      className="ml-2"
+                      className="ml-2 cursor-pointer"
                     >
                       {Icon("more")}
                     </div>

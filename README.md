@@ -18,6 +18,8 @@ Building an Instagram Wep app clone using Reactjs and Firebase. (inspired by UI 
   - Login / Logout
   - Update Info / Change password
 - Post
+  - Infinite scroll
+  - Skeleton
   - CRUD
   - Like / Unlike
   - Comment, Reply (delete & update function are not yet handled)
@@ -37,7 +39,7 @@ Building an Instagram Wep app clone using Reactjs and Firebase. (inspired by UI 
 npm install
 
 #or with yarn
-yarn
+yarn install
 ```
 
 3. Create a src/firebase-config.js file. Insert the following codes. Replace values with yours !!!
@@ -54,13 +56,7 @@ const firebaseConfig = {
 };
 ```
 
-4. Start the server
-
-```sh
-npm run dev
-```
-
-5. Now run the app
+4. Now run the app
 
 ```sh
 npm start

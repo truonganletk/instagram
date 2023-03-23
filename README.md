@@ -2,7 +2,7 @@
 
 Building an Instagram Wep app clone using Reactjs and Firebase. (inspired by UI of Web version 2022)
 
-# [Live demo](https://instagram-f4e13.web.app/)
+# [Live demo](https://www.youtube.com/watch?v=F7wJoG2Bl-0)
 
 # Tech Stack:
 

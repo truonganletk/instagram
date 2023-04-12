@@ -2,7 +2,19 @@
 
 Building an Instagram Wep app clone using Reactjs and Firebase. (inspired by UI of Web version 2022)
 
-# [Live demo](https://www.youtube.com/watch?v=F7wJoG2Bl-0)
+# Live demo
+
+[Link Demo](https://instagram-delta-eight.vercel.app/)
+
+You can use this account for testing or create a new one.
+
+```sh
+#username
+demo@test.com
+
+#password
+123456789
+```
 
 # Tech Stack:
 
@@ -42,18 +54,17 @@ npm install
 yarn install
 ```
 
-3. Create a src/firebase-config.js file. Insert the following codes. Replace values with yours !!!
+3. Create a .env file. Replace values with yours !!!
 
 ```sh
-const firebaseConfig = {
-  apiKey: "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
-  authDomain: "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
-  projectId: "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
-  storageBucket: "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
-  messagingSenderId: "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
-  appId: "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
-  measurementId: "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
-};
+REACT_APP_NODE_ENV = ''
+REACT_APP_FIREBASE_API_KEY = ''
+REACT_APP_FIREBASE_AUTH_DOMAIN = ''
+REACT_APP_FIREBASE_PROJECT_ID = ''
+REACT_APP_FIREBASE_STORAGE_BUCKET = ''
+REACT_APP_FIREBASE_MESSAGING_SENDER_ID = ''
+REACT_APP_FIREBASE_APP_ID = ''
+REACT_APP_FIREBASE_MEASUREMENT_ID = ''
 ```
 
 4. Now run the app
